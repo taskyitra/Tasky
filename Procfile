@@ -1,0 +1,1 @@
+web: gunicorn Tasky.wsgi --log-file -

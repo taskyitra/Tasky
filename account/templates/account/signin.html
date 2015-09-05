@@ -3,5 +3,16 @@
 {% block title %}<title>Login</title>{% endblock %}
 
 {% block content %}
-    SignIn
+    {% if registered %}
+        <strong>Thank you for registering!</strong>
+        <a href="/">Return to the homepage.</a><br />
+    {% else %}
+        <strong>Register here!</strong><br />
+        <form id="user_form" method="post" action="{% url 'account:signin' %}"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <input type="submit" name="submit" value="Register" />
+        </form>
+    {% endif %}
 {% endblock %}

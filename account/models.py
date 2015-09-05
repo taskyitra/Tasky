@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
 from Tasky import settings
 
 
-class preRegistration(models.Model):
-    username = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    password = models.CharField(max_length=100)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    hash = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.user.username

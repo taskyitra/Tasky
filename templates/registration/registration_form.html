@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
 
 {% block title %}<title>Sign In</title>{% endblock %}
 
@@ -50,21 +52,18 @@
             </div>
         </form>
 
-
-{#        <h1>Регистрация</h1>#}
-{#        <form method="post" action="">#}
-{#            {% csrf_token %}#}
-{#            {% for field in form %}#}
-{#                <div class="form-group">#}
-{#                    <label class="control-label col-sm-2">{{ field.label_tag }}</label>#}
-{#                    <div class="col-sm-10">{{ field }}#}
-{#                    {% if field.help_text %}<div>{{ field.help_text }}</div>{% endif %}#}
-{#                    {% if field.errors %}<div>{{ field.errors }}</div>{% endif %}#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#            <input type="submit" value="Зарегистрироваться"  class="clearfix"/>#}
-{#        </form>#}
+        <a href="{% url 'social:begin' 'twitter' %}">
+            <img src="{% static 'pictures/twitter.png' %}" height="32" width="32"/>
+        </a>
+        <a href="{% url 'social:begin' 'facebook' %}">
+            <img src="{% static 'pictures/facebook.png' %}" height="32" width="32"/>
+        </a>
+        <a href="{% url 'social:begin' 'github' %}">
+            <img src="{% static 'pictures/github.png' %}" height="32" width="32"/>
+        </a>
+        <a href="{% url 'social:begin' 'vk-oauth2' %}">
+            <img src="{% static 'pictures/vk.png' %}" height="32" width="32"/>
+        </a>
 
     </div>
 

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-    <title>Base</title>
+    <title>Home</title>
     {% endblock %}
     {% block bootstrap %}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
@@ -40,7 +40,7 @@
               </ul>
           {% else %}
               <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Имя:{{ user.username }}<span class="caret"></span></a>
+                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li><a href="#">Создать задачу</a></li>
                         <li><a href="#">Ваши задачи</a></li>

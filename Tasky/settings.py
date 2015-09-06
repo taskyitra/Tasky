@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'psycopg2',
     'registration',
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,6 +103,7 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1457489431225626'
 SOCIAL_AUTH_FACEBOOK_SECRET = '8f3e786e0d9e62bf44b0eaa3a98f85c9'
@@ -112,17 +114,16 @@ SOCIAL_AUTH_GITHUB_SECRET = '828e9be4558e38f4d75cf6e0fbe9ef21d1ef72e0'
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5036633'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'jcrYvcyU2Iap6mgQdvGC'
 
-
 ACCOUNT_ACTIVATION_DAYS = 2
 REGISTRATION_FORM = 'registration.forms.RegistrationFormUniqueEmail'
 AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'info@google.ru'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tasky.itra@gmail.com'
+EMAIL_HOST_PASSWORD = 'Itransition'
 
-
-LOGIN_URL = '/accounts/login/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/'
+LOGIN_URL = 'auth_login'

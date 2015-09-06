@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}<title>Activation complete</title>{% endblock %}
+{% block title %}<title>Активация</title>{% endblock %}
 
 {% block content %}
-<h1>Активация</h1>
-Привет, {{ account }}!<br/>
-Ваша учетная запись активирована. <a href="{% url 'auth_login' %}">Заходите</a> на сайт.
-<br/><br/>
+    <div class="container">
+        <h1>Активация</h1>
+        Привет, {{ user.username }}!<br/>
+        Ваша учетная запись активирована. <a href="{% url 'auth_login' %}">Заходите</a> на сайт.
+    </div>
 {% endblock %}

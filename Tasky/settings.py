@@ -26,7 +26,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'psycopg2',
-    'account',
     'registration',
 )
 
@@ -123,4 +122,7 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'info@google.ru'
+
+
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'

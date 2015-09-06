@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-from registration.forms import RegistrationFormUniqueEmail
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', 'Tasky.views.index'),
-                       url(r'^account/', include('account.urls', namespace='account')),
                        url(r'^accounts/', include('registration.backends.default.urls')),
                        )

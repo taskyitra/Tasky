@@ -1,32 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Авторизация</h1>
 
-{% if user.is_authenticated %}
-Что такое, {{ user.username }}? Вы же уже авторизорваны.
-Впрочем, всегда можно <a href="{% url 'auth_logout' %}">выйти</a>.<br/><br/>
-{% else %}
+    <div class="container">
+        {% if user.is_authenticated %}
+            Что такое, {{ user.username }}? Вы же уже авторизорваны.
+            Впрочем, всегда можно <a href="{% url 'auth_logout' %}">выйти</a>.<br/><br/>
+        {% else %}
+            {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+            {% endif %}
+            <h1>Авторизация</h1>
+            <form class="form-horizontal" role="form" method="post" action="">
+                {% csrf_token %}
+                    <div class="form-group">
+                    <label class="control-label col-sm-2" for="username">Username:</label>
+                    <div class="col-sm-10">
+                        <input type="text" maxlength="30" name="username" class="form-control" id="id_username" placeholder="Enter username">
+                    </div>
+                    {% if form.username.help_text %}<div>{{ form.username.field.help_text }}</div>{% endif %}
+                    {% if form.username.errors %}<div>{{ form.username.errors }}</div>{% endif %}
+                </div>
 
-{% if form.non_field_errors %}
-{{ form.non_field_errors }}
-{% endif %}
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pa">Password:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="password" id="pwd" placeholder="Enter password">
+                    </div>
+                    {% if form.password.help_text %}<div>{{ form.password.help_text }}</div>{% endif %}
+                    {% if form.password.errors %}<div>{{ form.password.errors }}</div>{% endif %}
+                </div>
 
-<form method="post" action="">
-<dl class="register">
-{% for field in form %}
-    <dt>{{ field.label_tag }}</dt>
-    <dd class="clearfix">{{ field }}
-    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
-    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
-    </dd>
-{% endfor %}
-</dl>
-<input type="submit" value="Вход"  class="clearfix"/>
-</form>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+            </form>
 
-<script type="text/javascript">
-document.getElementById('id_username').focus()
-</script>
-
-{% endif %}
+            <script type="text/javascript">
+            document.getElementById('id_username').focus()
+            </script>
+        {% endif %}
+    </div>
 {% endblock %}

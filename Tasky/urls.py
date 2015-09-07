@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', 'Tasky.views.index'),
                        url(r'^accounts/', include('registration.backends.default.urls')),
+                       url(r'^task/', include('task.urls', namespace='task')),
                        )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

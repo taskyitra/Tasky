@@ -54,7 +54,7 @@ WSGI_APPLICATION = 'Tasky.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tasky_db',
+        'NAME': 'tasky',
         'USER': 'postgres',
         'PASSWORD': '1596192350bbn',
         'HOST': 'localhost',  # Set to empty string for localhost.

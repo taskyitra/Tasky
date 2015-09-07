@@ -42,7 +42,7 @@
               <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
                       <ul class="dropdown-menu">
-                        <li><a href="#">Создать задачу</a></li>
+                        <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
                         <li><a href="#">Ваши задачи</a></li>
                         <li><a href="#">Настройки</a></li>
                         <li class="divider"></li>

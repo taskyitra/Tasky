@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'registration',
     'social.apps.django_app.default',
     'task',
+    'django_markdown',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -43,7 +44,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'Tasky.urls'
-
 
 WSGI_APPLICATION = 'Tasky.wsgi.application'
 
@@ -93,9 +93,8 @@ STATICFILES_DIRS = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
-
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookAppOAuth2',
@@ -129,3 +128,5 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/'
 LOGIN_URL = 'auth_login'
+
+MARKDOWN_EDITOR_SKIN = 'simple'

@@ -1,24 +1,13 @@
-from django.db import models
-
-# Create your models here.
 from django.contrib.auth.models import User
 from django.db import models
+from django_markdown.models import MarkdownField
 
-# Create your models here.
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.tag_name
-
-
-class Condition(models.Model):
-    text = models.CharField(max_length=300)
-    # pictures = models.ManyToManyField()
-
-    def __str__(self):
-        return self.text
 
 
 class Task(models.Model):
@@ -29,7 +18,7 @@ class Task(models.Model):
     tags = models.ManyToManyField(Tag)
     level = models.IntegerField(choices=TASK_LEVEL, default=1)
     area = models.IntegerField(choices=TASK_AREA, default=1)
-    condition = models.OneToOneField(Condition, related_name='task_condition')
+    condition = MarkdownField()
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

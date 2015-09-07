@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
+{% load django_markdown %}
 
 {% block title %}<title>Создать задачу</title>{% endblock %}
 
@@ -28,6 +29,19 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Тэги:</label>
+                <div class="col-sm-9">
+                    {{ form.tags }}
+                </div>
+                {% if form.tags.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.tags.help_text }}</div>
+                {% endif %}
+                {% if form.tags.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ form.tags.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Уровень:</label>
                 <div class="col-sm-9">
                     {{ form.level }}
@@ -43,7 +57,9 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pa">Условие:</label>
                 <div class="col-sm-9">
-                    {{ form.condition }}
+                    <textarea name="condition" id="new"></textarea>
+                    {% markdown_editor "#new" %}
+                    {% markdown_media %}
                 </div>
                 {% if form.condition.help_text %}
                     <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.condition.help_text }}</div>
@@ -63,6 +79,19 @@
                 {% endif %}
                 {% if form.area.errors %}
                     <div class="col-sm-offset-3 col-sm-9">{{ form.area.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd2">Ответ:</label>
+                <div class="col-sm-9">
+                    {{ answer_form.text }}
+                </div>
+                {% if answer_form.text.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ answer_form.text.help_text }}</div>
+                {% endif %}
+                {% if answer_form.text.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ answer_form.text.errors }}</div>
                 {% endif %}
             </div>
 

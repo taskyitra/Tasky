@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', 'Tasky.views.index'),
                        url(r'^accounts/', include('registration.backends.default.urls')),
+                       url(r'^markdown/', include('django_markdown.urls')),
                        url(r'^task/', include('task.urls', namespace='task')),
                        )
 

@@ -6,10 +6,15 @@ dj-static==0.0.6
 Django==1.8.3
 django-allauth==0.23.0
 django-crispy-forms==1.5.0
+django-markdown==0.8.4
+django-registration-redux==1.2
+django-smtp-ssl==1.0
 django-tables2==1.0.4
 django-toolbelt==0.0.1
 gunicorn==19.3.0
 httplib2==0.9.1
+Markdown==2.6.2
+mysql-connector-python==2.0.4
 oauth==1.0.1
 oauthlib==1.0.3
 psycopg2==2.6.1

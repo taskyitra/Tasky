@@ -1,10 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from task.models import Tag, Task, Condition, Answer
+from task.models import Tag, Task, Answer
+from django_markdown.admin import MarkdownModelAdmin
 
-# Register your models here.
-admin.site.register(Task)
+admin.site.register(Task, MarkdownModelAdmin)
 admin.site.register(Tag)
-admin.site.register(Condition)
 admin.site.register(Answer)

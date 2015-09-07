@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'psycopg2',
     'registration',
     'social.apps.django_app.default',
+    'task',
 )
 
 MIDDLEWARE_CLASSES = (

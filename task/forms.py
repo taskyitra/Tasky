@@ -5,7 +5,6 @@ from task.models import Task
 
 class CreateTaskForm(Form):
     task_name = forms.CharField(max_length=30, widget=forms.TextInput)
-    level = forms.Select(choices=Task.TASK_LEVEL)
-    condition = forms.Textarea()
-    area = forms.Select(choices=Task.TASK_AREA)
-
+    level = forms.IntegerField(widget=forms.Select(choices=Task.TASK_LEVEL))
+    condition = forms.CharField(widget=forms.Textarea())
+    area = forms.IntegerField(widget=forms.Select(choices=Task.TASK_AREA))

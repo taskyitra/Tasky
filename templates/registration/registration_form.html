@@ -9,20 +9,57 @@
         <h1>Регистрация</h1>
         <form class="form-horizontal" role="form" method="post" action="">
             {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <label class="control-label col-sm-3">{{ field.label_tag }}</label>
-                    <div class="col-sm-9">
-                        {{ field }}
-                    </div>
-                    {% if field.help_text %}
-                        <div class="col-sm-offset-3 col-sm-9 help-block">{{ field.help_text }}</div>
-                    {% endif %}
-                    {% if field.errors %}
-                        <div class="col-sm-offset-3 col-sm-9">{{ field.errors }}</div>
-                    {% endif %}
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="username">Логин:</label>
+                <div class="col-sm-9">
+                    <input type="text" maxlength="30" name="username" class="form-control" id="id_username" placeholder="Enter username">
                 </div>
-            {% endfor %}
+                {% if form.username.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.username.help_text }}</div>
+                {% endif %}
+                {% if form.username.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Почтовый ящик:</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+                </div>
+                {% if form.email.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.email.help_text }}</div>
+                {% endif %}
+                {% if form.email.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pa">Пароль:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" name="password1" id="pwd" placeholder="Enter password">
+                </div>
+                {% if form.password1.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.password1.help_text }}</div>
+                {% endif %}
+                {% if form.password1.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd2">Повторите пароль:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" name="password2" id="pwd2" placeholder="Confirm password">
+                </div>
+                {% if form.password2.help_text %}
+                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.password2.help_text }}</div>
+                {% endif %}
+                {% if form.password2.errors %}
+                    <div class="col-sm-offset-3 col-sm-9">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">

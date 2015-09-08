@@ -21,7 +21,7 @@ from Tasky import settings
 urlpatterns = patterns('',
                        url('', include('social.apps.django_app.urls', namespace='social')),
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^$', 'Tasky.views.index'),
+                       url(r'^$', 'Tasky.views.index', name='homepage'),
                        url(r'^accounts/', include('registration.backends.default.urls')),
                        url(r'^markdown/', include('django_markdown.urls')),
                        url(r'^task/', include('task.urls', namespace='task')),

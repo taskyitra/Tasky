@@ -21,6 +21,9 @@ class Task(models.Model):
     condition = MarkdownField()
     creation_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['creation_date']
+
     def __str__(self):
         return self.task_name
 

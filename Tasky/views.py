@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from social.apps.django_app.default.models import UserSocialAuth
 
-__author__ = 'Stanislau'
+from task.models import Task
+
 
 
 def index(request):
-    ctx = {}  # Возвращаем контекст с данными для начальной страницы
+    tasks = Task.objects.all()
+    ctx = {'tasks': tasks}  # Возвращаем контекст с данными для начальной страницы
     return render(request, 'base.html', ctx)

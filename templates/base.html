@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-    <title>Home</title>
+    <title>Главная</title>
     {% endblock %}
     {% block bootstrap %}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
@@ -20,11 +20,11 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Tasky</a>
+          <a class="navbar-brand" href="{% url 'homepage' %}">Tasky</a>
         </div>
         <div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Главная</a></li>
+            <li class="active"><a href="{% url 'homepage' %}">Главная</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Рейтинги<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Рейтинг пользователей</a></li>
@@ -43,7 +43,7 @@
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
-                        <li><a href="#">Ваши задачи</a></li>
+                        <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
                         <li><a href="#">Настройки</a></li>
                         <li class="divider"></li>
                         <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
@@ -55,7 +55,13 @@
       </div>
     </nav>
 
-    {% block content %}{% endblock %}
+    {% block content %}
+        <div class="container">
+            {% for task in tasks %}
+                <p>{{ task }}</p>
+            {% endfor %}
+        </div>
+    {% endblock %}
 
 </body>
 </html>

@@ -57,7 +57,6 @@ def edit(request, pk):
 @login_required
 def my_tasks(request):
     user_tasks = Task.objects.filter(user=request.user)
-    print(user_tasks)
     return render(request, 'task/my_tasks.html', {'tasks': user_tasks})
 
 

@@ -1,0 +1,12 @@
+<div class="container">
+    <div>
+        Здесь добавление комментариев
+    </div>
+    {% for comment in comments %}
+
+    {% empty %}
+        <div class="help-block">
+            Комментариев ещё не было...
+        </div>
+    {% endfor %}
+</div>

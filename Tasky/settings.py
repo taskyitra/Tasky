@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'registration',
     'social.apps.django_app.default',
     'task',
+    'comments',
     'django_markdown',
 )
 

@@ -59,12 +59,13 @@
         {% else %}
             {% if is_old_solving %}
                 <p>Вы уже решили эту задачу</p>
-
             {% else %}
                 <p>Поздравляю вы решили задачу!!!</p>
             {% endif %}
 
         {% endif %}
     </div>
+
+    {% include 'comments/show_comments.html' %}
 
 {% endblock %}

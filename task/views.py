@@ -19,7 +19,7 @@ def create_task(request):
                 answer = answer_form.save(commit=False)
                 answer.task = task
                 answer.save()
-                return redirect('/')
+                return redirect('/task/my_tasks/')
             except Exception as e:
                 print(e)
     else:
@@ -30,7 +30,28 @@ def create_task(request):
 
 @login_required
 def edit(request, pk):
-    return render(request, 'task/edit.html')
+    task = Task.objects.filter(pk=pk).first()
+    answer = Answer.objects.filter(task=task).first()  # Здесь должны быть все
+    if request.method == 'POST':
+        form = CreateTaskForm(request.POST)
+        answer_form = AnswerForm(request.POST)
+        if form.is_valid() and answer_form.is_valid():
+            try:
+                task = form.save(commit=False)
+                task.user = request.user
+                task.pk = pk
+                task.creation_date = Task.objects.filter(pk=pk).first().creation_date
+                task.save()
+                Answer.objects.filter(task=task).delete()
+                answer = answer_form.save(commit=False)
+                answer.task = task
+                answer.save()
+            except Exception as e:
+                print(e)
+    else:
+        form = CreateTaskForm(instance=task)
+        answer_form = AnswerForm(instance=answer)
+    return render(request, 'task/edit.html', {'form': form, 'answer_form': answer_form})
 
 
 @login_required
@@ -51,10 +72,9 @@ def solve_task(request, pk):
     is_old_solving = True if len(Solving.objects.filter(task=task).filter(user=request.user) \
                                  .filter(is_solved=True)) > 0 else False
     if is_old_solving:
-        return redirect('/')  # Если задача уже была решена
+        return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': is_old_solving})
 
     if request.method == 'POST':
-        print('POST')
         form = AnswerForm(request.POST)
         if form.is_valid():
             try:
@@ -68,7 +88,7 @@ def solve_task(request, pk):
                 else:
                     solving = Solving(user=request.user, task=task, is_solved=True)
                     solving.save()
-                    return redirect('/')
+                    return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False})
             except Exception as e:
                 print(e)
     else:

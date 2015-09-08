@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.forms.forms import NON_FIELD_ERRORS
+from comments.models import Comment
 
 from task.forms import CreateTaskForm, AnswerForm
 from task.models import Task, Answer, Solving
@@ -62,17 +63,13 @@ def my_tasks(request):
 
 @login_required
 def solve_task(request, pk):
-    try:
-        task = Task.objects.filter(pk=pk).first()
-    except Exception as e:
-        print('Такой задачи не существует')
-        return redirect('/')
-
+    task = Task.objects.filter(pk=pk).first()
+    comments = Comment.objects.filter(task=task)
     is_old_solving = True if len(Solving.objects.filter(task=task).filter(user=request.user) \
                                  .filter(is_solved=True)) > 0 else False
     if is_old_solving:
-        return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': is_old_solving})
-
+        return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': is_old_solving,
+                                                   'comments': comments})
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -87,9 +84,11 @@ def solve_task(request, pk):
                 else:
                     solving = Solving(user=request.user, task=task, is_solved=True)
                     solving.save()
-                    return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False})
+                    return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False,
+                                                               'comments': comments})
             except Exception as e:
                 print(e)
     else:
         form = AnswerForm
-    return render(request, 'task/solve.html', {'form': form, 'task': task})
+    return render(request, 'task/solve.html', {'form': form, 'task': task,
+                                               'comments': comments})

@@ -13,6 +13,7 @@ class AnswerForm(ModelForm):
         model = Answer
         exclude = ['task']
 
+
     # task_name = forms.CharField(max_length=30, widget=forms.TextInput)
     # tags = forms.CharField(max_length=30, widget=forms.TextInput)
     # level = forms.IntegerField(widget=forms.Select(choices=Task.TASK_LEVEL))

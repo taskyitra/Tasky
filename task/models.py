@@ -34,3 +34,16 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Solving(models.Model):
+    user = models.ForeignKey(User)
+    task = models.ForeignKey(Task)
+    solving_time = models.DateTimeField(auto_now_add=True)
+    is_solved = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['solving_time']
+
+    def __str__(self):
+        return '{0} {1} task "{2}"'.format(self.user, 'solved' if self.is_solved else 'did not solve', self.task)

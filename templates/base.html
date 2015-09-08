@@ -58,7 +58,11 @@
     {% block content %}
         <div class="container">
             {% for task in tasks %}
-                <p>{{ task }}</p>
+                {% if task.user == user %}
+                    <p><a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a></p>
+                {% else %}
+                    <p><a href="{% url 'task:solve_task' pk=task.pk %}">{{ task }}</a></p>
+                {% endif %} 
             {% endfor %}
         </div>
     {% endblock %}

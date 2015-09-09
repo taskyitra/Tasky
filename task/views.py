@@ -1,10 +1,13 @@
+import json
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.forms.forms import NON_FIELD_ERRORS
 from comments.models import Comment
 
 from task.forms import CreateTaskForm, AnswerForm
-from task.models import Task, Answer, Solving
+from task.models import Task, Answer, Solving, Rating
 
 
 @login_required
@@ -65,11 +68,14 @@ def my_tasks(request):
 def solve_task(request, pk):
     task = Task.objects.filter(pk=pk).first()
     comments = Comment.objects.filter(task=task)
+    did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
     is_old_solving = True if len(Solving.objects.filter(task=task).filter(user=request.user) \
                                  .filter(is_solved=True)) > 0 else False
     if is_old_solving:
-        return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': is_old_solving,
-                                                   'comments': comments})
+        return render(request, 'task/solve.html', {'form': None, 'task': task,
+                                                   'is_old_solving': is_old_solving,
+                                                   'comments': comments,
+                                                   'user_mark_for_task': did_he_put_mark})
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -85,10 +91,32 @@ def solve_task(request, pk):
                     solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
                     solving.save()
                     return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False,
-                                                               'comments': comments})
+                                                               'comments': comments,
+                                                               'user_mark_for_task': did_he_put_mark})
             except Exception as e:
                 print(e)
     else:
         form = AnswerForm
     return render(request, 'task/solve.html', {'form': form, 'task': task,
-                                               'comments': comments})
+                                               'comments': comments,
+                                               'did_user_put': did_he_put_mark})
+
+
+def put_mark_for_task(request):
+    try:
+        if request.is_ajax():
+            posts_count = request.POST
+            d = posts_count.dict()
+            json_str = ""
+            for i in d.items():
+                json_str = i[0]
+            json_obj = json.loads(json_str)
+            user = User.objects.filter(pk=json_obj['userid']).first()
+            task = Task.objects.filter(pk=json_obj['taskid']).first()
+            mark = json_obj['mark']
+            rating = Rating(user=user, task=task, mark=mark)
+            rating.save()
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    return HttpResponse(status=200)

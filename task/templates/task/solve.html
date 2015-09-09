@@ -5,6 +5,11 @@
 
 {% block title %}<title>Решить задачу</title>{% endblock %}
 
+{% block styling %}
+    <link rel="stylesheet" href="{% static 'task/css/rating.css' %}">
+    <script src="{% static 'task/js/rating.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <h1>Решение задачи</h1>
@@ -57,12 +62,43 @@
 
             </form>
         {% else %}
-            {% if is_old_solving %}
-                <p>Вы уже решили эту задачу</p>
-            {% else %}
-                <p>Поздравляю вы решили задачу!!!</p>
-            {% endif %}
+            <div class="container">
+                {% if is_old_solving %}
+                    <p>Вы уже решили эту задачу</p>
+                {% else %}
+                    <p>Поздравляю вы решили задачу!!!</p>
+                {% endif %}
 
+                {% if user_mark_for_task %}
+                    <div id="rating_star">
+                        <div id="rating">
+                            <div id="rating_blank"></div>
+                            <div id="rating_votes"></div>
+                        </div>
+                        <div id="rating_info">
+                            <h5> Вы оценили задачу на {{ user_mark_for_task.mark }}</h5>
+                        </div>
+                        <script>
+                            setRatingWidth("{{ user_mark_for_task.mark }}")
+                        </script>
+                    </div>
+                {% else %}
+                    <div id="rating_star">
+                        <div id="rating">
+                            <div id="rating_blank"></div>
+                            <div id="rating_hover"></div>
+                            <div id="rating_votes"></div>
+                        </div>
+                        <div id="rating_info">
+                            <img id="rating_load" src="{% static 'task/images/load.gif' %}" hidden />
+                            <h5> Пожалуйста, оцените задачу </h5>
+                        </div>
+                        <script>
+                            setDefaultRatingSettings("{{ user.pk }}", "{{ task.pk }}")
+                        </script>
+                    </div>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
 

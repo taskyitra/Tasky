@@ -47,4 +47,27 @@ class Solving(models.Model):
         ordering = ['solving_time']
 
     def __str__(self):
-        return '{0} {1} task "{2}"'.format(self.user, 'solved' if self.is_solved else 'did not solve', self.task)
+        return '{0} {1} task "{2}"' \
+            .format(self.user, 'solved' if self.is_solved else 'did not solve', self.task)
+
+
+class RatingManager(models.Manager):
+    def did_he_put_mark(self, user, task):
+        return super(RatingManager, self).filter(user=user, task=task).first()
+
+    def average_rating_for_task(self, task):
+        ratings = super(RatingManager, self).filter(task=task)
+        if ratings.exists():
+            return sum([x.mark for x in ratings]) / len(ratings)
+        else:
+            return 0
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User)
+    task = models.ForeignKey(Task)
+    mark = models.IntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')))
+    objects = RatingManager()
+
+    def __str__(self):
+        return '{0.user} put mark {0.mark} for task {0.task}'.format(self)

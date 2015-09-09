@@ -1,0 +1,27 @@
+#rating {
+    position:relative; height:16px; cursor:pointer; width:83px; float:left
+} /* Блок рейтинга*/
+
+#rating_blank, #rating_votes, #rating_hover {
+    height:16px; position:absolute
+}
+
+#rating_blank {
+    background:url(../images/ratings.png); width:83px;
+} /* "Чистые" звездочки */
+
+#rating_votes {
+    background:url(../images/ratings.png) 0 -16px
+} /*  Закрашенные звездочки */
+
+#rating_hover {
+    background:url(../images/ratings.png) 0 -32px; display:none
+}  /*  звездочки при голосовании */
+
+#rating_info {
+    margin-left:100px
+}
+
+#rating_info img{
+    vertical-align:middle; margin:0 5px; display:none
+}

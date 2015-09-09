@@ -12,24 +12,25 @@ from task.models import Task, Answer, Solving, Rating
 
 @login_required
 def create_task(request):
-    if request.method == 'POST':
-        form = CreateTaskForm(request.POST)
-        answer_form = AnswerForm(request.POST)
-        if form.is_valid() and answer_form.is_valid():
-            try:
-                task = form.save(commit=False)
-                task.user = request.user
-                task.save()
-                answer = answer_form.save(commit=False)
-                answer.task = task
-                answer.save()
-                return redirect('/task/my_tasks/')
-            except Exception as e:
-                print(e)
-    else:
-        form = CreateTaskForm
-        answer_form = AnswerForm
-    return render(request, 'task/create_task.html', {'form': form, 'answer_form': answer_form})
+    try:
+        if request.is_ajax():
+            posts_count = request.POST
+            d = posts_count.dict()
+            json_str = ""
+            for i in d.items():
+                json_str = i[0]
+            json_obj = json.loads(json_str)
+            print(json_obj)
+            # user = User.objects.filter(pk=json_obj['userid']).first()
+            # task = Task.objects.filter(pk=json_obj['taskid']).first()
+            # mark = json_obj['mark']
+            # rating = Rating(user=user, task=task, mark=mark)
+            # rating.save()
+            return HttpResponse(status=200)
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    return render(request, 'task/create_task.html')
 
 
 @login_required

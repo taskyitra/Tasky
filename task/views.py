@@ -77,12 +77,12 @@ def solve_task(request, pk):
                 answer = form.save(commit=False).text
                 right_answer = Answer.objects.filter(task=task).filter(text=answer)
                 if len(right_answer) == 0:
-                    solving = Solving(user=request.user, task=task, is_solved=False)
+                    solving = Solving(user=request.user, task=task, is_solved=False, level=task.level)
                     solving.save()
                     form.full_clean()
                     form._errors[NON_FIELD_ERRORS] = form.error_class(['Неправильный ответ'])
                 else:
-                    solving = Solving(user=request.user, task=task, is_solved=True)
+                    solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
                     solving.save()
                     return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False,
                                                                'comments': comments})

@@ -38,9 +38,10 @@ class Answer(models.Model):
 
 class Solving(models.Model):
     user = models.ForeignKey(User)
-    task = models.ForeignKey(Task)
+    task = models.ForeignKey(Task, blank=True, null=True, on_delete=models.SET_NULL)
     solving_time = models.DateTimeField(auto_now_add=True)
     is_solved = models.BooleanField(default=False)
+    level = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['solving_time']

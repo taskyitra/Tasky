@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% load django_markdown %}
+
+{% block title %}<title>Создать задачу</title>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Задача <a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a> успешно создана!</h1>
+        <h2><a href="{% url 'task:my_tasks' %}">Мои задачи</a></h2>
+
+    </div>
+
+{% endblock %}

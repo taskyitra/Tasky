@@ -7,7 +7,7 @@ from django.forms.forms import NON_FIELD_ERRORS
 from comments.models import Comment
 
 from task.forms import CreateTaskForm, AnswerForm
-from task.models import Task, Answer, Solving, Rating
+from task.models import Task, Answer, Solving, Rating, Tag
 
 
 @login_required
@@ -20,13 +20,25 @@ def create_task(request):
             for i in d.items():
                 json_str = i[0]
             json_obj = json.loads(json_str)
-            print(json_obj)
-            # user = User.objects.filter(pk=json_obj['userid']).first()
-            # task = Task.objects.filter(pk=json_obj['taskid']).first()
-            # mark = json_obj['mark']
-            # rating = Rating(user=user, task=task, mark=mark)
-            # rating.save()
-            return HttpResponse(status=200)
+            area = json_obj['area']
+            level = json_obj['level']
+            markdown = json_obj['markdown']
+            tags = json_obj['tags']
+            answers = json_obj['answers']
+            task_name = json_obj['task_name']
+            task = Task(user=request.user, task_name=task_name, area=area, level=level,
+                        condition=markdown)
+            task.save()
+            for tag_text in tags:
+                tag = Tag.objects.filter(tag_name=tag_text).first()
+                if tag is None:
+                    tag = Tag(tag_name=tag_text)
+                    tag.save()
+                task.tags.add(tag)
+            for answer_text in answers:
+                answer = Answer(text=answer_text, task=task)
+                answer.save()
+            return HttpResponse(task.pk, status=200)
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
@@ -102,7 +114,7 @@ def solve_task(request, pk):
                                                'comments': comments,
                                                'did_user_put': did_he_put_mark})
 
-
+@login_required
 def put_mark_for_task(request):
     try:
         if request.is_ajax():
@@ -121,3 +133,8 @@ def put_mark_for_task(request):
         print(e)
         return HttpResponse(status=500)
     return HttpResponse(status=200)
+
+
+@login_required
+def create_task_success(request, pk):
+    return render(request, 'task/create_task_success.html', {'task':Task.objects.filter(pk=pk).first()})

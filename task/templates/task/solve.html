@@ -14,26 +14,26 @@
     <div class="container">
         <h1>Решение задачи</h1>
         <div class="container">
-            <label class="control-label col-sm-3" for="task_name">Название:</label>
+            <label class="control-label col-sm-2" for="task_name">Название:</label>
             <div class="col-sm-9">
                 {{ task.task_name }}
             </div>
         </div>
         <div class="container">
-            <label class="control-label col-sm-3" for="level">Уровень:</label>
+            <label class="control-label col-sm-2" for="level">Уровень:</label>
             <div class="col-sm-9">
                 {{ task.level }}
             </div>
         </div>
         <div class="container">
-            <label class="control-label col-sm-3" for="condition">Условие:</label>
+            <label class="control-label col-sm-2" for="condition">Условие:</label>
             <div class="col-sm-9">
                 {{ task.condition | markdown }}
             </div>
         </div>
 
         {% if form %}
-            <div class="col-sm-offset-3 col-sm-9 help-block">
+            <div class="col-sm-offset-2 col-sm-9 help-block">
                 {% if form.non_field_errors %}
                     {{ form.non_field_errors }}
                 {% endif %}
@@ -42,20 +42,20 @@
                 {% csrf_token %}
 
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="pwd2">Ответ:</label>
+                    <label class="control-label col-sm-2" for="pwd2">Ответ:</label>
                     <div class="col-sm-9">
                         {{ form.text }}
                     </div>
                     {% if form.text.help_text %}
-                        <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.text.help_text }}</div>
+                        <div class="col-sm-offset-2 col-sm-9 help-block">{{ form.text.help_text }}</div>
                     {% endif %}
                     {% if form.text.errors %}
-                        <div class="col-sm-offset-3 col-sm-9">{{ form.text.errors }}</div>
+                        <div class="col-sm-offset-2 col-sm-9">{{ form.text.errors }}</div>
                     {% endif %}
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
+                    <div class="col-sm-offset-2 col-sm-9">
                         <button type="submit" class="btn btn-default">Проверить</button>
                     </div>
                 </div>

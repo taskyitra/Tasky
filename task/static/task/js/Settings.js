@@ -129,6 +129,8 @@ $('#create_button').click(function(e){
         answers: answers
     });
     console.log(json);
+    json  = encodeURIComponent(json);
+    console.log(json);
     $.ajax({
         url: "/task/create/",
         type: 'POST',
@@ -187,6 +189,7 @@ $('#edit_button').click(function(e){
         answers: answers
     });
     console.log(json);
+    json  = encodeURIComponent(json);
     $.ajax({
         url: "/task/edit/" + $('#pk').val() + "/",
         type: 'POST',

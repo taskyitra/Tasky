@@ -58,17 +58,29 @@
       </div>
     </nav>
 
-    {% block content %}
-        <div class="container">
-            {% for task in tasks %}
-                {% if task.user == user %}
-                    <p><a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a></p>
-                {% else %}
-                    <p><a href="{% url 'task:solve_task' pk=task.pk %}">{{ task }}</a></p>
-                {% endif %} 
-            {% endfor %}
+    {% if user.is_authenticated %}
+        <div class="col-xs-2 navbar-default pull-right" style="width: 200px;height: 400px">
+            <div class="container">
+                <p>asd</p>
+                <p>zxc</p>
+                <p>123</p>
+                <p>1111111</p>
+            </div>
         </div>
-    {% endblock %}
+    {% endif %}
+    <div class="col-xs-10">
+        {% block content %}
+            <div class="container">
+                {% for task in tasks %}
+                    {% if task.user == user %}
+                        <p><a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a></p>
+                    {% else %}
+                        <p><a href="{% url 'task:solve_task' pk=task.pk %}">{{ task }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
 
 </body>
 </html>

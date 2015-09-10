@@ -1,7 +1,7 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.forms import NON_FIELD_ERRORS
 from comments.models import Comment
@@ -114,6 +114,7 @@ def solve_task(request, pk):
                                                'comments': comments,
                                                'did_user_put': did_he_put_mark})
 
+
 @login_required
 def put_mark_for_task(request):
     try:
@@ -137,4 +138,26 @@ def put_mark_for_task(request):
 
 @login_required
 def create_task_success(request, pk):
-    return render(request, 'task/create_task_success.html', {'task':Task.objects.filter(pk=pk).first()})
+    return render(request, 'task/create_task_success.html', {'task': Task.objects.filter(pk=pk).first()})
+
+
+def getOptionsTypeahead(request, query):
+    data = []
+    try:
+        #     if request.is_ajax():
+        #         posts_count = request.POST
+        #         d = posts_count.dict()
+        #         json_str = ""
+        #         for i in d.items():
+        #             json_str = i[0]
+        #         json_obj = json.loads(json_str)
+        #         query = json_obj['query']
+        for tag in Tag.objects.all():
+            if query in tag.tag_name:
+                data.append({'value': tag.tag_name})
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    print(data)
+    return JsonResponse(data, safe=False, status=200)
+    # return HttpJSResponse(data, status=200)

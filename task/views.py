@@ -52,10 +52,8 @@ def edit(request, pk):
         return HttpResponse("Ошибка доступа")
     answers = Answer.objects.filter(task=task)
     answers = [{'val': x.text, 'num': i} for i, x in enumerate(answers)]
-    print(answers)
     tags = task.tags.all()
     tags = [{'val': x.tag_name, 'num': i} for i, x in enumerate(tags)]
-    print(tags)
     try:
         if request.is_ajax():
             posts_count = request.POST
@@ -64,7 +62,6 @@ def edit(request, pk):
             for i in d.items():
                 json_str = i[0]
             json_obj = json.loads(json_str)
-            print(json_obj)
             task.area = json_obj['area']
             task.level = json_obj['level']
             task.condition = json_obj['markdown']
@@ -89,29 +86,6 @@ def edit(request, pk):
         print(e)
         return HttpResponse(status=500)
     return render(request, 'task/edit.html', {'task': task, 'answers': answers, 'tags': tags})
-
-    # task = Task.objects.filter(pk=pk).first()
-    # answer = Answer.objects.filter(task=task).first()  # Здесь должны быть все
-    # if request.method == 'POST':
-    #     form = CreateTaskForm(request.POST)
-    #     answer_form = AnswerForm(request.POST)
-    #     if form.is_valid() and answer_form.is_valid():
-    #         try:
-    #             task = form.save(commit=False)
-    #             task.user = request.user
-    #             task.pk = pk
-    #             task.creation_date = Task.objects.filter(pk=pk).first().creation_date
-    #             task.save()
-    #             Answer.objects.filter(task=task).delete()
-    #             answer = answer_form.save(commit=False)
-    #             answer.task = task
-    #             answer.save()
-    #         except Exception as e:
-    #             print(e)
-    # else:
-    #     form = CreateTaskForm(instance=task)
-    #     answer_form = AnswerForm(instance=answer)
-    # return render(request, 'task/edit.html', {'form': form, 'answer_form': answer_form})
 
 
 @login_required

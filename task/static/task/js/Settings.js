@@ -19,19 +19,44 @@ $('#create_tag').click(function(e){
     var input = document.createElement("input");
     div.className = "container col-sm-10";
     input.className = "typeahead col-sm-6";
-    input.id = "qwe";
     input.maxLength = 30;
     input.type = "text";
     input.placeholder = "Введите тэг";
     input.autocomplete = "off";
-    span.className = "glyphicon glyphicon-remove col-sm-1";
+    span.className = "glyphicon glyphicon-remove";
     span.onclick = function(e){
         span.parentNode.parentNode.removeChild(span.parentNode);
     };
     div.appendChild(input);
     div.appendChild(span);
+    var data = [];
+    $('#tags .tt-input').each(function(i, elem) {
+        data[i] = elem.value;
+        elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
+    });
+    for(var i=0;i<data.length;i++){
+        var div1 = document.createElement("div");
+        var span1 = document.createElement("span");
+        var input1 = document.createElement("input");
+        div1.className = "container col-sm-10";
+        input1.className = "typeahead col-sm-6";
+        input1.maxLength = 30;
+        input1.type = "text";
+        input1.placeholder = "Введите тэг";
+        input1.autocomplete = "off";
+        input1.value = data[i];
+        span1.className = "glyphicon glyphicon-remove";
+        span1.onclick = function(e){
+            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+        };
+        div1.appendChild(input1);
+        if (i > 0) {
+            div1.appendChild(span1);
+        }
+        $('#tags').append(div1);
+    }
     $('#tags').append(div);
-    $('#qwe').typeahead(null, {
+    $('.typeahead').typeahead(null, {
         display: 'value',
         source: tags,
         limit: 10

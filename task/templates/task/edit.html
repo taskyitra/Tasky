@@ -19,18 +19,18 @@
                 <input type="text" maxlength="30" class="form-control" id="task_name"
                        placeholder="Введите название задачи" autocomplete="off" value="{{ task.task_name }}">
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="task_name_errors" hidden>Заполните поле названия</div>
+            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="task_name_errors" hidden>Заполните поле названия</div>
         </div>
 
         <div class="container" style="margin: 5px">
             <label class="control-label col-sm-2" for="tags">Тэги:</label>
             <div class="col-sm-10" id="tags">
                 {% for tag in tags %}
-                    <div class="container col-sm-9">
-                        <input type="text" maxlength="30" class="typeahead" value="{{ tag.val }}"
+                    <div class="container col-sm-10">
+                        <input type="text" maxlength="30" class="col-sm-6 typeahead" value="{{ tag.val }}"
                                placeholder="Введите тэг" autocomplete="off">
                         {% if tag.num != 0 %}
-                            <span class="glyphicon glyphicon-remove col-sm-1"></span>
+                            <span class="glyphicon glyphicon-remove"></span>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -39,25 +39,14 @@
                         e.target.parentNode.parentNode.removeChild(e.target.parentNode);
                     });
                 </script>
-
-{#                <div class="container col-sm-9">#}
-{#                    {% for tag in tags %}#}
-{#                <input type="text" maxlength="30" class="typeahead"#}
-{#                           placeholder="Введите тэг" autocomplete="off">#}
-{##}
-{#                    {% endfor %}#}
-{##}
-{#                    <input type="text" maxlength="30" class="typeahead"#}
-{#                           placeholder="Введите тэг" autocomplete="off">#}
-{#                </div>#}
             </div>
-            <a class="col-sm-offset-2 col-sm-10" id="create_tag">Создать тэг</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="tags_errors" hidden>Заполните поля тэгов</div>
+            <a class="col-sm-offset-2 col-sm-6" id="create_tag">Создать тэг</a>
+            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="tags_errors" hidden>Заполните поля тэгов</div>
         </div>
 
         <div class="container" style="margin: 5px">
             <label class="control-label col-sm-2" for="level">Уровень:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <select id="level">
                     {% if task.level == 1 %}
                         <option selected value="1">Low</option>
@@ -78,17 +67,17 @@
 
         <div class="container" style="margin: 5px">
             <label class="control-label col-sm-2" for="markdown">Условие:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <textarea name="condition" id="markdown">{{ task.condition }}</textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="markdown_errors" hidden>Заполните поле условия</div>
         </div>
 
         <div class="container" style="margin: 5px">
             <label class="control-label col-sm-2" for="area">Область:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <select id="area">
                     {% if task.area == 1 %}
                         <option selected value="1">Java</option>
@@ -134,11 +123,11 @@
                 </script>
             </div>
             <a class="col-sm-offset-2 col-sm-10" id="create_answer">Создать ответ</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="answers_errors" hidden>Заполните поля ответов</div>
+            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="answers_errors" hidden>Заполните поля ответов</div>
         </div>
 
         <div class="container" style="margin: 5px">
-            <div class="col-sm-offset-2 col-sm-9">
+            <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-default" id="edit_button">Сохранить изменения</button>
             </div>
         </div>

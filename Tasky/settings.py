@@ -15,7 +15,6 @@ SECRET_KEY = 'b%0@jbsu89&9x-$^&@0di*674eqiso997qoah4gjx6c@4@bw08'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -31,6 +30,7 @@ INSTALLED_APPS = (
     'task',
     'comments',
     'django_markdown',
+    'user_account',
 )
 
 MIDDLEWARE_CLASSES = (

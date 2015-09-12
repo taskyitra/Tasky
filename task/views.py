@@ -9,7 +9,21 @@ from comments.models import Comment
 
 from task.forms import CreateTaskForm, AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
+from user_account.models import UserProfile, Achievement, AchievementsSettings
 
+
+def set_achievements_at_creation(user):
+    achivements_names = {5: 'Creator1', 10: 'Creator2'}
+    count = Task.objects.count_tasks_for_user(user)
+    if count not in achivements_names.keys():
+        return
+    profile = UserProfile.objects.get_or_create_profile(user)
+    achievement = Achievement.objects.get(name=achivements_names[count])
+    if AchievementsSettings.objects.filter(userProfile=profile, achievement=achievement).exists():
+        return
+    achSetting = AchievementsSettings(userProfile=profile, achievement=achievement)
+    print(achSetting)
+    achSetting.save()
 
 @login_required
 def create_task(request):
@@ -39,6 +53,9 @@ def create_task(request):
             for answer_text in answers:
                 answer = Answer(text=answer_text, task=task)
                 answer.save()
+
+            set_achievements_at_creation(request.user)
+
             return HttpResponse(task.pk, status=200)
     except Exception as e:
         print(e)

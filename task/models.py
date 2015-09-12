@@ -10,6 +10,11 @@ class Tag(models.Model):
         return self.tag_name
 
 
+class TaskManager(models.Manager):
+    def count_tasks_for_user(self, user):
+        return len(super(TaskManager, self).filter(user=user))
+
+
 class Task(models.Model):
     TASK_LEVEL = ((1, 'Low'), (2, 'Middle'), (3, 'High'),)
     TASK_AREA = ((1, 'Java'), (2, 'C#'), (3, 'Python'), (4, 'Ruby'),)
@@ -20,6 +25,7 @@ class Task(models.Model):
     area = models.IntegerField(choices=TASK_AREA, default=1)
     condition = MarkdownField()
     creation_date = models.DateTimeField(auto_now_add=True)
+    objects = TaskManager()
 
     class Meta:
         ordering = ['creation_date']
@@ -36,12 +42,21 @@ class Answer(models.Model):
         return self.text
 
 
+class SolvingManager(models.Manager):
+    def count_solves_for_user(self, user):
+        return len(super(SolvingManager, self).filter(user=user))
+
+    def is_first_solving(self, task):
+        return len(super(SolvingManager, self).filter(task=task)) == 1
+
+
 class Solving(models.Model):
     user = models.ForeignKey(User)
     task = models.ForeignKey(Task, blank=True, null=True, on_delete=models.SET_NULL)
     solving_time = models.DateTimeField(auto_now_add=True)
     is_solved = models.BooleanField(default=False)
     level = models.IntegerField(default=1)
+    objects = SolvingManager()
 
     class Meta:
         ordering = ['solving_time']

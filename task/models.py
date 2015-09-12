@@ -44,7 +44,7 @@ class Answer(models.Model):
 
 class SolvingManager(models.Manager):
     def count_solves_for_user(self, user):
-        return len(super(SolvingManager, self).filter(user=user))
+        return len(super(SolvingManager, self).filter(user=user, is_solved=True))
 
     def is_first_solving(self, task):
         return len(super(SolvingManager, self).filter(task=task)) == 1

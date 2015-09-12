@@ -38,15 +38,19 @@ class UserProfile(models.Model):
         return 'Profile for "{}"'.format(self.user)
 
 
-
 class AchievementsSettingsManager(models.Manager):
-    pass
+    def increment_counter(self, profile, achievement):
+        achSetting = super(AchievementsSettingsManager, self).get_or_create(userProfile=profile,
+                                                                            achievement=achievement)[0]
+        achSetting.count = achSetting.count + 1
+        achSetting.save()
+        return achSetting.count
 
 
 class AchievementsSettings(models.Model):
     userProfile = models.ForeignKey(UserProfile)
     achievement = models.ForeignKey(Achievement)
-    count = models.IntegerField(default=1)
+    count = models.IntegerField(default=0)
     objects = AchievementsSettingsManager()
 
     def __str__(self):

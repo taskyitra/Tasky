@@ -24,41 +24,55 @@
 </head>
 <body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'homepage' %}">Tasky</a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'homepage' %}">Tasky</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'homepage' %}">Главная</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Рейтинги<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'ratings:user_rating' %}">
+                                Рейтинг пользователей
+                            </a></li>
+                            <li><a href="{% url 'ratings:task_rating' %}">
+                                Рейтинг задач
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">О нас</a></li>
+                </ul>
+                {% if not user.is_authenticated %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'registration_register' %}">
+                            <span class="glyphicon glyphicon-user"></span>Регистрация
+                        </a></li>
+                        <li><a href="{% url 'auth_login' %}">
+                            <span class="glyphicon glyphicon-log-in"></span>Войти
+                        </a></li>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                {{ user.username }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
+                                <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
+                                <li><a href="#">Настройки</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
         </div>
-        <div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'homepage' %}">Главная</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Рейтинги<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Рейтинг пользователей</a></li>
-                <li><a href="#">Рейтинг задач</a></li>
-              </ul>
-            </li>
-            <li><a href="#">О нас</a></li>
-          </ul>
-          {% if not user.is_authenticated %}
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'registration_register' %}"><span class="glyphicon glyphicon-user"></span>Регистрация</a></li>
-                <li><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-log-in"></span>Войти</a></li>
-              </ul>
-          {% else %}
-              <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
-                        <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
-                        <li><a href="#">Настройки</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
-                      </ul>
-                  </li>
-              </ul>
-          {% endif %}
-        </div>
-      </div>
     </nav>
 
     {% if user.is_authenticated %}

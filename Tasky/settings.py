@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'task',
     'comments',
+    'ratings',
     'django_markdown',
     'user_account',
     'haystack',

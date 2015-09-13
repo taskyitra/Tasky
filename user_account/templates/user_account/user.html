@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block title %}<title>{{ founduser.username }}</title>{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin: 50px">
+        <div class="pull-left">
+            {% if not profile.pictureUrl %}
+                <img id="user_img" src="{% static 'user_account/pictures/unknown.png' %}" width="100" height="100">
+            {% else %}
+                <img id="user_img" src="{{ profile.pictureUrl }}" width="100" height="100">
+            {% endif %}
+        </div>
+
+        <div>
+            <div>
+                <label class="col-sm-3" style="display: inline" id="editable">{{ founduser.username }}</label>
+                {% if user.pk == founduser.pk %}
+                    <script>
+                        $(document).ready(function() {
+                            $('#editable').editable('/user_account/change_username/', {
+                                submit  : 'OK',
+                                style   : 'inherit',
+                                callback : function(value, settings) {
+                                    $(document).prop('title', value);
+                                    return value;
+                                }
+                            })
+                        });
+                    </script>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if user.pk == founduser.pk %}
+                    <button id="generate_picture">Генерить пикчу</button>
+                    <script>
+                        $('#generate_picture').click(function(e){
+                            var json = "";
+                            $.ajax({
+                                url: "/user_account/generate_picture/",
+                                type: 'POST',
+                                data: json,
+                                success: function (src) {
+                                    console.log(src);
+                                    $('#user_img').attr("src", src);
+                                },
+                                error: function(mess){
+                                    console.log("Error");
+                                }
+                            });
+                        })
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

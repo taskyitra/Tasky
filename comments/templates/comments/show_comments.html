@@ -18,7 +18,7 @@
                  <img class="media-object" src="{% static 'pictures/vk.png' %}" width="64" height="64">
               </a>
               <div class="media-body">
-                 <h4 class="media-heading">{{ comment.user }}</h4>
+                 <h4 class="media-heading"><a href="{% url 'user_account:user' pk=comment.user.pk %}">{{ comment.user }}</a></h4>
                  <p>{{ comment.text }}</p>
               </div>
            </li>

@@ -9,6 +9,34 @@ from comments.models import Comment
 
 from task.forms import CreateTaskForm, AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
+from user_account.models import UserProfile, Achievement, AchievementsSettings
+
+
+def set_achievements_at_creation(user):
+    achivements_names = {5: 'Creator1', 10: 'Creator2'}
+    count = Task.objects.count_tasks_for_user(user)
+    print(count)
+    if count in achivements_names.keys():
+        profile = UserProfile.objects.get_or_create_profile(user)
+        achievement = Achievement.objects.get(name=achivements_names[count])
+        if not AchievementsSettings.objects.filter(userProfile=profile, achievement=achievement).exists():
+            achSetting = AchievementsSettings(userProfile=profile, achievement=achievement, count=1)
+            achSetting.save()
+
+
+def set_achievements_at_decision(user, task):
+    achivements_names = {5: 'Solver1', 10: 'Solver2'}
+    count = Solving.objects.count_solves_for_user(user)
+    if count in achivements_names.keys():
+        profile = UserProfile.objects.get_or_create_profile(user)
+        achievement = Achievement.objects.get(name=achivements_names[count])
+        if not AchievementsSettings.objects.filter(userProfile=profile, achievement=achievement).exists():
+            achSetting = AchievementsSettings(userProfile=profile, achievement=achievement, count=1)
+            achSetting.save()
+    if Solving.objects.is_first_solving(task):
+        profile = UserProfile.objects.get_or_create_profile(user)
+        achievement = Achievement.objects.get(name='First')
+        AchievementsSettings.objects.increment_counter(profile, achievement)
 
 
 @login_required
@@ -39,6 +67,7 @@ def create_task(request):
             for answer_text in answers:
                 answer = Answer(text=answer_text, task=task)
                 answer.save()
+            set_achievements_at_creation(request.user)
             return HttpResponse(task.pk, status=200)
     except Exception as e:
         print(e)
@@ -101,8 +130,7 @@ def solve_task(request, pk):
     task = Task.objects.filter(pk=pk).first()
     comments = Comment.objects.filter(task=task)
     did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
-    is_old_solving = True if len(Solving.objects.filter(task=task).filter(user=request.user) \
-                                 .filter(is_solved=True)) > 0 else False
+    is_old_solving = Solving.objects.filter(task=task, user=request.user, is_solved=True).exists()
     if is_old_solving:
         return render(request, 'task/solve.html', {'form': None, 'task': task,
                                                    'is_old_solving': is_old_solving,
@@ -122,6 +150,7 @@ def solve_task(request, pk):
                 else:
                     solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
                     solving.save()
+                    set_achievements_at_decision(request.user, task)
                     return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False,
                                                                'comments': comments,
                                                                'user_mark_for_task': did_he_put_mark})

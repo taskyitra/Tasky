@@ -1,0 +1,2 @@
+{{ object.condition }}
+{{ object.task_name }}

@@ -79,7 +79,7 @@ def create_task(request):
 def edit(request, pk):
     task = Task.objects.filter(pk=pk).first()
     if task.user != request.user:
-        return HttpResponse("Ошибка доступа")
+        return solve_task(request, pk)
     answers = Answer.objects.filter(task=task)
     answers = [{'val': x.text, 'num': i} for i, x in enumerate(answers)]
     tags = task.tags.all()
@@ -127,6 +127,8 @@ def my_tasks(request):
 @login_required
 def solve_task(request, pk):
     task = Task.objects.filter(pk=pk).first()
+    if task.user == request.user:
+        return edit(request, pk)
     comments = Comment.objects.filter(task=task)
     did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
     is_old_solving = Solving.objects.filter(task=task, user=request.user, is_solved=True).exists()

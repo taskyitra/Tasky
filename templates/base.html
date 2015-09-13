@@ -9,13 +9,13 @@
     <title>Главная</title>
     {% endblock %}
     {% block bootstrap %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-{#        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-editable.css' %}">#}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.css' %}">
         <script src="{% static 'js/jquery-1.11.3.js' %}"></script>
         <script src="{% static 'js/AjaxConfig.js' %}"></script>
         <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-{#        <script src="{% static 'bootstrap/js/bootstrap-editable.js' %}"></script>#}
         <script src="{% static 'js/jquery.jeditable.js' %}"></script>
         <script src="{% static 'js/typeahead.bundle.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -62,13 +62,24 @@
     </nav>
 
     {% if user.is_authenticated %}
-        <div class="col-xs-2 navbar-default pull-right" style="width: 200px;height: 400px">
-            <div class="container">
+        <div class="col-xs-2 navbar-default pull-right" style="width: 200px; height: 400px">
+            <div>
+                <input type="text" maxlength="30" id="search_input"
+                       placeholder="Поиск"/>
+                <button id="search_button">Поиск</button>
+            </div>
+            <div>
                 <p>asd</p>
                 <p>zxc</p>
                 <p>123</p>
                 <p>1111111</p>
             </div>
+            <script>
+                $('#search_button').click(function (e) {
+                    var str = $('#search_input').val();
+                    document.location.href = "/search/?q=" + encodeURIComponent(str);
+                })
+            </script>
         </div>
     {% endif %}
     <div class="col-xs-10">

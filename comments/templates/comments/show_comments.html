@@ -13,16 +13,16 @@
 
     <ul class="media-list" id="comments_list">
         {% for comment in comments %}
-           <li class="media">
-              <a class="pull-left" href="#">
-                 <img class="media-object" src="{% static 'pictures/vk.png' %}" width="64" height="64">
-              </a>
-              <div class="media-body">
-                 <h4 class="media-heading"><a href="{% url 'user_account:user' pk=comment.user.pk %}">{{ comment.user }}</a></h4>
-                 <p>{{ comment.text }}</p>
-              </div>
-           </li>
-           <hr>
+            <li class="media">
+                <div class="pull-left">
+                    <img class="media-object" src="{% static 'pictures/vk.png' %}" width="64" height="64">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{% url 'user_account:user' pk=comment.user.pk %}">{{ comment.user }}</a></h4>
+                    <p>{{ comment.text }}</p>
+                </div>
+            </li>
+            <hr>
         {% empty %}
             <li class="media" id="null_comments">
                 <div class="help-block">

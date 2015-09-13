@@ -7,6 +7,7 @@
 
 {% block styling %}
     <link rel="stylesheet" href="{% static 'task/css/typeahead_style.css' %}">
+    <script src="{% static 'task/js/draganddrop.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -48,11 +49,16 @@
         <div class="container" style="margin-bottom: 5px">
             <label class="control-label col-sm-2" for="markdown">Условие:</label>
             <div class="col-sm-9">
-                <textarea name="condition" id="markdown"></textarea>
+                <textarea class="dropZone" name="condition" id="markdown"></textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
             <div style="color: red" class="col-sm-offset-2 col-sm-10" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div style="color: red" class="col-sm-offset-2 col-sm-10" class="dropError" hidden></div>
+            <div class="col-sm-offset-2 col-sm-10" id="progress" hidden>
+                Загрузка
+                <img src="{% static 'task/images/load.gif' %}"/>
+            </div>
         </div>
 
         <div class="container" style="margin-bottom: 5px">

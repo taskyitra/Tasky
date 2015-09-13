@@ -1,16 +1,27 @@
 import json
-from urllib.parse import unquote
+import os
+from io import BytesIO
+import base64
+
+from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.forms.forms import NON_FIELD_ERRORS
-from comments.models import Comment
+import cloudinary
+from cloudinary.uploader import upload
 
-from task.forms import CreateTaskForm, AnswerForm
+from comments.models import Comment
+from task.forms import AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
 from user_account.models import UserProfile, Achievement, AchievementsSettings
 
+cloudinary.config(
+    cloud_name="dmt04dtgy",
+    api_key="326982618723938",
+    api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
+)
 
 def set_achievements_at_creation(user):
     achivements_names = {5: 'Creator1', 10: 'Creator2'}
@@ -199,5 +210,29 @@ def getOptionsTypeahead(request, query):
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
-    print(data)
     return JsonResponse(data, safe=False, status=200)
+
+
+def add_picture(request):
+    try:
+        if request.is_ajax():
+            posts_count = request.POST
+            d = posts_count.dict()
+            json_str = ""
+            for i in d.items():
+                json_str = i[0]
+            json_str = json_str.split(',')[1]
+
+            image = Image.open(BytesIO(base64.b64decode(json_str)))
+            path = 'user_account/static/user_account/pictures/other/im.png'
+            image.save(path, "PNG")
+            file = upload(path)
+            imageUrl = file['url']
+            os.remove(path)
+
+            return HttpResponse(imageUrl, status=200)
+
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    return HttpResponse(status=200)

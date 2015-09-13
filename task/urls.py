@@ -8,4 +8,5 @@ urlpatterns = patterns('task.views',
                        url(r'^solve_task/(?P<pk>\d+)/$', 'solve_task', name='solve_task'),
                        url(r'^create_task_success/(?P<pk>\d+)/$', 'create_task_success', name='create_task_success'),
                        url(r'^getOptionsTypeahead/(?P<query>.+)$', 'getOptionsTypeahead', name='getOptionsTypeahead'),
+                       url(r'^add_picture/$', 'add_picture', name='add_picture'),
                        )

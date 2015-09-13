@@ -50,7 +50,8 @@ def create_task(request):
 def edit(request, pk):
     task = Task.objects.filter(pk=pk).first()
     if task.user != request.user:
-        return HttpResponse("Ошибка доступа")
+        return solve_task(request, pk)
+   #     return HttpResponse("Ошибка доступа")
     answers = Answer.objects.filter(task=task)
     answers = [{'val': x.text, 'num': i} for i, x in enumerate(answers)]
     tags = task.tags.all()

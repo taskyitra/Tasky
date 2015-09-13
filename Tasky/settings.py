@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'task',
     'comments',
+    'ratings',
     'django_markdown',
 )
 
@@ -55,9 +56,9 @@ WSGI_APPLICATION = 'Tasky.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tasky',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '1596192350bbn',
+        'PASSWORD': '1',
         'HOST': 'localhost',  # Set to empty string for localhost.
         'PORT': '5432',  # Set to empty string for default.
     }

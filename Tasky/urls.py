@@ -26,6 +26,7 @@ urlpatterns = patterns('',
                        url(r'^markdown/', include('django_markdown.urls')),
                        url(r'^task/', include('task.urls', namespace='task')),
                        url(r'^comments/', include('comments.urls', namespace='comments')),
+                       url(r'^ratings/', include('ratings.urls', namespace='ratings')),
                        )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

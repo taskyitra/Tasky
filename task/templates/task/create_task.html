@@ -14,30 +14,33 @@
     <div class="container">
         <h1>Создание задачи</h1>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="task_name">Название:</label>
-            <div class="col-sm-6">
-                <input type="text" maxlength="30" class="form-control" id="task_name"
-                       placeholder="Введите название задачи" autocomplete="off"/>
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="task_name">Название:</label>
+            <div class="col-xs-offset-2 col-xs-10">
+                <input type="text" maxlength="30" class="col-xs-6" id="task_name"
+                       placeholder="Введите название задачи" autocomplete="off"
+                       style="min-width: 200px"/>
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="task_name_errors" hidden>Заполните поле названия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>Заполните поле названия</div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="tags">Тэги:</label>
-            <div class="col-sm-7" id="tags">
-                <div class="container col-sm-10">
-                    <input type="text" maxlength="30" class="typeahead"
-                           placeholder="Введите тэг" autocomplete="off">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="tags">Тэги:</label>
+            <div class="container">
+                <div class="container col-xs-offset-2 col-xs-10" id="tags">
+                    <div class="row">
+                        <input type="text" maxlength="30" class="typeahead col-xs-6"
+                               placeholder="Введите тэг" autocomplete="off">
+                    </div>
                 </div>
             </div>
-            <a class="col-sm-offset-2 col-sm-10" id="create_tag">Создать тэг</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="tags_errors" hidden>Заполните поля тэгов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_tag">Создать тэг</a>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="tags_errors" hidden>Заполните поля тэгов</div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="level">Уровень:</label>
-            <div class="col-sm-9">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="level">Уровень:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <select id="level">
                     <option selected value="1">Low</option>
                     <option value="2">Middle</option>
@@ -46,24 +49,24 @@
             </div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="markdown">Условие:</label>
-            <div class="col-sm-9">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="markdown">Условие:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <textarea class="dropZone" name="condition" id="markdown"></textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="markdown_errors" hidden>Заполните поле условия</div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" class="dropError" hidden></div>
-            <div class="col-sm-offset-2 col-sm-10" id="progress" hidden>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6 dropError" hidden></div>
+            <div class="col-xs-offset-2 col-xs-6" id="progress" hidden>
                 Загрузка
                 <img src="{% static 'task/images/load.gif' %}"/>
             </div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="area">Область:</label>
-            <div class="col-sm-9">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="area">Область:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <select id="area">
                     <option selected value="1">Java</option>
                     <option value="2">C#</option>
@@ -73,21 +76,23 @@
             </div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <label class="control-label col-sm-2" for="answers">Ответы:</label>
-            <div class="col-sm-7" id="answers">
-                <div class="container">
-                    <input type="text" maxlength="30" class="col-sm-6"
-                           placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="answers">Ответы:</label>
+            <div class="container">
+                <div class="container col-xs-offset-2 col-xs-10" id="answers">
+                    <div class="row">
+                        <input type="text" maxlength="30" class="col-xs-6"
+                               placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px">
+                    </div>
                 </div>
             </div>
-            <a class="col-sm-offset-2 col-sm-10" id="create_answer">Создать ответ</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" id="answers_errors" hidden>Заполните поля ответов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_answer">Создать ответ</a>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="answers_errors" hidden>Заполните поля ответов</div>
         </div>
 
-        <div class="container" style="margin-bottom: 5px">
-            <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-default" id="create_button">Создать</button>
+        <div style="margin: 5px">
+            <div class="col-xs-offset-2 col-xs-6">
+                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="create_button">Создать</button>
             </div>
         </div>
 

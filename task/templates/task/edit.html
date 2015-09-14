@@ -14,40 +14,43 @@
     <div class="container">
         <h1>Редактирование задачи</h1>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="task_name">Название:</label>
-            <div class="col-sm-6">
-                <input type="text" maxlength="30" class="form-control" id="task_name"
-                       placeholder="Введите название задачи" autocomplete="off" value="{{ task.task_name }}">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="task_name">Название:</label>
+            <div class="col-xs-offset-2 col-xs-10">
+                <input type="text" maxlength="30" class="col-xs-6" id="task_name"
+                       placeholder="Введите название задачи" autocomplete="off" value="{{ task.task_name }}"
+                       style="min-width: 200px">
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="task_name_errors" hidden>Заполните поле названия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>Заполните поле названия</div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="tags">Тэги:</label>
-            <div class="col-sm-10" id="tags">
-                {% for tag in tags %}
-                    <div class="container col-sm-10">
-                        <input type="text" maxlength="30" class="col-sm-6 typeahead" value="{{ tag.val }}"
-                               placeholder="Введите тэг" autocomplete="off">
-                        {% if tag.num != 0 %}
-                            <span class="glyphicon glyphicon-remove"></span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <script>
-                    $('#tags span').click(function(e){
-                        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-                    });
-                </script>
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="tags">Тэги:</label>
+            <div class="container">
+                <div class="container col-xs-offset-2 col-xs-10" id="tags">
+                    {% for tag in tags %}
+                        <div class="row">
+                            <input type="text" maxlength="30" class="typeahead col-xs-6" value="{{ tag.val }}"
+                                   placeholder="Введите тэг" autocomplete="off">
+                            {% if tag.num != 0 %}
+                                <span class="glyphicon glyphicon-remove"></span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <script>
+                        $('#tags span').click(function(e){
+                            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+                        });
+                    </script>
+                </div>
             </div>
-            <a class="col-sm-offset-2 col-sm-6" id="create_tag">Создать тэг</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="tags_errors" hidden>Заполните поля тэгов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_tag">Создать тэг</a>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="tags_errors" hidden>Заполните поля тэгов</div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="level">Уровень:</label>
-            <div class="col-sm-6">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="level">Уровень:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <select id="level">
                     {% if task.level == 1 %}
                         <option selected value="1">Low</option>
@@ -66,24 +69,24 @@
             </div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="markdown">Условие:</label>
-            <div class="col-sm-6">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="markdown">Условие:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <textarea class="dropZone" name="condition" id="markdown">{{ task.condition }}</textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="markdown_errors" hidden>Заполните поле условия</div>
-            <div style="color: red" class="col-sm-offset-2 col-sm-10" class="dropError" hidden></div>
-            <div class="col-sm-offset-2 col-sm-10" id="progress" hidden>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div class="col-xs-offset-2 col-xs-6 dropError" style="color: red" hidden></div>
+            <div class="col-xs-offset-2 col-xs-6" id="progress" hidden>
                 Загрузка
                 <img src="{% static 'task/images/load.gif' %}"/>
             </div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="area">Область:</label>
-            <div class="col-sm-6">
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="area">Область:</label>
+            <div class="col-xs-offset-2 col-xs-10">
                 <select id="area">
                     {% if task.area == 1 %}
                         <option selected value="1">Java</option>
@@ -110,31 +113,33 @@
             </div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <label class="control-label col-sm-2" for="answers">Ответы:</label>
-            <div class="col-sm-7" id="answers">
-                {% for answer in answers %}
-                    <div class="container">
-                        <input type="text" maxlength="30" class="col-sm-6" value="{{ answer.val }}"
-                               placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px">
-                        {% if answer.num != 0 %}
-                            <span class="glyphicon glyphicon-remove col-sm-1"></span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <script>
-                    $('#answers span').click(function(e){
-                        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-                    });
-                </script>
+        <div class="row" style="margin: 5px">
+            <label class="control-label col-xs-2" for="answers">Ответы:</label>
+            <div class="container">
+                <div class="container col-xs-offset-2 col-xs-10" id="answers">
+                    {% for answer in answers %}
+                        <div class="row">
+                            <input class="col-xs-6" type="text" maxlength="30" value="{{ answer.val }}"
+                                   placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px; min-width: 200px">
+                            {% if answer.num != 0 %}
+                                <span class="glyphicon glyphicon-remove"></span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <script>
+                        $('#answers span').click(function(e){
+                            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+                        });
+                    </script>
+                </div>
             </div>
-            <a class="col-sm-offset-2 col-sm-10" id="create_answer">Создать ответ</a>
-            <div style="color: red" class="col-sm-offset-2 col-sm-6" id="answers_errors" hidden>Заполните поля ответов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_answer">Создать ответ</a>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="answers_errors" hidden>Заполните поля ответов</div>
         </div>
 
-        <div class="container" style="margin: 5px">
-            <div class="col-sm-offset-2 col-sm-6">
-                <button type="submit" class="btn btn-default" id="edit_button">Сохранить изменения</button>
+        <div style="margin: 5px;">
+            <div class="col-xs-offset-2 col-xs-6">
+                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="edit_button">Сохранить изменения</button>
             </div>
         </div>
 
@@ -142,103 +147,5 @@
 
         <script src="{% static 'task/js/Settings.js' %}"></script>
     </div>
-
-
-{#    <div class="container">#}
-{#        {% if form.non_field_errors %}#}
-{#            {{ form.non_field_errors }}#}
-{#        {% endif %}#}
-{#        <h1>Редактирование задачи</h1>#}
-{#        <form class="form-horizontal" role="form" method="post" action="">#}
-{#            {% csrf_token %}#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="username">Название:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ form.task_name }}#}
-{#                </div>#}
-{#                {% if form.task_name.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.task_name.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if form.task_name.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ form.task_name.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="email">Тэги:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ form.tags }}#}
-{#                </div>#}
-{#                {% if form.tags.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.tags.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if form.tags.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ form.tags.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="email">Уровень:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ form.level }}#}
-{#                </div>#}
-{#                {% if form.level.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.level.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if form.level.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ form.level.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="pa">Условие:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ form.condition }}#}
-{#                    {% markdown_editor "#new" %}#}
-{#                    {% markdown_media %}#}
-{#                </div>#}
-{#                {% if form.condition.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.condition.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if form.condition.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ form.condition.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="pwd2">Область:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ form.area }}#}
-{#                </div>#}
-{#                {% if form.area.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ form.area.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if form.area.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ form.area.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <label class="control-label col-sm-3" for="pwd2">Ответ:</label>#}
-{#                <div class="col-sm-9">#}
-{#                    {{ answer_form.text }}#}
-{#                </div>#}
-{#                {% if answer_form.text.help_text %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9 help-block">{{ answer_form.text.help_text }}</div>#}
-{#                {% endif %}#}
-{#                {% if answer_form.text.errors %}#}
-{#                    <div class="col-sm-offset-3 col-sm-9">{{ answer_form.text.errors }}</div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div class="form-group">#}
-{#                <div class="col-sm-offset-3 col-sm-9">#}
-{#                    <button type="submit" class="btn btn-default">Сохранить изменения</button>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </form>#}
-{#    </div>#}
 
 {% endblock %}

@@ -28,9 +28,9 @@
                 <p>
                     <a href="{% url 'task:solve_task' pk=result.object.pk %}">{{ result.object.task_name }}</a>
                 </p>
-                <div>
-                    {{ result.object.condition | markdown }}
-                </div>
+{#                <div style="width: 400px; height: 200px">#}
+{#                    {{ result.object.condition | markdown }}#}
+{#                </div>#}
                 <hr>
             {% empty %}
                 <p>No results found.</p>

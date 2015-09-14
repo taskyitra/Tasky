@@ -49,6 +49,13 @@ class SolvingManager(models.Manager):
     def is_first_solving(self, task):
         return len(super(SolvingManager, self).filter(task=task)) == 1
 
+    def percentage_for_task(self, task):
+        if super(SolvingManager, self).filter(task=task).exists():
+            return int((len(super(SolvingManager, self).filter(task=task, is_solved=True)) /
+                        len(super(SolvingManager, self).filter(task=task))) * 100)
+        else:
+            return 0
+
 
 class Solving(models.Model):
     user = models.ForeignKey(User)
@@ -73,7 +80,7 @@ class RatingManager(models.Manager):
     def average_rating_for_task(self, task):
         ratings = super(RatingManager, self).filter(task=task)
         if ratings.exists():
-            return sum([x.mark for x in ratings]) / len(ratings)
+            return round(sum([x.mark for x in ratings]) / len(ratings), 2)
         else:
             return 0
 

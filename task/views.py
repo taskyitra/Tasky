@@ -23,6 +23,13 @@ cloudinary.config(
     api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
 )
 
+
+class TaskStatistic(object):
+    def __init__(self, rating, percentage):
+        self.percentage = percentage
+        self.rating = rating
+
+
 def set_achievements_at_creation(user):
     achivements_names = {5: 'Creator1', 10: 'Creator2'}
     count = Task.objects.count_tasks_for_user(user)
@@ -135,6 +142,12 @@ def my_tasks(request):
     return render(request, 'task/my_tasks.html', {'tasks': user_tasks})
 
 
+def task_statistics(task):
+    statistic = TaskStatistic(Rating.objects.average_rating_for_task(task),
+                              Solving.objects.percentage_for_task(task))
+    return statistic
+
+
 @login_required
 def solve_task(request, pk):
     task = Task.objects.filter(pk=pk).first()
@@ -147,7 +160,9 @@ def solve_task(request, pk):
         return render(request, 'task/solve.html', {'form': None, 'task': task,
                                                    'is_old_solving': is_old_solving,
                                                    'comments': comments,
-                                                   'user_mark_for_task': did_he_put_mark})
+                                                   'user_mark_for_task': did_he_put_mark,
+                                                   'tags': task.tags.all(),
+                                                   'statistics': task_statistics(task)})
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -165,14 +180,18 @@ def solve_task(request, pk):
                     set_achievements_at_decision(request.user, task)
                     return render(request, 'task/solve.html', {'form': None, 'task': task, 'is_old_solving': False,
                                                                'comments': comments,
-                                                               'user_mark_for_task': did_he_put_mark})
+                                                               'user_mark_for_task': did_he_put_mark,
+                                                               'tags': task.tags.all(),
+                                                               'statistics': task_statistics(task)})
             except Exception as e:
                 print(e)
     else:
         form = AnswerForm
     return render(request, 'task/solve.html', {'form': form, 'task': task,
                                                'comments': comments,
-                                               'did_user_put': did_he_put_mark})
+                                               'did_user_put': did_he_put_mark,
+                                               'tags': task.tags.all(),
+                                               'statistics': task_statistics(task)})
 
 
 @login_required

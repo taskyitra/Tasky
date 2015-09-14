@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.forms.forms import NON_FIELD_ERRORS
 import cloudinary
 from cloudinary.uploader import upload
+from Tasky import settings
 
 from comments.models import Comment
 from task.forms import AnswerForm
@@ -25,13 +26,14 @@ cloudinary.config(
 
 
 class TaskStatistic(object):
-    def __init__(self, rating, percentage):
+    def __init__(self, rating, percentage, attempts):
         self.percentage = percentage
         self.rating = rating
+        self.attempts = attempts
 
 
 def set_achievements_at_creation(user):
-    achivements_names = {5: 'Creator1', 10: 'Creator2'}
+    achivements_names = {5: 'Creator1', 10: 'Creator2', 20: 'Creator3', 30: 'Creator4'}
     count = Task.objects.count_tasks_for_user(user)
     print(count)
     if count in achivements_names.keys():
@@ -43,7 +45,7 @@ def set_achievements_at_creation(user):
 
 
 def set_achievements_at_decision(user, task):
-    achivements_names = {5: 'Solver1', 10: 'Solver2'}
+    achivements_names = {5: 'Solver1', 10: 'Solver2', 20: 'Solver3', 30: 'Solver4'}
     count = Solving.objects.count_solves_for_user(user)
     if count in achivements_names.keys():
         profile = UserProfile.objects.get_or_create_profile(user)
@@ -144,7 +146,8 @@ def my_tasks(request):
 
 def task_statistics(task):
     statistic = TaskStatistic(Rating.objects.average_rating_for_task(task),
-                              Solving.objects.percentage_for_task(task))
+                              Solving.objects.percentage_for_task(task),
+                              Solving.objects.attempts_for_task(task))
     return statistic
 
 
@@ -153,7 +156,9 @@ def solve_task(request, pk):
     task = Task.objects.filter(pk=pk).first()
     if task.user == request.user:
         return edit(request, pk)
-    comments = Comment.objects.filter(task=task)
+    func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
+    comments = [{'comment': comment, 'url': func(UserProfile.objects.get_or_create_profile(comment.user).pictureUrl)} for
+                comment in Comment.objects.filter(task=task)]
     did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
     is_old_solving = Solving.objects.filter(task=task, user=request.user, is_solved=True).exists()
     if is_old_solving:
@@ -196,6 +201,7 @@ def solve_task(request, pk):
 
 @login_required
 def put_mark_for_task(request):
+    average_rating = 0
     try:
         if request.is_ajax():
             posts_count = request.POST
@@ -209,10 +215,11 @@ def put_mark_for_task(request):
             mark = json_obj['mark']
             rating = Rating(user=user, task=task, mark=mark)
             rating.save()
+            average_rating = Rating.objects.average_rating_for_task(task)
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
-    return HttpResponse(status=200)
+    return HttpResponse(average_rating, status=200)
 
 
 @login_required

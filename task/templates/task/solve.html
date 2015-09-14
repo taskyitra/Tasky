@@ -35,53 +35,50 @@
                 </div>
             </div>
             <hr/>
-            <div>
-                <div class="col-xs-3" align="center">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3" align="center">
+                    <div>
+                        <p>Уровень</p>
+                        {% if task.level == 1 %}
+                            <p>Low</p>
+                        {% elif task.level == 2 %}
+                            <p>Middle</p>
+                        {% else %}
+                            <p>High</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-xs-12  col-sm-3" align="center">
                     <div>
                         <p>Рейтинг</p>
-                        <p><img src="{% static 'task/images/star.png' %}"/>{{ statistics.rating }}</p>
+                        <p>
+                            <img src="{% static 'task/images/star.png' %}"/>
+                            <label id="current_task_rating">{{ statistics.rating }}</label>
+                        </p>
                     </div>
-
-{#                    <span class="glyphicon glyphicon-time"></span>#}
-{#                    {{ statistics.rating }}#}
                 </div>
-                <div class="col-xs-3" align="center">
+                <div class="col-xs-12 col-sm-3" align="center">
                     <div>
                         <p>Процент правильных ответов</p>
                         <p>{{ statistics.percentage }}%</p>
                     </div>
                 </div>
-                <div class="col-xs-3" align="center">
+                <div class="col-xs-12 col-sm-3" align="center">
                     <div>
-                        <p>Рейтинг</p>
-                        <p>{{ statistics.rating }}</p>
-                    </div>
-                </div>
-                <div class="col-xs-3" align="center">
-                    <div>
-                        <p>Рейтинг</p>
-                        <p>{{ statistics.rating }}</p>
+                        <p>Попыток решения</p>
+                        <p>{{ statistics.attempts}}</p>
                     </div>
                 </div>
             </div>
-
-
-            <br>
-            <hr/>
-
-            <div class="container">
+            <hr>
+            <div class="row">
                 <label class="control-label col-sm-2" for="condition">Условие:</label>
-                <div class="col-sm-9">
+                <div class="col-sm-10">
                     {{ task.condition | markdown }}
                 </div>
             </div>
 
             {% if form %}
-                <div class="col-sm-offset-2 col-sm-9 help-block">
-                    {% if form.non_field_errors %}
-                        {{ form.non_field_errors }}
-                    {% endif %}
-                </div>
                 <form class="form-horizontal" role="form" method="post" action="">
                     {% csrf_token %}
 
@@ -105,8 +102,14 @@
                     </div>
 
                 </form>
+
+                <div class="col-sm-offset-2 col-sm-9" style="color: red">
+                    {% if form.non_field_errors %}
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                </div>
             {% else %}
-                <div class="container">
+                <div>
                     {% if is_old_solving %}
                         <p>Вы уже решили эту задачу</p>
                     {% else %}
@@ -144,8 +147,8 @@
                     {% endif %}
                 </div>
             {% endif %}
+        <hr>
         </div>
-
         {% include 'comments/show_comments.html' %}
     </div>
 {% endblock %}

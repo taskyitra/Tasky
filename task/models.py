@@ -56,6 +56,9 @@ class SolvingManager(models.Manager):
         else:
             return 0
 
+    def attempts_for_task(self, task):
+        return len(super(SolvingManager, self).filter(task=task))
+
 
 class Solving(models.Model):
     user = models.ForeignKey(User)

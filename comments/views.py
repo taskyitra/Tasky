@@ -1,15 +1,17 @@
+from datetime import tzinfo
 import json
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
+
 from comments.models import Comment
-from task.models import Task, Solving
+from task.models import Task
 from user_account.models import UserProfile, Achievement, AchievementsSettings
 
 
 def set_achievements_at_commenting(user):
-    achivements_names = {5: 'Commentator1', 10: 'Commentator2'}
+    achivements_names = {5: 'Commentator1', 10: 'Commentator2', 20: 'Commentator3', 30: 'Commentator4'}
     count = Comment.objects.count_comments_for_user(user)
     if count in achivements_names.keys():
         profile = UserProfile.objects.get_or_create_profile(user)
@@ -22,6 +24,8 @@ def set_achievements_at_commenting(user):
 @login_required
 @csrf_protect
 def add(request):
+    comment = None
+    func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
     try:
         if request.is_ajax():
             posts_count = request.POST
@@ -36,7 +40,10 @@ def add(request):
             comment = Comment(user=request.user, task=task, text=text)
             comment.save()
             set_achievements_at_commenting(request.user)
+            comment = {"username": request.user.username, 'pk': request.user.pk,
+                       "url": func(UserProfile.objects.get_or_create_profile(request.user).pictureUrl),
+                       'time': comment.creation_time}
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
-    return HttpResponse(status=200)
+    return JsonResponse(comment, status=200)

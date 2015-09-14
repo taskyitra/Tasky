@@ -11,7 +11,7 @@ class CommentManager(models.Manager):
 class Comment(models.Model):
     user = models.ForeignKey(User)
     task = models.ForeignKey(Task)
-    text = models.CharField(max_length=100)
+    text = models.CharField(max_length=300)
     creation_time = models.DateTimeField(auto_now_add=True)
     objects = CommentManager()
 

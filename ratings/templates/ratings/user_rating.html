@@ -6,17 +6,26 @@
 
 {% block content %}
     <div class="container">
-        <table class="table table-striped table-hover table-bordered">
+        <table class="table table-striped table-hover table-bordered" id="user_table">
             <thead>
                 <th>Name</th>
-                <th>Rating</th>
+                <th>Solved</th>
+                <th>Attempts</th>
+                <th>Accuracy</th>
             </thead>
             {% for user in users %}
                 <tr>
-                    <th>{{ user.user }}</th>
-                    <th>{{ user.rating }}</th>
+                    <th>{{ user }}</th>
+                    <th>{{ user.solved }}</th>
+                    <th>{{ user.attempts }}</th>
+                    <th>{{ user.accuracy }}</th>
                 </tr>
             {% endfor %}
         </table>
+        <script>
+            $(function(){
+                $("#user_table").dataTable();
+            })
+        </script>
     </div>
 {% endblock %}

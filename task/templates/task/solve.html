@@ -28,9 +28,9 @@
                  style="padding-bottom: 1px; height: 30px">
                 <div class="tags">
                     {% for tag in tags %}
-                            <div class="tag label btn-info md">
-                                <a href="#"><span>{{ tag.tag_name }}</span></a>
-                            </div>
+                        <div class="tag label btn-info md">
+                            <a href="#"><span>{{ tag.tag_name }}</span></a>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -48,7 +48,21 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-xs-12  col-sm-3" align="center">
+                <div class="col-xs-12 col-sm-2" align="center">
+                    <div>
+                        <p>Область</p>
+                        {% if task.area == 1 %}
+                            <p>Java</p>
+                        {% elif task.area == 2 %}
+                            <p>C#</p>
+                        {% elif task.area == 3 %}
+                            <p>Python</p>
+                        {% else %}
+                            <p>Ruby</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-xs-12  col-sm-2" align="center">
                     <div>
                         <p>Рейтинг</p>
                         <p>
@@ -63,7 +77,7 @@
                         <p>{{ statistics.percentage }}%</p>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-3" align="center">
+                <div class="col-xs-12 col-sm-2" align="center">
                     <div>
                         <p>Попыток решения</p>
                         <p>{{ statistics.attempts}}</p>

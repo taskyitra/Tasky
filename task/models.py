@@ -59,6 +59,19 @@ class SolvingManager(models.Manager):
     def attempts_for_task(self, task):
         return len(super(SolvingManager, self).filter(task=task))
 
+    def percentage_for_user(self, user):
+        if super(SolvingManager, self).filter(user=user).exists():
+            return int((len(super(SolvingManager, self).filter(user=user, is_solved=True)) /
+                        len(super(SolvingManager, self).filter(user=user))) * 100)
+        else:
+            return 0
+
+    def rating_for_user(self, user):
+        summa = 0
+        for solving in super(SolvingManager, self).filter(user=user, is_solved=True):
+            summa += solving.level
+        return summa
+
 
 class Solving(models.Model):
     user = models.ForeignKey(User)

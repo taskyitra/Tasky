@@ -9,85 +9,96 @@
     <title>Главная</title>
     {% endblock %}
     {% block bootstrap %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-{#        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-editable.css' %}">#}
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.css' %}">
         <script src="{% static 'js/jquery-1.11.3.js' %}"></script>
         <script src="{% static 'js/AjaxConfig.js' %}"></script>
         <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-{#        <script src="{% static 'bootstrap/js/bootstrap-editable.js' %}"></script>#}
+        <script src="{% static 'bootstrap/js/bootstrap-tags.js' %}"></script>
         <script src="{% static 'js/jquery.jeditable.js' %}"></script>
         <script src="{% static 'js/typeahead.bundle.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/navbar_styles.css' %}">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="stylesheet" href="{% static 'DataTables-1.10.9/media/css/jquery.dataTables.css' %}">
         <script src="{% static 'DataTables-1.10.9/media/js/jquery.dataTables.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-tags.css' %}">
     {% endblock %}
     {% block styling %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'homepage' %}">Tasky</a>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <form method="get" action="/search/" class="pull-right search-form" role="search">
+                    <div class="form-group">
+                        <input type="text" name="q" class="form-control search_input" placeholder="Поиск по сайту...">
+                    </div>
+                    <button type="submit" class="search_button btn btn-theme">Go</button>
+                </form>
             </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="{% url 'homepage' %}">Главная</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Рейтинги<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'ratings:user_rating' %}">
-                                Рейтинг пользователей
-                            </a></li>
-                            <li><a href="{% url 'ratings:task_rating' %}">
-                                Рейтинг задач
-                            </a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">О нас</a></li>
-                </ul>
-                {% if not user.is_authenticated %}
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'registration_register' %}">
-                            <span class="glyphicon glyphicon-user"></span>Регистрация
-                        </a></li>
-                        <li><a href="{% url 'auth_login' %}">
-                            <span class="glyphicon glyphicon-log-in"></span>Войти
-                        </a></li>
-                    </ul>
-                {% else %}
-                    <ul class="nav navbar-nav navbar-right">
+        </div>
+        <nav class="navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'homepage' %}">Tasky</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item"><a href="{% url 'homepage' %}">Главная</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                {{ user.username }}<span class="caret"></span>
+                                Рейтинги<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
-                                <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
-                                <li><a href="#">Настройки</a></li>
-                                <li class="divider"></li>
-                                <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
+                                <li><a href="{% url 'ratings:user_rating' %}">
+                                    Рейтинг пользователей
+                                </a></li>
+                                <li><a href="{% url 'ratings:task_rating' %}">
+                                    Рейтинг задач
+                                </a></li>
                             </ul>
                         </li>
+                        <li><a href="#">О нас</a></li>
                     </ul>
-                {% endif %}
+                    {% if not user.is_authenticated %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url 'registration_register' %}">
+                                <span class="glyphicon glyphicon-user"></span>Регистрация
+                            </a></li>
+                            <li><a href="{% url 'auth_login' %}">
+                                <span class="glyphicon glyphicon-log-in"></span>Войти
+                            </a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    {{ user.username }}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
+                                    <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
+                                    <li><a href="#">Настройки</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    {% if user.is_authenticated %}
-        <div class="col-xs-2 navbar-default pull-right" style="width: 200px;height: 400px">
-            <div class="container">
-                <p>asd</p>
-                <p>zxc</p>
-                <p>123</p>
-                <p>1111111</p>
-            </div>
-        </div>
-    {% endif %}
-    <div class="col-xs-10">
+    <div class="container">
         {% block content %}
             <div class="container">
                 {% for task in tasks %}
@@ -99,6 +110,17 @@
                 {% endfor %}
             </div>
         {% endblock %}
+    </div>
+
+    <div class="container">
+        <footer>
+            <div class="row">
+                <hr>
+                <div class="col-xs-12">
+                    <p>Copyright © Tasky 2015</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
 </body>

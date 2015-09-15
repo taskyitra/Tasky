@@ -39,8 +39,11 @@ function setDefaultRatingSettings(userid, taskid){
             type: 'POST',
             data: json,
             success: function (mess) {
+                console.log("asd");
                 $('#rating_info').append("<h5> Вы оценили задачу на "+ user_votes + "</h5>");
-                $("#rating_load").remove()
+                $("#rating_load").remove();
+                $('#current_task_rating').text("" + mess);
+                console.log(mess);
             },
             error: function(mess){
 

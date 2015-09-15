@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from Tasky import settings
+from task.models import Task, Solving, Tag
 from user_account.models import UserProfile, Achievement, AchievementsSettings
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import cloudinary
@@ -102,7 +103,17 @@ def user(request, pk):
     try:
         found_user = User.objects.get(pk=pk)
         profile = UserProfile.objects.get_or_create_profile(found_user)
+        statistics = {'task_count': Task.objects.count_tasks_for_user(found_user),
+                      'percentage': Solving.objects.percentage_for_user(found_user),
+                      'rating': Solving.objects.rating_for_user(found_user)}
+        tasks = [{'task': task, 'tags': task.tags.all()} for task in Task.objects.filter(user=found_user)]
+        achievements = [
+            {'achieve': ach.achievement, 'count': ach.count,
+             'is': ach.achievement.name == 'First'} for ach in
+            AchievementsSettings.objects.filter(userProfile=profile)]
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
-    return render(request, 'user_account/user.html', {'founduser': found_user, 'profile': profile})
+    return render(request, 'user_account/user.html', {'founduser': found_user, 'profile': profile,
+                                                      'statistic': statistics, 'tasks': tasks,
+                                                      'achievements': achievements})

@@ -27,7 +27,8 @@ urlpatterns = patterns('',
                        url(r'^task/', include('task.urls', namespace='task')),
                        url(r'^comments/', include('comments.urls', namespace='comments')),
                        url(r'^user_account/', include('user_account.urls', namespace='user_account')),
-                       url(r'^ratings/', include('ratings.urls', namespace='ratings')),
+                       url(r'^search/', include('haystack.urls')),
+                       url(r'^ratings/', include('ratings.urls', namespace='ratings'))
                        )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

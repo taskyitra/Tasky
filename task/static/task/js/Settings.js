@@ -17,8 +17,8 @@ $('#create_tag').click(function(e){
     var div = document.createElement("div");
     var span = document.createElement("span");
     var input = document.createElement("input");
-    div.className = "container col-sm-10";
-    input.className = "typeahead col-sm-6";
+    div.className = "row";
+    input.className = "typeahead col-xs-6";
     input.maxLength = 30;
     input.type = "text";
     input.placeholder = "Введите тэг";
@@ -38,8 +38,8 @@ $('#create_tag').click(function(e){
         var div1 = document.createElement("div");
         var span1 = document.createElement("span");
         var input1 = document.createElement("input");
-        div1.className = "container col-sm-10";
-        input1.className = "typeahead col-sm-6";
+        div1.className = "row";
+        input1.className = "typeahead col-xs-6";
         input1.maxLength = 30;
         input1.type = "text";
         input1.placeholder = "Введите тэг";
@@ -68,14 +68,14 @@ $('#create_answer').click(function(e){
     var div = document.createElement("div");
     var span = document.createElement("span");
     var input = document.createElement("input");
-    div.className = "container";
-    input.className = "col-sm-6";
+    div.className = "row";
+    input.className = "col-xs-6";
     input.maxLength = 30;
     input.type = "text";
     input.placeholder = "Введите ответ";
     input.autocomplete = "off";
     input.style.marginBottom = "5px";
-    span.className = "glyphicon glyphicon-remove col-sm-1";
+    span.className = "glyphicon glyphicon-remove";
     span.onclick = function(e){
         span.parentNode.parentNode.removeChild(span.parentNode);
     };

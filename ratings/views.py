@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from task.models import Task, Answer, Solving, Rating, Tag
-from copy import copy
+import math
 
 
 def task_rating(request):
@@ -25,5 +25,7 @@ def user_rating(request):
         if solution.is_solved:
             user_info[solution.user].solved += 1
         user_info[solution.user].attempts += 1
-        user_info[solution.user].accuracy = user_info[solution.user].solved / user_info[solution.user].attempts * 100
+        user_info[solution.user].accuracy = math.ceil(
+            100 * user_info[solution.user].solved / user_info[solution.user].attempts
+        )
     return render(request, 'ratings/user_rating.html', {'users': user_info.values()})

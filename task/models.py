@@ -72,6 +72,9 @@ class SolvingManager(models.Manager):
             summa += solving.level
         return summa
 
+    def attempts_count(self, user, task):
+        return len(super(SolvingManager, self).filter(user=user, task=task))
+
 
 class Solving(models.Model):
     user = models.ForeignKey(User)

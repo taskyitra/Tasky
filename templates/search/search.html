@@ -1,35 +1,37 @@
 {% extends 'base.html' %}
 {% load django_markdown %}
 
+{% block title %}
+    <title>Поиск</title>
+{% endblock %}
+
 {% block content %}
-    <h2>Поиск</h2>
-
-    <form method="get" action=".">
-        <table>
-{#            {{ form.as_table }}#}
-            <tr>
-                <th>Найти:</th>
-                <td>
-                    <input id="id_q" name="q" type="search" value="{{ query }}">
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Поиск">
-                </td>
-            </tr>
-        </table>
-
         {% if query %}
-            <h3>Results</h3>
+            <h3>Результаты поиска {{ query }}</h3>
 
             {% for result in page.object_list %}
-                <p>
-                    <a href="{% url 'task:solve_task' pk=result.object.pk %}">{{ result.object.task_name }}</a>
-                </p>
-{#                <div style="width: 400px; height: 200px">#}
-{#                    {{ result.object.condition | markdown }}#}
+                <h5>
+                    {% if founduser.pk == user.pk %}
+                        <a href="{% url 'task:edit' pk=result.object.pk %}">{{ result.object.task_name }}</a>
+                    {% else %}
+                        <a href="{% url 'task:solve_task' pk=result.object.pk %}">{{ result.object.task_name }}</a>
+                    {% endif %}
+                    <label>
+                        |создал <a href="{% url 'user_account:user' pk=result.object.user.pk %}">
+                            {{ result.object.user }}
+                        </a>
+                        <span class="glyphicon glyphicon-time"></span> {{ result.object.creation_date }}
+                    </label>
+                </h5>
+{#                <div id="readOnly" class="bootstrap-tags bootstrap-3"#}
+{#                     style="padding-bottom: 1px; height: 30px">#}
+{#                    <div class="tags">#}
+{#                        {% for tag in tags %}#}
+{#                            <div class="tag label btn-info md">#}
+{#                                <a href="#"><span>{{ tag.tag_name }}</span></a>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
 {#                </div>#}
                 <hr>
             {% empty %}
@@ -46,5 +48,4 @@
         {% else %}
             <h3>Введите искомое слово</h3>
         {% endif %}
-    </form>
 {% endblock %}

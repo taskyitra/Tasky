@@ -139,13 +139,55 @@
 
         <div style="margin: 5px;">
             <div class="col-xs-offset-2 col-xs-6">
-                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="edit_button">Сохранить изменения</button>
+                <button type="submit" style="margin-bottom: 5px" class="btn btn-primary" id="edit_button">Сохранить изменения</button>
+            </div>
+        </div>
+
+        <div style="margin: 5px;">
+            <div class="col-xs-offset-2 col-xs-6">
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Удалить</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Удаление задачи</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы действительно хотите удалить задачу?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delete_task" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Отменить</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <input id="pk" hidden value="{{ task.pk }}"/>
 
         <script src="{% static 'task/js/Settings.js' %}"></script>
+        <script>
+            $('#delete_task').click(function (e) {
+                $.ajax({
+                    url: "/task/delete/",
+                    type: 'POST',
+                    data: {'pk': $('#pk').val()},
+                    success: function (mess) {
+                        document.location.href = "/user_account/user/" + mess + "/";
+                    },
+                    error: function(mess){
+                        console.log("Error");
+                    }
+                });
+                console.log("del");
+            })
+        </script>
     </div>
 
 {% endblock %}

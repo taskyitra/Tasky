@@ -28,9 +28,11 @@
                  style="padding-bottom: 1px; height: 30px">
                 <div class="tags">
                     {% for tag in tags %}
-                        <div class="tag label btn-info md">
-                            <a href="#"><span>{{ tag.tag_name }}</span></a>
-                        </div>
+                        <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                            <div class="tag label btn-info sm">
+                                <span>{{ tag.tag_name }}</span>
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>
@@ -93,7 +95,7 @@
             </div>
 
             {% if form %}
-                <form class="form-horizontal" role="form" method="post" action="">
+                <form class="form-horizontal" role="form" method="post" action="" autocomplete="off">
                     {% csrf_token %}
 
                     <div class="form-group">

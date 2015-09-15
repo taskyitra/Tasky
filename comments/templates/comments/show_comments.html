@@ -35,6 +35,9 @@
     <script>
         $('#add_comment').click(function(e){
             var text = $('#comment').val();
+            if(text.length == 0){
+                return;
+            }
             console.log(text);
             var pk = parseInt({{ task.pk }});
             var json = JSON.stringify({

@@ -83,8 +83,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'task:create' %}">Создать задачу</a></li>
-                                    <li><a href="{% url 'task:my_tasks' %}">Мои задачи</a></li>
-                                    <li><a href="#">Настройки</a></li>
+                                    <li><a href="{% url 'user_account:user' pk=user.pk %}">Профиль</a></li>
                                     <li class="divider"></li>
                                     <li><a href="{% url 'auth_logout' %}">Выйти</a></li>
                                 </ul>

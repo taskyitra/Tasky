@@ -13,6 +13,8 @@ from Tasky import settings
 from task.models import Task, Solving
 from user_account.models import UserProfile, Achievement, AchievementsSettings
 
+from django.utils.translation import activate
+
 cloudinary.config(
     cloud_name="dmt04dtgy",
     api_key="326982618723938",
@@ -103,6 +105,7 @@ def generate_picture(request):
 
 @login_required
 def user(request, pk):
+    # activate('en')
     try:
         found_user = User.objects.get(pk=pk)
         profile = UserProfile.objects.get_or_create_profile(found_user)

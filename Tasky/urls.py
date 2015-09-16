@@ -14,21 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url, patterns
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from Tasky import settings
 
-urlpatterns = patterns('',
-                       url('', include('social.apps.django_app.urls', namespace='social')),
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^$', 'Tasky.views.index', name='homepage'),
-                       url(r'^accounts/', include('registration.backends.default.urls')),
-                       url(r'^markdown/', include('django_markdown.urls')),
-                       url(r'^task/', include('task.urls', namespace='task')),
-                       url(r'^comments/', include('comments.urls', namespace='comments')),
-                       url(r'^user_account/', include('user_account.urls', namespace='user_account')),
-                       url(r'^search/', include('haystack.urls')),
-                       url(r'^ratings/', include('ratings.urls', namespace='ratings'))
-                       )
+urlpatterns = i18n_patterns('',
+                            url('', include('social.apps.django_app.urls', namespace='social')),
+                            url(r'^admin/', include(admin.site.urls)),
+                            url(r'^$', 'Tasky.views.index', name='homepage'),
+                            url(r'^accounts/', include('registration.backends.default.urls')),
+                            url(r'^markdown/', include('django_markdown.urls')),
+                            url(r'^task/', include('task.urls', namespace='task')),
+                            url(r'^comments/', include('comments.urls', namespace='comments')),
+                            url(r'^user_account/', include('user_account.urls', namespace='user_account')),
+                            url(r'^search/', include('haystack.urls')),
+                            url(r'^ratings/', include('ratings.urls', namespace='ratings')),
+                            )
+
+urlpatterns += patterns(
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

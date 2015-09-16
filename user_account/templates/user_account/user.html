@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block title %}<title>{{ founduser.username }}</title>{% endblock %}
 
 {% block content %}
+    <p>{% trans "QWERTY" %}</p>
     <div style="margin-top: 5px">
         <div>
             <div class="media">

@@ -1,15 +1,17 @@
 from __future__ import print_function
 import os
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from Tasky import settings
-from task.models import Task, Solving, Tag
-from user_account.models import UserProfile, Achievement, AchievementsSettings
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import cloudinary
 from cloudinary.uploader import upload
+
+from Tasky import settings
+from task.models import Task, Solving
+from user_account.models import UserProfile, Achievement, AchievementsSettings
 
 cloudinary.config(
     cloud_name="dmt04dtgy",
@@ -51,11 +53,12 @@ def generate_picture(request):
         image = Image.new("RGB", (450, 470), color=(180, 180, 180))
         draw = ImageDraw.Draw(image)
         color = (94, 73, 15)
-        username = ((10, 10), "Stanislau")
-        create = ((10, 50), "Создано задач: 5")
-        solved = ((10, 70), "Решено задач: 5")
-        percentage = ((10, 90), "Процент правильных ответов: 33%")
-        rating = ((10, 110), "Рейтинг: 233")
+        username = ((10, 10), request.user.username)
+        create = ((10, 50), "Создано задач: {}".format(Task.objects.count_tasks_for_user(request.user)))
+        solved = ((10, 70), "Решено задач: {}".format(Solving.objects.count_solves_for_user(request.user)))
+        percentage = (
+            (10, 90), "Процент правильных ответов: {}%".format(Solving.objects.percentage_for_user(request.user)))
+        rating = ((10, 110), "Рейтинг: {}".format(Solving.objects.rating_for_user(request.user)))
         header_font_size, statistic_font_size = 30, 15
         header_font = ImageFont.truetype("arial.ttf", header_font_size)
         statistic_font = ImageFont.truetype("arial.ttf", statistic_font_size)
@@ -105,15 +108,22 @@ def user(request, pk):
         profile = UserProfile.objects.get_or_create_profile(found_user)
         statistics = {'task_count': Task.objects.count_tasks_for_user(found_user),
                       'percentage': Solving.objects.percentage_for_user(found_user),
-                      'rating': Solving.objects.rating_for_user(found_user)}
+                      'rating': Solving.objects.rating_for_user(found_user),
+                      'solved_task_count': Solving.objects.count_solves_for_user(found_user)}
         tasks = [{'task': task, 'tags': task.tags.all()} for task in Task.objects.filter(user=found_user)]
         achievements = [
             {'achieve': ach.achievement, 'count': ach.count,
              'is': ach.achievement.name == 'First'} for ach in
             AchievementsSettings.objects.filter(userProfile=profile)]
+        solved_tasks = [{'task': solving.task, 'tags': solving.task.tags.all(),
+                         'count': Solving.objects.attempts_count(found_user, solving.task)}
+                        if solving.task else None  # {'task': None, 'tags': None,
+                        #                       'count': Solving.objects.attempts_count(found_user, solving.task)}
+                        for solving in Solving.objects.filter(user=found_user, is_solved=True)]
+        print(solved_tasks)
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
     return render(request, 'user_account/user.html', {'founduser': found_user, 'profile': profile,
                                                       'statistic': statistics, 'tasks': tasks,
-                                                      'achievements': achievements})
+                                                      'achievements': achievements, 'solved_tasks': solved_tasks})

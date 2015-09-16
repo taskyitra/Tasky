@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Поиск по тэгу</title>
+{% endblock %}
+
+{% block content %}
+        {% if tag %}
+            <h3>Результаты поиска по тэгу {{ tag }}</h3>
+
+            {% for task in tasks %}
+                <h5>
+                    {% if task.task.user.pk == user.pk %}
+                        <a href="{% url 'task:edit' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                    {% else %}
+                        <a href="{% url 'task:solve_task' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                    {% endif %}
+                    <label>
+                        |создал <a href="{% url 'user_account:user' pk=task.task.user.pk %}">
+                            {{ task.task.user }}
+                        </a>
+                        <span class="glyphicon glyphicon-time"></span> {{ task.task.creation_date }}
+                    </label>
+                </h5>
+                <div id="readOnly" class="bootstrap-tags bootstrap-3"
+                     style="padding-bottom: 1px; height: 30px">
+                    <div class="tags">
+                        {% for tag in task.tags %}
+                            <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                                <div class="tag label btn-info sm">
+                                    <span>{{ tag.tag_name }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr>
+            {% empty %}
+                <p>Нет результатов</p>
+            {% endfor %}
+        {% else %}
+            <h3>Введите искомый тэг</h3>
+        {% endif %}
+{% endblock %}

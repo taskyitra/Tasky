@@ -6,12 +6,12 @@ import base64
 from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import models
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.forms.forms import NON_FIELD_ERRORS
 import cloudinary
 from cloudinary.uploader import upload
-from Tasky import settings
 
 from comments.models import Comment
 from task.forms import AnswerForm
@@ -138,12 +138,6 @@ def edit(request, pk):
     return render(request, 'task/edit.html', {'task': task, 'answers': answers, 'tags': tags})
 
 
-@login_required
-def my_tasks(request):
-    user_tasks = Task.objects.filter(user=request.user)
-    return render(request, 'task/my_tasks.html', {'tasks': user_tasks})
-
-
 def task_statistics(task):
     statistic = TaskStatistic(Rating.objects.average_rating_for_task(task),
                               Solving.objects.percentage_for_task(task),
@@ -262,3 +256,30 @@ def add_picture(request):
         print(e)
         return HttpResponse(status=500)
     return HttpResponse(status=200)
+
+
+def delete_task(request):
+    try:
+        if request.method == 'POST':
+            pk = str(request.POST['pk'])
+            task = Task.objects.get(pk=pk)
+            if request.user != task.user:
+                raise Exception()
+            task.delete()
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    return HttpResponse(request.user.pk, status=200)
+
+
+def tasks_by_tag(request, tag):
+    try:
+        tag = Tag.objects.get(tag_name=tag)
+    except Tag.DoesNotExist as e:
+        print(e)
+        HttpResponse(status=500)
+    tasks = []
+    for task in Task.objects.all():
+        if tag in task.tags.all():
+            tasks.append({'task': task, 'tags': task.tags.all()})
+    return render(request, 'task/tasks_by_tag.html', {'tag': tag, 'tasks': tasks})

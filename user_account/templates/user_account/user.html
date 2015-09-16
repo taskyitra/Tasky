@@ -18,36 +18,28 @@
                 <div class="media-body">
                     <div class="row">
                         <h3 class="media-heading col-xs-12">
-                            <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="editable">{{ founduser.username }}</label>
-                            {% if user.pk == founduser.pk %}
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#editable').editable('/user_account/change_username/', {
-                                            submit  : 'OK',
-                                            style   : 'inherit',
-                                            callback : function(value, settings) {
-                                                $(document).prop('title', value);
-                                                return value;
-                                            }
-                                        })
-                                    });
-                                </script>
-                            {% endif %}
+                            <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="name">{{ founduser.username }}</label>
                         </h3>
                         <div class="col-xs-12">
-                            <div class="col-xs-12 col-sm-4" align="center">
+                            <div class="col-xs-12 col-sm-3" align="center">
                                 <p>Создал задач</p>
                                 <p>
                                     {{ statistic.task_count }}
                                 </p>
                             </div>
-                            <div class="col-xs-12 col-sm-4" align="center">
+                            <div class="col-xs-12 col-sm-3" align="center">
+                                <p>Решил задач</p>
+                                <p>
+                                    {{ statistic.solved_task_count }}
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" align="center">
                                 <p>Процент правильных ответов</p>
                                 <p>
                                     {{ statistic.percentage }}%
                                 </p>
                             </div>
-                            <div class="col-xs-12 col-sm-4" align="center">
+                            <div class="col-xs-12 col-sm-3" align="center">
                                 <p>Рейтинг</p>
                                 <p>
                                     {{ statistic.rating }}
@@ -64,9 +56,11 @@
                     {% if founduser.pk == user.pk %}
                         <li><a style="min-width: 150px" data-toggle="tab" href="#settings">Настройки</a></li>
                         <li class="active"><a style="min-width: 150px" data-toggle="tab" href="#tasks">Мои Задачи</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#solved_tasks">Решенные задачи</a></li>
                         <li><a style="min-width: 150px" data-toggle="tab" href="#ach">Мои Достижения</a></li>
                     {% else %}
                         <li class="active"><a style="min-width: 150px" data-toggle="tab" href="#tasks">Задачи</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#solved_tasks">Решенные задачи</a></li>
                         <li><a style="min-width: 150px" data-toggle="tab" href="#ach">Достижения</a></li>
                     {% endif %}
                 </ul>
@@ -93,6 +87,25 @@
                                 })
                             </script>
                         {% endif %}
+
+                        <div class="col-xs-3">
+                            <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="editable">{{ founduser.username }}</label>
+                            {% if user.pk == founduser.pk %}
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#editable').editable('/user_account/change_username/', {
+                                            submit  : 'OK',
+                                            style   : 'inherit',
+                                            callback : function(value, settings) {
+                                                $(document).prop('title', value);
+                                                $('#name').text(value);
+                                                return value;
+                                            }
+                                        })
+                                    });
+                                </script>
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div id="tasks" class="tab-pane fade in active">
@@ -112,13 +125,51 @@
                                  style="padding-bottom: 1px; height:30px">
                                 <div class="tags">
                                     {% for tag in task.tags %}
-                                            <div class="tag label btn-info sm">
-                                                <a href="#"><span>{{ tag.tag_name }}</span></a>
-                                            </div>
+                                            <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                                                <div class="tag label btn-info sm">
+                                                    <span>{{ tag.tag_name }}</span>
+                                                </div>
+                                            </a>
                                     {% endfor %}
                                 </div>
                             </div>
                             <hr>
+                        {% empty %}
+                            <p>Пользователь не создал ни одной задачи</p>
+                        {% endfor %}
+                    </div>
+
+                <div id="solved_tasks" class="tab-pane fade">
+                        {% for task in solved_tasks %}
+                            {% if task %}
+                                <h5>
+                                    {% if founduser.pk == user.pk %}
+                                        <a href="{% url 'task:edit' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                    {% else %}
+                                        <a href="{% url 'task:solve_task' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                    {% endif %}
+                                    <label>
+                                        |создана
+                                        <span class="glyphicon glyphicon-time"></span> {{ task.task.creation_date }}
+                                    </label>
+                                </h5>
+                                <div id="readOnly" class="bootstrap-tags bootstrap-3"
+                                     style="padding-bottom: 1px; height:30px">
+                                    <div class="tags">
+                                        {% for tag in task.tags %}
+                                                <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                                                    <div class="tag label btn-info sm">
+                                                        <span>{{ tag.tag_name }}</span>
+                                                    </div>
+                                                </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <h5>Количество попыток {{ task.count }}</h5>
+                                <hr>
+{#                            {% else %}#}
+{#                                <h5>Задача удалена создателем</h5>#}
+                            {% endif %}
                         {% empty %}
                             <p>Пользователь не создал ни одной задачи</p>
                         {% endfor %}

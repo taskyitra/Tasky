@@ -1,6 +1,5 @@
 from __future__ import print_function
 import os
-import random
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -9,13 +8,10 @@ from django.shortcuts import render
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import cloudinary
 from cloudinary.uploader import upload
-from django.utils import translation
 
 from Tasky import settings
 from task.models import Task, Solving
 from user_account.models import UserProfile, Achievement, AchievementsSettings
-
-from django.utils.translation import activate
 
 cloudinary.config(
     cloud_name="dmt04dtgy",

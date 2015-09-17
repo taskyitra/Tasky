@@ -33,7 +33,25 @@ INSTALLED_APPS = (
     'django_markdown',
     'user_account',
     'haystack',
+    'django_nose',
 )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+   '--with-coverage',  # activate coverage report
+    '--with-doctest',  # activate doctest: find and run docstests
+    '--verbosity=2',   # verbose output
+    '--with-xunit',    # enable XUnit plugin
+    '--xunit-file=xunittest.xml',  # the XUnit report file
+    '--cover-xml',     # produle XML coverage info
+    '--cover-xml-file=coverage.xml',  # the coverage info file
+    # '--cover-package=task.models'
+    # '--cover-package=task.views'
+    # '--cover-package=user_account.models'
+    # '--cover-package=user_account.views'
+    # '--cover-package=comments.models'
+    # '--cover-package=comments.views'
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

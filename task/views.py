@@ -6,7 +6,6 @@ import base64
 from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db import models
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.forms.forms import NON_FIELD_ERRORS

@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from task.models import Task
+from task.models import Task, Answer
+from user_account.models import UserProfile, Achievement, AchievementsSettings
 
 
 class TaskViewsTest(TestCase):
@@ -14,9 +15,17 @@ class TaskViewsTest(TestCase):
 
     def test_task_creating(self):
         resp = self.client.post(reverse('task:create'),
-                                {'task': ['{"task_name":"a","tags":["a","b"],"level":3,' +
+                                {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
                                           '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
         self.assertEqual(resp.status_code, 200)
+        task = Task.objects.filter(user=User.objects.get(pk=2)).last()
+        self.assertEqual(task.task_name, 'a')
+        self.assertEqual(len(task.tags.all()), 2)
+        self.assertEqual(len(Answer.objects.filter(task=task)), 3)
+        self.assertEqual(task.level, 3)
+        self.assertEqual(task.area, 2)
+        self.assertEqual(task.condition, 'abc')
+        self.assertEqual(task.user, User.objects.get(pk=2))
 
     def test_error_task_creating(self):
         resp = self.client.post(reverse('task:create'),
@@ -24,16 +33,48 @@ class TaskViewsTest(TestCase):
                                           '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
         self.assertEqual(resp.status_code, 500)
 
-    def test_task_editing(self):
+    def test_task_editing_get(self):
+        resp = self.client.post(reverse('task:create'),
+                                {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                          '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+        self.assertEqual(resp.status_code, 200)
+        task = Task.objects.filter(user=User.objects.get(pk=2)).last()
+        resp = self.client.get(
+            reverse('task:edit', kwargs={'pk': task.pk}),
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(('task' and 'answers' and 'tags') in resp.context)
+        self.assertEqual(len(resp.context['tags']), 2)
+        self.assertEqual(len(resp.context['answers']), 3)
+
+    def test_task_editing_post(self):
+        resp = self.client.post(reverse('task:create'),
+                                {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                          '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+        self.assertEqual(resp.status_code, 200)
+        task = Task.objects.filter(user=User.objects.get(pk=2)).last()
+        resp = self.client.post(
+            reverse('task:edit', kwargs={'pk': task.pk}),
+            {'task':
+                 ['{"task_name":"b","tags":["a","b","pythonYEAH"],"level":3,' +
+                  '"markdown":"abc","area":2,"answers":["d","c","b","a"]}']})
+        self.assertEqual(resp.status_code, 200)
+        task = Task.objects.filter(user=User.objects.get(pk=2)).last()
+        self.assertEqual(task.task_name, 'b')
+        self.assertEqual(len(task.tags.all()), 3)
+        self.assertEqual(len(Answer.objects.filter(task=task)), 4)
+        self.assertEqual(task.level, 3)
+        self.assertEqual(task.area, 2)
+        self.assertEqual(task.condition, 'abc')
+        self.assertEqual(task.user, User.objects.get(pk=2))
+
+    def test_task_edit_redirect_to_solve(self):
+        self.client.login(username='stanislau', password='ckfdujhjl')
         resp = self.client.get(
             reverse('task:edit', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).first().pk}),
         )
-        self.assertEqual(resp.status_code, 200)
-        resp = self.client.post(
-            reverse('task:edit', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).first().pk}),
-            {'task':
-                 ['{"task_name":"a","tags":["a","b"],"level":3,"markdown":"abc","area":2,"answers":["c","b","a"]}']})
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 302)
+        self.client.login(username='stas', password='stas')
 
     def test_error_task_editing(self):
         resp = self.client.post(
@@ -42,12 +83,13 @@ class TaskViewsTest(TestCase):
                  ['name":"a","tags":["a","b"],"level":3,"markdown":"abc","area":2,"answers":["c","b","a"]}']})
         self.assertEqual(resp.status_code, 500)
 
-    def test_task_solving(self):
+    def test_task_solve_redirect_to_edit(self):
         resp = self.client.get(
             reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).first().pk}),
         )
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 302)
 
+    def test_task_solving(self):
         self.client.login(username='stanislau', password='ckfdujhjl')
         resp = self.client.get(
             reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).last().pk}),
@@ -62,3 +104,15 @@ class TaskViewsTest(TestCase):
         resp = self.client.post(reverse('task:put_mark_for_task'),
                                 {'data': ['erid":2,"taskid":50,"mark":4}']})
         self.assertEqual(resp.status_code, 500)
+
+    def test_set_achieves(self):
+        # self.user = User.objects.create(username='testuser', password='pwd', is_active=1, is_staff=1)
+        # self.client.login(username='testuser', password='pwd')
+        for i in range(1):
+            resp = self.client.post(reverse('task:create'),
+                                    {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                              '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+            self.assertEqual(resp.status_code, 200)
+        profile = UserProfile.objects.get_or_create_profile(User.objects.get(pk=2))
+        cr1 = Achievement.objects.get(name='Creator1')
+        self.assertTrue(AchievementsSettings.objects.filter(achievement=cr1, userProfile=profile).exists())

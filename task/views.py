@@ -13,6 +13,7 @@ import cloudinary
 from cloudinary.uploader import upload
 
 from comments.models import Comment
+from task.decorators import redirect_edit, redirect_solve
 from task.forms import AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
 from user_account.models import UserProfile, Achievement, AchievementsSettings
@@ -22,13 +23,6 @@ cloudinary.config(
     api_key="326982618723938",
     api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
 )
-
-
-class TaskStatistic(object):
-    def __init__(self, rating, percentage, attempts):
-        self.percentage = percentage
-        self.rating = rating
-        self.attempts = attempts
 
 
 def set_achievements_at_creation(user):
@@ -60,89 +54,39 @@ def set_achievements_at_decision(user, task):
 
 @login_required
 def create_task(request):
-    try:
-        if request.method == 'POST':
-            json_str = request.POST['task']
-            json_obj = json.loads(json_str)
-            area = json_obj['area']
-            level = json_obj['level']
-            markdown = json_obj['markdown']
-            tags = json_obj['tags']
-            answers = json_obj['answers']
-            task_name = json_obj['task_name']
-            task = Task(user=request.user, task_name=task_name, area=area, level=level,
-                        condition=markdown)
-            task.save()
-            print(tags)
-            print(answers)
-            for tag_text in tags:
-                tag = Tag.objects.filter(tag_name=tag_text).first()
-                if tag is None:
-                    tag = Tag(tag_name=tag_text)
-                    tag.save()
-                task.tags.add(tag)
-            for answer_text in answers:
-                answer = Answer(text=answer_text, task=task)
-                answer.save()
+    if request.method == 'POST':
+        try:
+            json_obj = json.loads(request.POST['task'])
+            task = Task.objects.create_task_from_fields(json_obj, request.user)
             set_achievements_at_creation(request.user)
             return HttpResponse(task.pk, status=200)
-    except Exception as e:
-        print(e)
-        return HttpResponse(status=500)
+        except ValueError as e:
+            print()
+            return HttpResponse(status=500)
     return render(request, 'task/create_task.html')
 
 
 @login_required
+@redirect_edit
 def edit(request, pk):
-    task = Task.objects.filter(pk=pk).first()
-    if task.user != request.user:
-        return solve_task(request, pk)
-    answers = Answer.objects.filter(task=task)
-    answers = [{'val': x.text, 'num': i} for i, x in enumerate(answers)]
-    tags = task.tags.all()
-    tags = [{'val': x.tag_name, 'num': i} for i, x in enumerate(tags)]
+    task = Task.objects.get(pk=pk)
     try:
         if request.method == 'POST':
-            json_str = request.POST['task']
-            json_obj = json.loads(json_str)
-            task.area = json_obj['area']
-            task.level = json_obj['level']
-            task.condition = json_obj['markdown']
-            tags = json_obj['tags']
-            answers = json_obj['answers']
-            task.task_name = json_obj['task_name']
-            task.save()
-            for tag in task.tags.all():
-                task.tags.remove(tag)
-            for tag_text in tags:
-                tag = Tag.objects.filter(tag_name=tag_text).first()
-                if tag is None:
-                    tag = Tag(tag_name=tag_text)
-                    tag.save()
-                task.tags.add(tag)
-            Answer.objects.filter(task=task).delete()
-            for answer_text in answers:
-                answer = Answer(text=answer_text, task=task)
-                answer.save()
+            json_obj = json.loads(request.POST['task'])
+            task.edit_task_from_fields(json_obj)
             return HttpResponse(status=200)
     except Exception as e:
         print(e)
         return HttpResponse(status=500)
+    answers = [{'val': x.text, 'num': i} for i, x in enumerate(Answer.objects.filter(task=task))]
+    tags = [{'val': x.tag_name, 'num': i} for i, x in enumerate(task.tags.all())]
     return render(request, 'task/edit.html', {'task': task, 'answers': answers, 'tags': tags})
 
 
-def task_statistics(task):
-    statistic = TaskStatistic(Rating.objects.average_rating_for_task(task),
-                              Solving.objects.percentage_for_task(task),
-                              Solving.objects.attempts_for_task(task))
-    return statistic
-
-
 @login_required
+@redirect_solve
 def solve_task(request, pk):
-    task = Task.objects.filter(pk=pk).first()
-    if task.user == request.user:
-        return edit(request, pk)
+    task = Task.objects.get(pk=pk)
     func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
     comments = [{'comment': comment, 'url': func(UserProfile.objects.get_or_create_profile(comment.user).pictureUrl)} for
                 comment in Comment.objects.filter(task=task)]
@@ -154,7 +98,7 @@ def solve_task(request, pk):
                                                    'comments': comments,
                                                    'user_mark_for_task': did_he_put_mark,
                                                    'tags': task.tags.all(),
-                                                   'statistics': task_statistics(task)})
+                                                   'statistics': task.task_statistics()})
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -174,7 +118,7 @@ def solve_task(request, pk):
                                                                'comments': comments,
                                                                'user_mark_for_task': did_he_put_mark,
                                                                'tags': task.tags.all(),
-                                                               'statistics': task_statistics(task)})
+                                                               'statistics': task.task_statistics()})
             except Exception as e:
                 print(e)
     else:
@@ -183,32 +127,26 @@ def solve_task(request, pk):
                                                'comments': comments,
                                                'did_user_put': did_he_put_mark,
                                                'tags': task.tags.all(),
-                                               'statistics': task_statistics(task)})
+                                               'statistics': task.task_statistics()})
 
 
 @login_required
 def put_mark_for_task(request):
     average_rating = 0
-    try:
-        if request.method == 'POST':
-            json_str = request.POST['data']
-            json_obj = json.loads(json_str)
-            user = User.objects.filter(pk=json_obj['userid']).first()
-            task = Task.objects.filter(pk=json_obj['taskid']).first()
-            mark = json_obj['mark']
-            rating = Rating(user=user, task=task, mark=mark)
-            rating.save()
-            average_rating = Rating.objects.average_rating_for_task(task)
-    except Exception as e:
-        print(e)
-        return HttpResponse(status=500)
+    if request.method == 'POST':
+        try:
+            json_obj = json.loads(request.POST['data'])
+            average_rating = Rating.objects.put_rating_from_fields(json_obj)
+        except ValueError as e:
+            print(e)
+            return HttpResponse(status=500)
     return HttpResponse(average_rating, status=200)
 
 
 @login_required
 def create_task_success(request, pk):
     return render(request, 'task/create_task_success.html',
-                  {'task': Task.objects.filter(pk=pk).first()})
+                  {'task': Task.objects.get(pk=pk)})
 
 
 def get_options_typeahead(request, query):
@@ -224,34 +162,32 @@ def get_options_typeahead(request, query):
 
 
 def add_picture(request):
-    try:
-        if request.method == 'POST':
-            json_str = request.POST['content']
-            json_str = json_str.split(',')[1]
+    if request.method == 'POST':
+        try:
+            json_str = request.POST['content'].split(',')[1]
             image = Image.open(BytesIO(base64.b64decode(json_str)))
             path = 'user_account/static/user_account/pictures/other/im.png'
             image.save(path, "PNG")
-            file = upload(path)
-            imageUrl = file['url']
+            imageUrl = upload(path)['url']
             os.remove(path)
             return HttpResponse(imageUrl, status=200)
-    except Exception as e:
-        print(e)
-        return HttpResponse(status=500)
+        except Exception as e:
+            print(e)
+            return HttpResponse(status=500)
     return HttpResponse(status=200)
 
 
 def delete_task(request):
-    try:
-        if request.method == 'POST':
+    if request.method == 'POST':
+        try:
             pk = str(request.POST['pk'])
             task = Task.objects.get(pk=pk)
             if request.user != task.user:
                 raise Exception()
             task.delete()
-    except Exception as e:
-        print(e)
-        return HttpResponse(status=500)
+        except Exception as e:
+            print(e)
+            return HttpResponse(status=500)
     return HttpResponse(request.user.pk, status=200)
 
 

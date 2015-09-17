@@ -1,13 +1,14 @@
 {% load static %}
 {% load staticfiles %}
+{% load i18n %}
 
 <div class="row">
     <div class="well">
-        <h4>Оставить комментарий:</h4>
+        <h4>{% trans 'Leave comment' %}:</h4>
         <div class="form-group">
             <textarea maxlength="300" id="comment" class="form-control" rows="3"></textarea>
         </div>
-        <button id="add_comment" type="submit" class="btn btn-primary">Отправить</button>
+        <button id="add_comment" type="submit" class="btn btn-primary">{% trans 'Leave comment' %}</button>
     </div>
 
     <ul class="media-list" id="comments_list">
@@ -26,7 +27,7 @@
         {% empty %}
             <li class="media" id="null_comments">
                 <div class="help-block">
-                    Комментариев ещё не было...
+                    {% trans 'No comments' %}...
                 </div>
             </li>
         {% endfor %}

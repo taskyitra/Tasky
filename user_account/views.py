@@ -1,5 +1,6 @@
 from __future__ import print_function
 import os
+import random
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from django.shortcuts import render
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import cloudinary
 from cloudinary.uploader import upload
+from django.utils import translation
 
 from Tasky import settings
 from task.models import Task, Solving
@@ -104,8 +106,23 @@ def generate_picture(request):
 
 
 @login_required
+def change_locale(request):
+    try:
+        if request.method == 'POST':
+            if User.objects.get(pk=int(request.POST['pk'])) != request.user:
+                raise Exception()
+            locale = int(request.POST['locale'])
+            profile = UserProfile.objects.get_or_create_profile(request.user)
+            profile.locale = locale
+            profile.save()
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=500)
+    return HttpResponse(status=200)
+
+
+@login_required
 def user(request, pk):
-    # activate('en')
     try:
         found_user = User.objects.get(pk=pk)
         profile = UserProfile.objects.get_or_create_profile(found_user)
@@ -123,7 +140,6 @@ def user(request, pk):
                         if solving.task else None  # {'task': None, 'tags': None,
                         #                       'count': Solving.objects.attempts_count(found_user, solving.task)}
                         for solving in Solving.objects.filter(user=found_user, is_solved=True)]
-        print(solved_tasks)
     except Exception as e:
         print(e)
         return HttpResponse(status=500)

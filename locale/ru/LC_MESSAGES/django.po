@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-16 18:53+0400\n"
+"POT-Creation-Date: 2015-09-17 11:25+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,347 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: .\Tasky\settings.py:169
+#: .\Tasky\settings.py:170
 msgid "English"
 msgstr "Английский"
 
-#: .\Tasky\settings.py:170
+#: .\Tasky\settings.py:171
 msgid "Russian"
 msgstr "Русский"
 
-#: .\user_account\templates\user_account\user.html:9
-msgid "QWERTY"
-msgstr "йцукен"
+#: .\comments\templates\comments\show_comments.html:7
+#: .\comments\templates\comments\show_comments.html:11
+msgid "Leave comment"
+msgstr "Оставить комментарий"
+
+#: .\comments\templates\comments\show_comments.html:30
+msgid "No comments"
+msgstr "Комментариев ещё не было"
+
+#: .\task\templates\task\create_task.html:7
+#: .\task\templates\task\create_task_success.html:4 .\templates\base.html:85
+msgid "Create task"
+msgstr "Создать задачу"
+
+#: .\task\templates\task\create_task.html:16
+msgid "Task creating"
+msgstr "Создание задачи"
+
+#: .\task\templates\task\create_task.html:19
+#: .\task\templates\task\edit.html:19
+msgid "Task name"
+msgstr "Название"
+
+#: .\task\templates\task\create_task.html:22
+#: .\task\templates\task\edit.html:22
+msgid "Enter task name"
+msgstr "Введите название"
+
+#: .\task\templates\task\create_task.html:25
+#: .\task\templates\task\edit.html:25
+msgid "Enter task name field"
+msgstr "Заполните поле названия"
+
+#: .\task\templates\task\create_task.html:29
+#: .\task\templates\task\edit.html:29
+msgid "Tags"
+msgstr "Тэги"
+
+#: .\task\templates\task\create_task.html:34
+#: .\task\templates\task\edit.html:35
+msgid "Enter tag"
+msgstr "Введите тэг"
+
+#: .\task\templates\task\create_task.html:38
+#: .\task\templates\task\edit.html:48
+msgid "Create tag"
+msgstr "Создать тэг"
+
+#: .\task\templates\task\create_task.html:39
+#: .\task\templates\task\edit.html:49
+msgid "Enter tags fields"
+msgstr "Заполните поля тэгов"
+
+#: .\task\templates\task\create_task.html:43
+#: .\task\templates\task\edit.html:53 .\task\templates\task\solve.html:44
+msgid "Level"
+msgstr "Уровень"
+
+#: .\task\templates\task\create_task.html:46
+#: .\task\templates\task\edit.html:57 .\task\templates\task\edit.html.py:61
+#: .\task\templates\task\edit.html:65 .\task\templates\task\solve.html:46
+msgid "Low"
+msgstr "Низкий"
+
+#: .\task\templates\task\create_task.html:47
+#: .\task\templates\task\edit.html:58 .\task\templates\task\edit.html.py:62
+#: .\task\templates\task\edit.html:66 .\task\templates\task\solve.html:48
+msgid "Middle"
+msgstr "Средний"
+
+#: .\task\templates\task\create_task.html:48
+#: .\task\templates\task\edit.html:59 .\task\templates\task\edit.html.py:63
+#: .\task\templates\task\edit.html:67 .\task\templates\task\solve.html:50
+msgid "High"
+msgstr "Тяжелый"
+
+#: .\task\templates\task\create_task.html:54
+#: .\task\templates\task\edit.html:74 .\task\templates\task\solve.html:92
+msgid "Condition"
+msgstr "Условие"
+
+#: .\task\templates\task\create_task.html:60
+#: .\task\templates\task\edit.html:80
+msgid "Enter condition field"
+msgstr "Заполните поле условия"
+
+#: .\task\templates\task\create_task.html:63
+#: .\task\templates\task\edit.html:83
+msgid "Loading"
+msgstr "Загрузка"
+
+#: .\task\templates\task\create_task.html:69
+#: .\task\templates\task\edit.html:89 .\task\templates\task\solve.html:56
+msgid "Area"
+msgstr "Область"
+
+#: .\task\templates\task\create_task.html:81
+#: .\task\templates\task\edit.html:118
+msgid "Answers"
+msgstr "Ответы"
+
+#: .\task\templates\task\create_task.html:86
+#: .\task\templates\task\edit.html:124
+msgid "Enter answer"
+msgstr "Введите ответ"
+
+#: .\task\templates\task\create_task.html:90
+#: .\task\templates\task\edit.html:137
+msgid "Create answer"
+msgstr "Создать ответ"
+
+#: .\task\templates\task\create_task.html:91
+#: .\task\templates\task\edit.html:138
+msgid "Enter answers fields"
+msgstr "Заполните поля ответов"
+
+#: .\task\templates\task\create_task.html:96
+msgid "Create"
+msgstr "Создать"
+
+#: .\task\templates\task\create_task_success.html:8
+msgid "Task"
+msgstr "Задача"
+
+#: .\task\templates\task\create_task_success.html:8
+msgid "created successfully"
+msgstr "успешно создана"
+
+#: .\task\templates\task\edit.html:7
+msgid "Edit task"
+msgstr "Изменить задачу"
+
+#: .\task\templates\task\edit.html:16
+msgid "Task editing"
+msgstr "Редактирование задачи"
+
+#: .\task\templates\task\edit.html:143
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\task\templates\task\edit.html:150 .\task\templates\task\edit.html:166
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\task\templates\task\edit.html:160
+msgid "Task deleting"
+msgstr "Удаление задачи"
+
+#: .\task\templates\task\edit.html:163
+msgid "Are you sure you want to delete task?"
+msgstr "Вы действительно хотите удалить задачу?"
+
+#: .\task\templates\task\edit.html:167
+msgid "Cancel"
+msgstr "Отменить"
+
+#: .\task\templates\task\solve.html:7
+msgid "Solve task"
+msgstr "Решить задачу"
+
+#: .\task\templates\task\solve.html:22
+#: .\task\templates\task\tasks_by_tag.html:19
+#: .\templates\search\search.html:21
+#: .\user_account\templates\user_account\user.html:150
+#: .\user_account\templates\user_account\user.html:182
+msgid "created"
+msgstr "создана"
+
+#: .\task\templates\task\solve.html:70
+#: .\user_account\templates\user_account\user.html:44
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: .\task\templates\task\solve.html:79
+#: .\user_account\templates\user_account\user.html:38
+msgid "Percentage of correct answers"
+msgstr "Процент правильных ответов"
+
+#: .\task\templates\task\solve.html:85
+msgid "Attempts for solve"
+msgstr "Попыток"
+
+#: .\task\templates\task\solve.html:103
+msgid "Answer"
+msgstr "Ответ"
+
+#: .\task\templates\task\solve.html:117
+msgid "Check"
+msgstr "Проверить"
+
+#: .\task\templates\task\solve.html:131
+msgid "You already solved this task"
+msgstr "Вы уже решили задачу"
+
+#: .\task\templates\task\solve.html:133
+msgid "Congratulates, you solved this task"
+msgstr "Поздравляю, вы решили задачу"
+
+#: .\task\templates\task\solve.html:143
+msgid "You put for task mark"
+msgstr "Вы поставили задаче оценку"
+
+#: .\task\templates\task\solve.html:158
+msgid "Please, put mark for task"
+msgstr "Пожалуйста, поставьте оценку"
+
+#: .\task\templates\task\tasks_by_tag.html:5
+msgid "Find by tag"
+msgstr "Поиск по тэгу"
+
+#: .\task\templates\task\tasks_by_tag.html:10
+msgid "Search results by tag"
+msgstr "Результат поиска по тэгу"
+
+#: .\task\templates\task\tasks_by_tag.html:39
+#: .\templates\search\search.html:29
+msgid "No results found"
+msgstr "Не найдено"
+
+#: .\task\templates\task\tasks_by_tag.html:42
+msgid "Enter search tag"
+msgstr "Введите искомый тэг"
+
+#: .\templates\base.html:10 .\templates\base.html.py:54
+msgid "Home"
+msgstr "Главная"
+
+#: .\templates\base.html:35
+msgid "Search for site"
+msgstr "Поиск по сайту"
+
+#: .\templates\base.html:37
+msgid "Search"
+msgstr "Искать"
+
+#: .\templates\base.html:57
+msgid "Ratings"
+msgstr "Рейтинг"
+
+#: .\templates\base.html:61
+msgid "Users rating"
+msgstr "Рейтинг пользователей"
+
+#: .\templates\base.html:64
+msgid "Tasks rating"
+msgstr "Рейтинг задач"
+
+#: .\templates\base.html:72
+msgid "Registration"
+msgstr "Регистрация"
+
+#: .\templates\base.html:75
+msgid "Log In"
+msgstr "Войти"
+
+#: .\templates\base.html:86
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\templates\base.html:88
+msgid "Log out"
+msgstr "Выйти"
+
+#: .\templates\search\search.html:6
+msgid "Find"
+msgstr "Поиск"
+
+#: .\templates\search\search.html:11
+msgid "Search results"
+msgstr "Результаты поиска"
+
+#: .\templates\search\search.html:34
+msgid "Previous"
+msgstr "Предыдущая"
+
+#: .\templates\search\search.html:36
+msgid "Next"
+msgstr "Следующая"
+
+#: .\templates\search\search.html:40
+msgid "Enter search word"
+msgstr "Введите искомое слово"
+
+#: .\user_account\templates\user_account\user.html:26
+msgid "Created tasks"
+msgstr "Создал задач"
+
+#: .\user_account\templates\user_account\user.html:32
+#: .\user_account\templates\user_account\user.html:60
+#: .\user_account\templates\user_account\user.html:64
+msgid "Solved tasks"
+msgstr "Решил задач"
+
+#: .\user_account\templates\user_account\user.html:58
+msgid "Settings"
+msgstr "Настройки"
+
+#: .\user_account\templates\user_account\user.html:59
+msgid "My tasks"
+msgstr "Мои задачи"
+
+#: .\user_account\templates\user_account\user.html:61
+msgid "My Achievements"
+msgstr "Мои достижения"
+
+#: .\user_account\templates\user_account\user.html:63
+msgid "Tasks"
+msgstr "Задачи"
+
+#: .\user_account\templates\user_account\user.html:65
+msgid "Achievements"
+msgstr "Достижения"
+
+#: .\user_account\templates\user_account\user.html:72
+msgid "Generate picture"
+msgstr "Генерить пикчу"
+
+#: .\user_account\templates\user_account\user.html:168
+msgid "User has not created any tasks"
+msgstr "Пользователь ещё не создал задач"
+
+#: .\user_account\templates\user_account\user.html:198
+msgid "Attempts"
+msgstr "Попыток"
+
+#: .\user_account\templates\user_account\user.html:204
+msgid "User has not solved any tasks"
+msgstr "Пользователь ещё не решил задач"
+
+#: .\user_account\templates\user_account\user.html:216
+msgid "Count"
+msgstr "Количество"
+
+#: .\user_account\templates\user_account\user.html:222
+msgid "User do not have any achievements"
+msgstr "Пользователь не имеет ачивок"

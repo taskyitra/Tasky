@@ -2,8 +2,9 @@
 {% load static %}
 {% load staticfiles %}
 {% load django_markdown %}
+{% load i18n %}
 
-{% block title %}<title>Создать задачу</title>{% endblock %}
+{% block title %}<title>{% trans 'Create task' %}</title>{% endblock %}
 
 {% block styling %}
     <link rel="stylesheet" href="{% static 'task/css/typeahead_style.css' %}">
@@ -12,60 +13,59 @@
 
 {% block content %}
     <div class="container">
-        <h1>Создание задачи</h1>
+        <h1>{% trans 'Task creating' %}</h1>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="task_name">Название:</label>
+            <label class="control-label col-xs-2" for="task_name">{% trans 'Task name' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <input type="text" maxlength="30" class="col-xs-6" id="task_name"
-                       placeholder="Введите название задачи" autocomplete="off"
+                       placeholder="{% trans 'Enter task name' %}" autocomplete="off"
                        style="min-width: 200px"/>
             </div>
-            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>Заполните поле названия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>{% trans 'Enter task name field' %}</div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="tags">Тэги:</label>
+            <label class="control-label col-xs-2" for="tags">{% trans 'Tags' %}:</label>
             <div class="container">
                 <div class="container col-xs-offset-2 col-xs-10" id="tags">
                     <div class="row">
-                        <input type="text" maxlength="30" class="typeahead col-xs-6"
-                               placeholder="Введите тэг" autocomplete="off">
+                        <input type="text" maxlength="30" class="typeahead col-xs-6" autocomplete="off">
                     </div>
                 </div>
             </div>
-            <a class="col-xs-offset-2 col-xs-6" id="create_tag">Создать тэг</a>
-            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="tags_errors" hidden>Заполните поля тэгов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_tag">{% trans 'Create tag' %}</a>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="tags_errors" hidden>{% trans 'Enter tags fields' %}</div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="level">Уровень:</label>
+            <label class="control-label col-xs-2" for="level">{% trans 'Level' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <select id="level">
-                    <option selected value="1">Low</option>
-                    <option value="2">Middle</option>
-                    <option value="3">High</option>
+                    <option selected value="1">{% trans 'Low' %}</option>
+                    <option value="2">{% trans 'Middle' %}</option>
+                    <option value="3">{% trans 'High' %}</option>
                 </select>
             </div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="markdown">Условие:</label>
+            <label class="control-label col-xs-2" for="markdown">{% trans 'Condition' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <textarea class="dropZone" name="condition" id="markdown"></textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
-            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="markdown_errors" hidden>{% trans 'Enter condition field' %}</div>
             <div style="color: red" class="col-xs-offset-2 col-xs-6 dropError" hidden></div>
             <div class="col-xs-offset-2 col-xs-6" id="progress" hidden>
-                Загрузка
+                {% trans 'Loading' %}
                 <img src="{% static 'task/images/load.gif' %}"/>
             </div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="area">Область:</label>
+            <label class="control-label col-xs-2" for="area">{% trans 'Area' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <select id="area">
                     <option selected value="1">Java</option>
@@ -77,22 +77,21 @@
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="answers">Ответы:</label>
+            <label class="control-label col-xs-2" for="answers">{% trans 'Answers' %}:</label>
             <div class="container">
                 <div class="container col-xs-offset-2 col-xs-10" id="answers">
                     <div class="row">
-                        <input type="text" maxlength="30" class="col-xs-6"
-                               placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px">
+                        <input type="text" maxlength="30" class="col-xs-6" autocomplete="off" style="margin-bottom: 5px">
                     </div>
                 </div>
             </div>
-            <a class="col-xs-offset-2 col-xs-6" id="create_answer">Создать ответ</a>
-            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="answers_errors" hidden>Заполните поля ответов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_answer">{% trans 'Create answer' %}</a>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="answers_errors" hidden>{% trans 'Enter answers fields' %}</div>
         </div>
 
         <div style="margin: 5px">
             <div class="col-xs-offset-2 col-xs-6">
-                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="create_button">Создать</button>
+                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="create_button">{% trans 'Create' %}</button>
             </div>
         </div>
 

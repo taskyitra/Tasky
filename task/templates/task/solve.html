@@ -2,8 +2,9 @@
 {% load static %}
 {% load staticfiles %}
 {% load django_markdown %}
+{% load i18n %}
 
-{% block title %}<title>Решить задачу</title>{% endblock %}
+{% block title %}<title>{% trans 'Solve task' %}</title>{% endblock %}
 
 {% block styling %}
     <link rel="stylesheet" href="{% static 'task/css/rating.css' %}">
@@ -18,7 +19,7 @@
                     {{ task.task_name }}
                 </label>
                 <label>
-                    |создал <a href="{% url 'user_account:user' pk=task.user.pk %}">
+                    |{% trans 'created' %} <a href="{% url 'user_account:user' pk=task.user.pk %}">
                         {{ task.user }}
                     </a>
                     <span class="glyphicon glyphicon-time"></span> {{ task.creation_date }}
@@ -40,19 +41,19 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-3" align="center">
                     <div>
-                        <p>Уровень</p>
+                        <p>{% trans 'Level' %}</p>
                         {% if task.level == 1 %}
-                            <p>Low</p>
+                            <p>{% trans 'Low' %}</p>
                         {% elif task.level == 2 %}
-                            <p>Middle</p>
+                            <p>{% trans 'Middle' %}</p>
                         {% else %}
-                            <p>High</p>
+                            <p>{% trans 'High' %}</p>
                         {% endif %}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-2" align="center">
                     <div>
-                        <p>Область</p>
+                        <p>{% trans 'Area' %}</p>
                         {% if task.area == 1 %}
                             <p>Java</p>
                         {% elif task.area == 2 %}
@@ -66,7 +67,7 @@
                 </div>
                 <div class="col-xs-12  col-sm-2" align="center">
                     <div>
-                        <p>Рейтинг</p>
+                        <p>{% trans 'Rating' %}</p>
                         <p>
                             <img src="{% static 'task/images/star.png' %}"/>
                             <label id="current_task_rating">{{ statistics.rating }}</label>
@@ -75,20 +76,20 @@
                 </div>
                 <div class="col-xs-12 col-sm-3" align="center">
                     <div>
-                        <p>Процент правильных ответов</p>
+                        <p>{% trans 'Percentage of correct answers' %}</p>
                         <p>{{ statistics.percentage }}%</p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-2" align="center">
                     <div>
-                        <p>Попыток решения</p>
+                        <p>{% trans 'Attempts for solve' %}</p>
                         <p>{{ statistics.attempts}}</p>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="row">
-                <label class="control-label col-sm-2" for="condition">Условие:</label>
+                <label class="control-label col-sm-2" for="condition">{% trans 'Condition' %}:</label>
                 <div class="col-sm-10">
                     {{ task.condition | markdown }}
                 </div>
@@ -99,7 +100,7 @@
                     {% csrf_token %}
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd2">Ответ:</label>
+                        <label class="control-label col-sm-2" for="pwd2">{% trans 'Answer' %}:</label>
                         <div class="col-sm-9">
                             {{ form.text }}
                         </div>
@@ -113,7 +114,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-9">
-                            <button type="submit" class="btn btn-default">Проверить</button>
+                            <button type="submit" class="btn btn-default">{% trans 'Check' %}</button>
                         </div>
                     </div>
 
@@ -127,9 +128,9 @@
             {% else %}
                 <div>
                     {% if is_old_solving %}
-                        <p>Вы уже решили эту задачу</p>
+                        <p>{% trans 'You already solved this task' %}</p>
                     {% else %}
-                        <p>Поздравляю вы решили задачу!!!</p>
+                        <p>{% trans 'Congratulates, you solved this task' %}!!!</p>
                     {% endif %}
 
                     {% if user_mark_for_task %}
@@ -139,7 +140,7 @@
                                 <div id="rating_votes"></div>
                             </div>
                             <div id="rating_info">
-                                <h5> Вы оценили задачу на {{ user_mark_for_task.mark }}</h5>
+                                <h5> {% trans 'You put for task mark' %} {{ user_mark_for_task.mark }}</h5>
                             </div>
                             <script>
                                 setRatingWidth("{{ user_mark_for_task.mark }}")
@@ -154,7 +155,7 @@
                             </div>
                             <div id="rating_info">
                                 <img id="rating_load" src="{% static 'task/images/load.gif' %}" hidden />
-                                <h5> Пожалуйста, оцените задачу </h5>
+                                <h5> {% trans 'Please, put mark for task' %} </h5>
                             </div>
                             <script>
                                 setDefaultRatingSettings("{{ user.pk }}", "{{ task.pk }}")

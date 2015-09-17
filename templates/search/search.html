@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load django_markdown %}
+{% load i18n %}
 
 {% block title %}
-    <title>Поиск</title>
+    <title>{% trans 'Find' %}</title>
 {% endblock %}
 
 {% block content %}
         {% if query %}
-            <h3>Результаты поиска {{ query }}</h3>
+            <h3>{% trans 'Search results' %} {{ query }}</h3>
 
             {% for result in page.object_list %}
                 <h5>
@@ -17,35 +18,25 @@
                         <a href="{% url 'task:solve_task' pk=result.object.pk %}">{{ result.object.task_name }}</a>
                     {% endif %}
                     <label>
-                        |создал <a href="{% url 'user_account:user' pk=result.object.user.pk %}">
+                        |{% trans 'created' %} <a href="{% url 'user_account:user' pk=result.object.user.pk %}">
                             {{ result.object.user }}
                         </a>
                         <span class="glyphicon glyphicon-time"></span> {{ result.object.creation_date }}
                     </label>
                 </h5>
-{#                <div id="readOnly" class="bootstrap-tags bootstrap-3"#}
-{#                     style="padding-bottom: 1px; height: 30px">#}
-{#                    <div class="tags">#}
-{#                        {% for tag in tags %}#}
-{#                            <div class="tag label btn-info md">#}
-{#                                <a href="#"><span>{{ tag.tag_name }}</span></a>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
                 <hr>
             {% empty %}
-                <p>No results found.</p>
+                <p>{% trans 'No results found' %}</p>
             {% endfor %}
 
             {% if page.has_previous or page.has_next %}
                 <ul class="pager">
-                    <li>{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}</li>
+                    <li>{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; {% trans 'Previous' %}{% if page.has_previous %}</a>{% endif %}</li>
                     |
-                    <li>{% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}</li>
+                    <li>{% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}{% trans 'Next' %} &raquo;{% if page.has_next %}</a>{% endif %}</li>
                 </ul>
             {% endif %}
         {% else %}
-            <h3>Введите искомое слово</h3>
+            <h3>{% trans 'Enter search word' %}</h3>
         {% endif %}
 {% endblock %}

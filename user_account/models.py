@@ -29,9 +29,11 @@ class UserProfileManager(models.Manager):
 
 
 class UserProfile(models.Model):
+    Locals = ((0, 'ru'), (1, 'en'))
     user = models.OneToOneField(User, primary_key=True)
     achievements = models.ManyToManyField(Achievement, through='AchievementsSettings')
     pictureUrl = models.CharField(max_length=100, null=True)
+    locale = models.IntegerField(default=0, choices=Locals)
     objects = UserProfileManager()
 
     def __str__(self):

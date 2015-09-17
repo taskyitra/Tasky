@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-    <title>Поиск по тэгу</title>
+    <title>{% trans 'Find by tag' %}</title>
 {% endblock %}
 
 {% block content %}
         {% if tag %}
-            <h3>Результаты поиска по тэгу {{ tag }}</h3>
-
+            <h3>{% trans 'Search results by tag' %} {{ tag }}</h3>
             {% for task in tasks %}
                 <h5>
                     {% if task.task.user.pk == user.pk %}
@@ -16,7 +16,7 @@
                         <a href="{% url 'task:solve_task' pk=task.task.pk %}">{{ task.task.task_name }}</a>
                     {% endif %}
                     <label>
-                        |создал <a href="{% url 'user_account:user' pk=task.task.user.pk %}">
+                        |{% trans 'created' %} <a href="{% url 'user_account:user' pk=task.task.user.pk %}">
                             {{ task.task.user }}
                         </a>
                         <span class="glyphicon glyphicon-time"></span> {{ task.task.creation_date }}
@@ -36,9 +36,9 @@
                 </div>
                 <hr>
             {% empty %}
-                <p>Нет результатов</p>
+                <p>{% trans 'No results found' %}</p>
             {% endfor %}
         {% else %}
-            <h3>Введите искомый тэг</h3>
+            <h3>{% trans 'Enter search tag' %}</h3>
         {% endif %}
 {% endblock %}

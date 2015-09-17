@@ -27,16 +27,10 @@ def add(request):
     comment = None
     func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
     try:
-        if request.is_ajax():
-            posts_count = request.POST
-            d = posts_count.dict()
-            json_str = ""
-            for i in d.items():
-                json_str = i[0]
-            json_obj = json.loads(json_str)
-            pk = json_obj['pk']
-            text = json_obj['text']
-            task = Task.objects.filter(pk=pk).first()
+        if request.method == 'POST':
+            pk = request.POST['pk']
+            text = request.POST['text']
+            task = Task.objects.get(pk=pk)
             comment = Comment(user=request.user, task=task, text=text)
             comment.save()
             set_achievements_at_commenting(request.user)

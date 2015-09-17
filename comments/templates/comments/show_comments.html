@@ -41,14 +41,15 @@
             }
             console.log(text);
             var pk = parseInt({{ task.pk }});
-            var json = JSON.stringify({
-                text: text,
-                pk: pk
-            });
+
+{#            var json = JSON.stringify({#}
+{#                text: text,#}
+{#                pk: pk#}
+{#            });#}
             $.ajax({
                         url: "/comments/add/",
                         type: 'POST',
-                        data: json,
+                        data: {'text': text, 'pk': pk},
                         success: function (mess) {
                             console.log(mess);
                             $('#comment').val('');

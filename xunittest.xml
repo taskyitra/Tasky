@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="4" errors="0" failures="0" skip="0"><testcase classname="user_account.tests.UserAccountViewsTest" name="test_base" time="0.152"></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_change_locale" time="0.062"><system-out><![CDATA[
-]]></system-out></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_change_username" time="0.068"><system-out><![CDATA["'value'"
-]]></system-out></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_user" time="0.105"><system-out><![CDATA[User matching query does not exist.
-]]></system-out></testcase></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="15" errors="0" failures="0" skip="0"><testcase classname="comments.tests.ViewsTest" name="test_adding" time="0.136"><system-out><![CDATA[Task matching query does not exist.
+]]></system-out></testcase><testcase classname="task.tests.TaskViewsTest" name="test_error_task_creating" time="0.047"><system-out><![CDATA[Expecting value: line 1 column 1 (char 0)
+]]></system-out></testcase><testcase classname="task.tests.TaskViewsTest" name="test_error_task_editing" time="0.047"><system-out><![CDATA[Expecting value: line 1 column 1 (char 0)
+]]></system-out></testcase><testcase classname="task.tests.TaskViewsTest" name="test_put_mark" time="0.054"><system-out><![CDATA[Expecting value: line 1 column 1 (char 0)
+]]></system-out></testcase><testcase classname="task.tests.TaskViewsTest" name="test_task_creating" time="0.085"><system-out><![CDATA[['a', 'b']
+['c', 'b', 'a']
+5
+]]></system-out></testcase><testcase classname="task.tests.TaskViewsTest" name="test_task_editing" time="0.144"></testcase><testcase classname="task.tests.TaskViewsTest" name="test_task_solving" time="0.196"></testcase><testcase classname="user_account.tests.AchSettingsTest" name="test_achSettings" time="0.001"></testcase><testcase classname="user_account.tests.AchievementTest" name="test_achieves" time="0.001"></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_base" time="0.061"></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_change_locale" time="0.064"><system-out><![CDATA[
+]]></system-out></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_change_username" time="0.069"><system-out><![CDATA["'value'"
+]]></system-out></testcase><testcase classname="user_account.tests.UserAccountViewsTest" name="test_user" time="0.099"><system-out><![CDATA[User matching query does not exist.
+]]></system-out></testcase><testcase classname="user_account.tests.UserProfileTest" name="test_create_profile" time="0.008"></testcase><testcase classname="user_account.tests.UserProfileTest" name="test_profiles" time="0.004"></testcase></testsuite>

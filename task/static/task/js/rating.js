@@ -37,7 +37,7 @@ function setDefaultRatingSettings(userid, taskid){
         $.ajax({
             url: "/task/put_mark_for_task/",
             type: 'POST',
-            data: json,
+            data: {'data': json},
             success: function (mess) {
                 console.log("asd");
                 $('#rating_info').append("<h5> Вы оценили задачу на "+ user_votes + "</h5>");

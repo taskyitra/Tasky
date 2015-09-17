@@ -61,12 +61,8 @@ def set_achievements_at_decision(user, task):
 @login_required
 def create_task(request):
     try:
-        if request.is_ajax():
-            posts_count = request.POST
-            d = posts_count.dict()
-            json_str = ""
-            for i in d.items():
-                json_str = i[0]
+        if request.method == 'POST':
+            json_str = request.POST['task']
             json_obj = json.loads(json_str)
             area = json_obj['area']
             level = json_obj['level']
@@ -77,6 +73,8 @@ def create_task(request):
             task = Task(user=request.user, task_name=task_name, area=area, level=level,
                         condition=markdown)
             task.save()
+            print(tags)
+            print(answers)
             for tag_text in tags:
                 tag = Tag.objects.filter(tag_name=tag_text).first()
                 if tag is None:
@@ -104,12 +102,8 @@ def edit(request, pk):
     tags = task.tags.all()
     tags = [{'val': x.tag_name, 'num': i} for i, x in enumerate(tags)]
     try:
-        if request.is_ajax():
-            posts_count = request.POST
-            d = posts_count.dict()
-            json_str = ""
-            for i in d.items():
-                json_str = i[0]
+        if request.method == 'POST':
+            json_str = request.POST['task']
             json_obj = json.loads(json_str)
             task.area = json_obj['area']
             task.level = json_obj['level']
@@ -196,12 +190,8 @@ def solve_task(request, pk):
 def put_mark_for_task(request):
     average_rating = 0
     try:
-        if request.is_ajax():
-            posts_count = request.POST
-            d = posts_count.dict()
-            json_str = ""
-            for i in d.items():
-                json_str = i[0]
+        if request.method == 'POST':
+            json_str = request.POST['data']
             json_obj = json.loads(json_str)
             user = User.objects.filter(pk=json_obj['userid']).first()
             task = Task.objects.filter(pk=json_obj['taskid']).first()
@@ -217,10 +207,11 @@ def put_mark_for_task(request):
 
 @login_required
 def create_task_success(request, pk):
-    return render(request, 'task/create_task_success.html', {'task': Task.objects.filter(pk=pk).first()})
+    return render(request, 'task/create_task_success.html',
+                  {'task': Task.objects.filter(pk=pk).first()})
 
 
-def getOptionsTypeahead(request, query):
+def get_options_typeahead(request, query):
     data = []
     try:
         for tag in Tag.objects.all():
@@ -234,23 +225,16 @@ def getOptionsTypeahead(request, query):
 
 def add_picture(request):
     try:
-        if request.is_ajax():
-            posts_count = request.POST
-            d = posts_count.dict()
-            json_str = ""
-            for i in d.items():
-                json_str = i[0]
+        if request.method == 'POST':
+            json_str = request.POST['content']
             json_str = json_str.split(',')[1]
-
             image = Image.open(BytesIO(base64.b64decode(json_str)))
             path = 'user_account/static/user_account/pictures/other/im.png'
             image.save(path, "PNG")
             file = upload(path)
             imageUrl = file['url']
             os.remove(path)
-
             return HttpResponse(imageUrl, status=200)
-
     except Exception as e:
         print(e)
         return HttpResponse(status=500)

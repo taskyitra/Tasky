@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from task.models import Task, Solving
 
 
 class AchievementManager(models.Manager):
@@ -36,6 +37,12 @@ class UserProfile(models.Model):
     locale = models.IntegerField(default=0, choices=Locals)
     objects = UserProfileManager()
 
+    def statistics(self):
+        return {'task_count': Task.objects.count_tasks_for_user(self.user),
+                'percentage': Solving.objects.percentage_for_user(self.user),
+                'rating': Solving.objects.rating_for_user(self.user),
+                'solved_task_count': Solving.objects.count_solves_for_user(self.user)}
+
     def __str__(self):
         return 'Profile for "{}"'.format(self.user)
 
@@ -47,6 +54,12 @@ class AchievementsSettingsManager(models.Manager):
         achSetting.count = achSetting.count + 1
         achSetting.save()
         return achSetting.count
+
+    def get_achievements_for_user(self, user):
+        return [{'achieve': ach.achievement, 'count': ach.count,
+                 'its_name_is_first': ach.achievement.name == 'First'} for ach in
+                super(AchievementsSettingsManager, self).filter(
+                    userProfile=UserProfile.objects.get_or_create_profile(user))]
 
 
 class AchievementsSettings(models.Model):

@@ -64,6 +64,7 @@ class Task(models.Model):
                      'attempts': Solving.objects.attempts_for_task(self)}
         return statistic
 
+
 class Answer(models.Model):
     task = models.ForeignKey(Task, related_name='task_answer')
     text = models.CharField(max_length=50)
@@ -104,6 +105,13 @@ class SolvingManager(models.Manager):
 
     def attempts_count(self, user, task):
         return len(super(SolvingManager, self).filter(user=user, task=task))
+
+    def solved_tasks_for_user(self, user):
+        return [{'task': solving.task, 'tags': solving.task.tags.all(),
+                 'count': Solving.objects.attempts_count(user, solving.task)}
+                if solving.task else None  # {'task': None, 'tags': None,
+                #                       'count': Solving.objects.attempts_count(found_user, solving.task)}
+                for solving in super(SolvingManager, self).filter(user=user, is_solved=True)]
 
 
 class Solving(models.Model):

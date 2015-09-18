@@ -5,6 +5,11 @@
 
 {% block title %}<title>{{ founduser.username }}</title>{% endblock %}
 
+{% block styling %}
+{#    <link rel="stylesheet" href="{% static 'user_account/css/bootstrap-editable.css' %}">#}
+{#    <script src="{% static 'user_account/js/bootstrap-editable.min.js' %}"></script>#}
+{% endblock %}
+
 {% block content %}
     <div style="margin-top: 5px">
         <div>
@@ -212,7 +217,7 @@
                                         <div class="row">
                                             <h3 class="media-heading col-xs-12">{{ achievement.achieve.description }}</h3>
                                             <label class="col-xs-12">{{ achievement.achieve.fullDescription }}</label>
-                                            {% if achievement.is %}
+                                            {% if achievement.its_name_is_first %}
                                                 <label class="col-xs-12">{% trans 'Count' %}: {{ achievement.count }}</label>
                                             {% endif %} 
                                         </div>

@@ -89,13 +89,43 @@ class TaskViewsTest(TestCase):
         )
         self.assertEqual(resp.status_code, 302)
 
-    def test_task_solving(self):
+    def test_task_solving_get(self):
         self.client.login(username='stanislau', password='ckfdujhjl')
         resp = self.client.get(
             reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).last().pk}),
         )
         self.assertEqual(resp.status_code, 200)
         self.client.login(username='stas', password='stas')
+
+    def test_task_solving_post(self):
+        resp = self.client.post(reverse('task:create'),
+                                {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                          '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+        self.assertEqual(resp.status_code, 200)
+        self.client.login(username='stanislau', password='ckfdujhjl')
+        resp = self.client.post(
+            reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).last().pk}),
+            {'text': ['w']}
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(resp.context['form'])
+        self.assertTrue("Неправильный ответ" in str(resp.context['form']))
+        profile = UserProfile.objects.get_or_create_profile(User.objects.get(pk=1))
+        profile.locale = 1
+        profile.save()
+        resp = self.client.post(
+            reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).last().pk}),
+            {'text': ['w']}
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(resp.context['form'])
+        self.assertTrue("Wrong answer" in str(resp.context['form']))
+        resp = self.client.post(
+            reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).last().pk}),
+            {'text': ['c']}
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.context['form'])
 
     def test_put_mark(self):
         resp = self.client.post(reverse('task:put_mark_for_task'),
@@ -106,8 +136,6 @@ class TaskViewsTest(TestCase):
         self.assertEqual(resp.status_code, 500)
 
     def test_set_achieves(self):
-        # self.user = User.objects.create(username='testuser', password='pwd', is_active=1, is_staff=1)
-        # self.client.login(username='testuser', password='pwd')
         for i in range(1):
             resp = self.client.post(reverse('task:create'),
                                     {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
@@ -116,3 +144,24 @@ class TaskViewsTest(TestCase):
         profile = UserProfile.objects.get_or_create_profile(User.objects.get(pk=2))
         cr1 = Achievement.objects.get(name='Creator1')
         self.assertTrue(AchievementsSettings.objects.filter(achievement=cr1, userProfile=profile).exists())
+        for i in range(5):
+            resp = self.client.post(reverse('task:create'),
+                                    {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                              '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+            self.assertEqual(resp.status_code, 200)
+        cr2 = Achievement.objects.get(name='Creator2')
+        self.assertTrue(AchievementsSettings.objects.filter(achievement=cr2, userProfile=profile).exists())
+        for i in range(10):
+            resp = self.client.post(reverse('task:create'),
+                                    {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                              '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+            self.assertEqual(resp.status_code, 200)
+        cr3 = Achievement.objects.get(name='Creator3')
+        self.assertTrue(AchievementsSettings.objects.filter(achievement=cr3, userProfile=profile).exists())
+        for i in range(10):
+            resp = self.client.post(reverse('task:create'),
+                                    {'task': ['{"task_name":"a","tags":["a","pythonYEAH"],"level":3,' +
+                                              '"markdown":"abc","area":2,"answers":["c","b","a"]}']})
+            self.assertEqual(resp.status_code, 200)
+        cr4 = Achievement.objects.get(name='Creator4')
+        self.assertTrue(AchievementsSettings.objects.filter(achievement=cr4, userProfile=profile).exists())

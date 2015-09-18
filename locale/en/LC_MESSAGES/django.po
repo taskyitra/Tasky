@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 11:25+0400\n"
+"POT-Creation-Date: 2015-09-18 16:54+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\Tasky\settings.py:170
+#: .\Tasky\settings.py:188
 msgid "English"
 msgstr "English"
 
-#: .\Tasky\settings.py:171
+#: .\Tasky\settings.py:189
 msgid "Russian"
 msgstr "Russian"
 
@@ -62,85 +62,75 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:34
-#: .\task\templates\task\edit.html:35
-msgid "Enter tag"
-msgstr ""
-
-#: .\task\templates\task\create_task.html:38
+#: .\task\templates\task\create_task.html:37
 #: .\task\templates\task\edit.html:48
 msgid "Create tag"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:39
+#: .\task\templates\task\create_task.html:38
 #: .\task\templates\task\edit.html:49
 msgid "Enter tags fields"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:43
+#: .\task\templates\task\create_task.html:42
 #: .\task\templates\task\edit.html:53 .\task\templates\task\solve.html:44
 msgid "Level"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:46
+#: .\task\templates\task\create_task.html:45
 #: .\task\templates\task\edit.html:57 .\task\templates\task\edit.html.py:61
 #: .\task\templates\task\edit.html:65 .\task\templates\task\solve.html:46
 msgid "Low"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:47
+#: .\task\templates\task\create_task.html:46
 #: .\task\templates\task\edit.html:58 .\task\templates\task\edit.html.py:62
 #: .\task\templates\task\edit.html:66 .\task\templates\task\solve.html:48
 msgid "Middle"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:48
+#: .\task\templates\task\create_task.html:47
 #: .\task\templates\task\edit.html:59 .\task\templates\task\edit.html.py:63
 #: .\task\templates\task\edit.html:67 .\task\templates\task\solve.html:50
 msgid "High"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:54
+#: .\task\templates\task\create_task.html:53
 #: .\task\templates\task\edit.html:74 .\task\templates\task\solve.html:92
 msgid "Condition"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:60
+#: .\task\templates\task\create_task.html:59
 #: .\task\templates\task\edit.html:80
 msgid "Enter condition field"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:63
+#: .\task\templates\task\create_task.html:62
 #: .\task\templates\task\edit.html:83
 msgid "Loading"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:69
+#: .\task\templates\task\create_task.html:68
 #: .\task\templates\task\edit.html:89 .\task\templates\task\solve.html:56
 msgid "Area"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:81
+#: .\task\templates\task\create_task.html:80
 #: .\task\templates\task\edit.html:118
 msgid "Answers"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:86
-#: .\task\templates\task\edit.html:124
-msgid "Enter answer"
-msgstr ""
-
-#: .\task\templates\task\create_task.html:90
+#: .\task\templates\task\create_task.html:88
 #: .\task\templates\task\edit.html:137
 msgid "Create answer"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:91
+#: .\task\templates\task\create_task.html:89
 #: .\task\templates\task\edit.html:138
 msgid "Enter answers fields"
 msgstr ""
 
-#: .\task\templates\task\create_task.html:96
+#: .\task\templates\task\create_task.html:94
 msgid "Create"
 msgstr ""
 
@@ -187,18 +177,18 @@ msgstr ""
 #: .\task\templates\task\solve.html:22
 #: .\task\templates\task\tasks_by_tag.html:19
 #: .\templates\search\search.html:21
-#: .\user_account\templates\user_account\user.html:150
-#: .\user_account\templates\user_account\user.html:182
+#: .\user_account\templates\user_account\user.html:155
+#: .\user_account\templates\user_account\user.html:187
 msgid "created"
 msgstr ""
 
 #: .\task\templates\task\solve.html:70
-#: .\user_account\templates\user_account\user.html:44
+#: .\user_account\templates\user_account\user.html:49
 msgid "Rating"
 msgstr ""
 
 #: .\task\templates\task\solve.html:79
-#: .\user_account\templates\user_account\user.html:38
+#: .\user_account\templates\user_account\user.html:43
 msgid "Percentage of correct answers"
 msgstr ""
 
@@ -223,7 +213,7 @@ msgid "Congratulates, you solved this task"
 msgstr ""
 
 #: .\task\templates\task\solve.html:143
-msgid "You put for task mark "
+msgid "You put for task mark"
 msgstr ""
 
 #: .\task\templates\task\solve.html:158
@@ -245,6 +235,10 @@ msgstr ""
 
 #: .\task\templates\task\tasks_by_tag.html:42
 msgid "Enter search tag"
+msgstr ""
+
+#: .\task\views.py:99
+msgid "Wrong answer"
 msgstr ""
 
 #: .\templates\base.html:10 .\templates\base.html.py:54
@@ -307,56 +301,56 @@ msgstr ""
 msgid "Enter search word"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:26
+#: .\user_account\templates\user_account\user.html:31
 msgid "Created tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:32
-#: .\user_account\templates\user_account\user.html:60
-#: .\user_account\templates\user_account\user.html:64
+#: .\user_account\templates\user_account\user.html:37
+#: .\user_account\templates\user_account\user.html:65
+#: .\user_account\templates\user_account\user.html:69
 msgid "Solved tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:58
+#: .\user_account\templates\user_account\user.html:63
 msgid "Settings"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:59
+#: .\user_account\templates\user_account\user.html:64
 msgid "My tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:61
+#: .\user_account\templates\user_account\user.html:66
 msgid "My Achievements"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:63
+#: .\user_account\templates\user_account\user.html:68
 msgid "Tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:65
+#: .\user_account\templates\user_account\user.html:70
 msgid "Achievements"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:72
+#: .\user_account\templates\user_account\user.html:77
 msgid "Generate picture"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:168
+#: .\user_account\templates\user_account\user.html:173
 msgid "User has not created any tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:198
+#: .\user_account\templates\user_account\user.html:203
 msgid "Attempts"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:204
+#: .\user_account\templates\user_account\user.html:209
 msgid "User has not solved any tasks"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:216
+#: .\user_account\templates\user_account\user.html:221
 msgid "Count"
 msgstr ""
 
-#: .\user_account\templates\user_account\user.html:222
+#: .\user_account\templates\user_account\user.html:227
 msgid "User do not have any achievements"
 msgstr ""

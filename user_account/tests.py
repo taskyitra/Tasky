@@ -64,8 +64,6 @@ class UserAccountViewsTest(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_change_locale(self):
-        resp = self.client.post(reverse('user_account:change_locale'), {'pk': 1, 'locale': 0})
-        self.assertEqual(resp.status_code, 500)
         resp = self.client.post(reverse('user_account:change_locale'), {'pk': 2, 'locale': 0})
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(UserProfile.objects.get_or_create_profile(User.objects.get(pk=2)).locale, 0)

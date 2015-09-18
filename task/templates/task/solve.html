@@ -88,7 +88,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row" id="condition_div">
                 <label class="control-label col-sm-2" for="condition">{% trans 'Condition' %}:</label>
                 <div class="col-sm-10">
                     {{ task.condition | markdown }}
@@ -125,6 +125,18 @@
                         {{ form.non_field_errors }}
                     {% endif %}
                 </div>
+            {% elif user_is_creator %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% trans 'This is your task' %}
+                    </div>
+                    <div class="col-xs-12">
+                        <a href="{% url 'task:edit' pk=task.pk %}">{% trans 'Edit task' %}</a>
+                    </div>
+                </div>
+                <script>
+                    $('#condition_div').remove();
+                </script>
             {% else %}
                 <div>
                     {% if is_old_solving %}

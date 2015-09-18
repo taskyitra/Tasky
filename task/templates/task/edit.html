@@ -14,6 +14,7 @@
 {% block content %}
     <div class="container">
         <h1>{% trans 'Task editing' %}</h1>
+        <h4><a href="{% url 'task:solve_task' pk=task.pk %}">{% trans 'View statistic' %}</a></h4>
 
         <div class="row" style="margin: 5px">
             <label class="control-label col-xs-2" for="task_name">{% trans 'Task name' %}:</label>

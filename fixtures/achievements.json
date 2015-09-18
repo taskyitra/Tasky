@@ -1,0 +1,132 @@
+[
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer1.jpg",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 5 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 1 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Creator1"
+  },
+  "pk": 1
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer2.jpg",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 10 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 2 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Creator2"
+  },
+  "pk": 2
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind1.jpg",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 5 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 1  \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Solver1"
+  },
+  "pk": 3
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind2.jpg",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 10 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 2 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Solver2"
+  },
+  "pk": 4
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment1.png",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 5 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0435\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 1 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Commentator1"
+  },
+  "pk": 5
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment2.png",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 10 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0435\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 2 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Commentator2"
+  },
+  "pk": 6
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\First.jpg",
+    "fullDescription": "\u041f\u0435\u0440\u0432\u044b\u043c \u0440\u0435\u0448\u0438\u043b \u0442\u0430\u0441\u043a\u0443",
+    "description": "\u041f\u0435\u0440\u0432\u044b\u0439",
+    "name": "First"
+  },
+  "pk": 7
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer3.jpg",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 20 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 3 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Creator3"
+  },
+  "pk": 8
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer4.jpg",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 30 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 4 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Creator4"
+  },
+  "pk": 9
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind3.jpg",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 20 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 3 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Solver3"
+  },
+  "pk": 10
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind4.jpg",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 30 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 4 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Solver4"
+  },
+  "pk": 11
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment3.png",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 20 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u043e\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 3 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Commentator3"
+  },
+  "pk": 12
+},
+{
+  "model": "user_account.achievement",
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment4.png",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 30 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u043e\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 4 \u0443\u0440\u043e\u0432\u043d\u044f",
+    "name": "Commentator4"
+  },
+  "pk": 13
+}
+]

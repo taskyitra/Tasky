@@ -35,6 +35,11 @@ class UserProfile(models.Model):
     achievements = models.ManyToManyField(Achievement, through='AchievementsSettings')
     pictureUrl = models.CharField(max_length=100, null=True)
     locale = models.IntegerField(default=0, choices=Locals)
+
+    # rating = models.IntegerField(default=0)
+    # attempts = models.IntegerField(default=0)
+    # solved_task_count = models.IntegerField(default=0)
+
     objects = UserProfileManager()
 
     def statistics(self):

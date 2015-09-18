@@ -2,7 +2,6 @@ import json
 import os
 from io import BytesIO
 import base64
-from gettext import gettext as _
 
 from PIL import Image
 from django.contrib.auth.decorators import login_required
@@ -13,7 +12,7 @@ import cloudinary
 from cloudinary.uploader import upload
 
 from comments.models import Comment
-from task.decorators import redirect_edit, redirect_solve
+from task.decorators import redirect_edit
 from task.forms import AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
 from user_account.models import UserProfile, Achievement, AchievementsSettings
@@ -81,11 +80,12 @@ def edit(request, pk):
 
 
 @login_required
-@redirect_solve
 def solve_task(request, pk):
     task = Task.objects.get(pk=pk)
+    if request.user == task.user:
+        return render_solve_page(request, task, user_is_creator=True)
     if Solving.objects.filter(task=task, user=request.user, is_solved=True).exists():
-        return render_solve_page(request, None, task, True)
+        return render_solve_page(request, task, is_old_solving=True)
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -101,21 +101,23 @@ def solve_task(request, pk):
                 solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
                 solving.save()
                 set_achievements_at_decision(request.user, task)
-                return render_solve_page(request, None, task, False)
+                return render_solve_page(request, task)
     else:
         form = AnswerForm
-    return render_solve_page(request, form, task, False)
+    return render_solve_page(request, task, form)
 
 
-def render_solve_page(request, form, task, is_old_solving):
+def render_solve_page(request, task, form=None, is_old_solving=False, user_is_creator=False):
     did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
     func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
     comments = [{'comment': comment, 'url':
-                func(UserProfile.objects.get_or_create_profile(comment.user).pictureUrl)}
+        func(UserProfile.objects.get_or_create_profile(comment.user).pictureUrl)}
                 for comment in Comment.objects.filter(task=task)]
-    return render(request, 'task/solve.html', {'form': form, 'task': task, 'is_old_solving': is_old_solving,
-                                               'comments': comments, 'did_user_put': did_he_put_mark,
-                                               'tags': task.tags.all(), 'statistics': task.task_statistics()})
+    return render(request, 'task/solve.html',
+                  {'form': form, 'task': task, 'is_old_solving': is_old_solving,
+                   'user_is_creator': user_is_creator,
+                   'comments': comments, 'user_mark_for_task': did_he_put_mark,
+                   'tags': task.tags.all(), 'statistics': task.task_statistics()})
 
 
 @login_required

@@ -35,6 +35,10 @@ class Task(models.Model):
     area = models.IntegerField(choices=TASK_AREA, default=1)
     condition = MarkdownField()
     creation_date = models.DateTimeField(auto_now_add=True)
+
+    # attempts = models.IntegerField(default=0)
+    # success_attempts = models.IntegerField(default=0)
+
     objects = TaskManager()
 
     class Meta:

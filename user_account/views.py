@@ -12,11 +12,11 @@ from task.models import Task, Solving
 from user_account.models import UserProfile, AchievementsSettings
 from user_account.utils import generate_picture_from_user_info
 
-cloudinary.config(
-    cloud_name="dmt04dtgy",
-    api_key="326982618723938",
-    api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
-)
+# cloudinary.config(
+#     cloud_name="dmt04dtgy",
+#     api_key="326982618723938",
+#     api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
+# )
 
 
 @login_required

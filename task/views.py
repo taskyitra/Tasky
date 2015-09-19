@@ -17,11 +17,11 @@ from task.forms import AnswerForm
 from task.models import Task, Answer, Solving, Rating, Tag
 from user_account.models import UserProfile, Achievement, AchievementsSettings
 
-cloudinary.config(
-    cloud_name="dmt04dtgy",
-    api_key="326982618723938",
-    api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
-)
+# cloudinary.config(
+#     cloud_name="dmt04dtgy",
+#     api_key="326982618723938",
+#     api_secret="fyssIAtgJ7g-LL1SsqjnLYSQgdc"
+# )
 
 
 def set_achievements_at_creation(user):

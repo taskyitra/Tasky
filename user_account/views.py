@@ -39,22 +39,23 @@ def change_username(request):
 
 @login_required
 def generate_picture(request):
-    try:
-        path = 'user_account/static/user_account/pictures/other/im.png'
-        profile = UserProfile.objects.get_or_create_profile(request.user)
-        image = generate_picture_from_user_info(
-            request.user.username, profile.statistics(),
-            AchievementsSettings.objects.filter(userProfile=profile)
-        )
-        image.save(path, "PNG")
-        file = upload(path)
-        imageUrl = file['url']
-        profile.pictureUrl = imageUrl
-        profile.save()
-        os.remove(path)
-    except Exception as e:
-        print(e)
-        return HttpResponse(status=500)
+    # try:
+    path = 'user_account/static/user_account/pictures/other/im.png'
+    profile = UserProfile.objects.get_or_create_profile(request.user)
+    image = generate_picture_from_user_info(
+        request.user.username, profile.statistics(),
+        AchievementsSettings.objects.filter(userProfile=profile)
+    )
+    image.save(path, "PNG")
+    file = upload(path)
+    imageUrl = file['url']
+    profile.pictureUrl = imageUrl
+    profile.save()
+    os.remove(path)
+    # except Exception as e:
+    #     print(e)
+    #     raise e
+    #     return HttpResponse(status=500)
     return HttpResponse(imageUrl, status=200)
 
 

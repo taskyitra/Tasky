@@ -75,6 +75,10 @@ class Task(models.Model):
         self.attempts += 1
         self.save()
 
+    def check_answer(self, answer):
+        return Answer.objects.filter(task=self, text=answer).exists()
+
+
 
 class Answer(models.Model):
     task = models.ForeignKey(Task, related_name='task_answer')

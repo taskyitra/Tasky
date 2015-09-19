@@ -89,74 +89,79 @@
 
                 <div class="tab-content">
                     <div id="settings" class="tab-pane fade">
-                        {% if user.pk == founduser.pk %}
-                            <button id="generate_picture">{% trans 'Generate picture' %}</button>
-                            <script>
-                                $('#generate_picture').click(function(e){
-                                    var json = "";
-                                    $.ajax({
-                                        url: "/user_account/generate_picture/",
-                                        type: 'POST',
-                                        data: json,
-                                        success: function (src) {
-                                            console.log(src);
-                                            $('#user_img').attr("src", src);
-                                            $('#user_img1').attr("src", src);
-                                        },
-                                        error: function(mess){
-                                            console.log("Error");
-                                        }
-                                    });
-                                })
-                            </script>
-                        {% endif %}
-
-                        <div class="col-xs-3">
-                            <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="editable">{{ founduser.username }}</label>
-                            {% if user.pk == founduser.pk %}
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#editable').editable('/user_account/change_username/', {
-                                            submit  : 'OK',
-                                            style   : 'inherit',
-                                            callback : function(value, settings) {
-                                                $(document).prop('title', value);
-                                                $('#name').text(value);
-                                                return value;
-                                            }
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                {% if user.pk == founduser.pk %}
+                                    <button id="generate_picture">{% trans 'Generate picture' %}</button>
+                                    <script>
+                                        $('#generate_picture').click(function(e){
+                                            var json = "";
+                                            $.ajax({
+                                                url: "/user_account/generate_picture/",
+                                                type: 'POST',
+                                                data: json,
+                                                success: function (src) {
+                                                    console.log(src);
+                                                    $('#user_img').attr("src", src);
+                                                    $('#user_img1').attr("src", src);
+                                                },
+                                                error: function(mess){
+                                                    console.log("Error");
+                                                }
+                                            });
                                         })
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="editable">{{ founduser.username }}</label>
+                                {% if user.pk == founduser.pk %}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#editable').editable('/user_account/change_username/', {
+                                                submit  : 'OK',
+                                                style   : 'inherit',
+                                                callback : function(value, settings) {
+{#                                                    var v = JSON.parse(value);#}
+                                                    $(document).prop('title', value);
+                                                    $('#name').text(value);
+                                                    return value;
+                                                }
+                                            })
+                                        });
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <select id="locale">
+                                    {% if profile.locale == 0 %}
+                                        <option value="0" selected>Ru</option>
+                                        <option value="1">En</option>
+                                    {% else %}
+                                        <option value="0">Ru</option>
+                                        <option value="1" selected>En</option>
+                                    {% endif %}
+                                </select>
+                                <script>
+                                    $( "#locale" ).change(function(){
+                                        var value = $( "select#locale option:selected").val();
+                                        var pk = parseInt("{{ user.pk }}");
+                                        $.ajax({
+                                            url: "/user_account/change_locale/",
+                                            type: 'POST',
+                                            data: {'pk': pk, 'locale': value},
+                                            success: function (mess) {
+                                                document.location.href = "/user_account/user/" + pk + "/";
+                                            },
+                                            error: function(mess){
+                                                console.log("Error");
+                                            }
+                                        });
                                     });
                                 </script>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-xs-3">
-                            <select id="locale">
-                                {% if profile.locale == 0 %}
-                                    <option value="0" selected>Ru</option>
-                                    <option value="1">En</option>
-                                {% else %}
-                                    <option value="0">Ru</option>
-                                    <option value="1" selected>En</option>
-                                {% endif %}
-                            </select>
-                            <script>
-                                $( "#locale" ).change(function(){
-                                    var value = $( "select#locale option:selected").val();
-                                    var pk = parseInt("{{ user.pk }}");
-                                    $.ajax({
-                                        url: "/user_account/change_locale/",
-                                        type: 'POST',
-                                        data: {'pk': pk, 'locale': value},
-                                        success: function (mess) {
-                                            document.location.href = "/user_account/user/" + pk + "/";
-                                        },
-                                        error: function(mess){
-                                            console.log("Error");
-                                        }
-                                    });
-                                });
-                            </script>
+                            </div>
                         </div>
                     </div>
 

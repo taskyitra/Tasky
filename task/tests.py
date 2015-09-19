@@ -87,7 +87,7 @@ class TaskViewsTest(TestCase):
         resp = self.client.get(
             reverse('task:solve_task', kwargs={'pk': Task.objects.filter(user=User.objects.get(pk=2)).first().pk}),
         )
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, 200)
 
     def test_task_solving_get(self):
         self.client.login(username='stanislau', password='ckfdujhjl')

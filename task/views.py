@@ -90,21 +90,17 @@ def solve_task(request, pk):
         form = AnswerForm(request.POST)
         profile = UserProfile.objects.get_or_create_profile(request.user)
         if form.is_valid():
-            if not Answer.objects.filter(task=task, text=form.save(commit=False).text).exists():
-                solving = Solving(user=request.user, task=task, is_solved=False, level=task.level)
-                solving.save()
-                profile.solving_attempt()
-                task.solving_attempt()
+            result = Answer.objects.filter(task=task, text=form.save(commit=False).text).exists()
+            Solving.objects.create(user=request.user, task=task, is_solved=result, level=task.level)
+            profile.solving_attempt(success=result)
+            task.solving_attempt(success=result)
+            if not result:
                 form.full_clean()
                 if profile.locale == 0:
                     form._errors[NON_FIELD_ERRORS] = form.error_class(['Неправильный ответ'])
                 else:
                     form._errors[NON_FIELD_ERRORS] = form.error_class(['Wrong answer'])
             else:
-                solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
-                solving.save()
-                profile.solving_attempt(success=True)
-                task.solving_attempt(success=True)
                 set_achievements_at_decision(request.user, task)
                 return render_solve_page(request, task)
     else:

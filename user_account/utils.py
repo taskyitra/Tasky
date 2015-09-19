@@ -7,7 +7,8 @@ from user_account.models import Achievement
 def generate_achieve_on_image(image, achievements, name, pos):
     ach = Achievement.objects.get(name=name)
     try:
-        picture = Image.open(settings.BASE_DIR + ach.imageUrl)
+        # picture = Image.open(settings.BASE_DIR + ach.imageUrl)
+        picture = Image.open(ach.imageUrl)
         picture.thumbnail((100, 100))
     except Exception as e:
         print(6, e)
@@ -53,7 +54,8 @@ def generate_picture_from_user_info(username, statistics, achievements):
 
     try:
         ach_first = Achievement.objects.get(name='First')
-        first = Image.open(settings.BASE_DIR + ach_first.imageUrl)
+        first = Image.open(ach_first.imageUrl)
+        # first = Image.open(settings.BASE_DIR + ach_first.imageUrl)
         first.thumbnail((100, 100))
         if achievements.filter(achievement=ach_first).exists():
             image.paste(first, (340, 30))

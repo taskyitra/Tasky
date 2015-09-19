@@ -51,7 +51,8 @@ class UserProfile(models.Model):
 
     def statistics(self):
         return {'task_count': Task.objects.count_tasks_for_user(self.user),
-                'percentage': int(100 * self.solved_task_count / self.attempts),
+                'percentage': 0 if self.attempts == 0
+                else int(100 * self.solved_task_count / self.attempts),
                 'rating': self.rating,
                 'solved_task_count': self.solved_task_count}
 

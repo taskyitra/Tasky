@@ -46,31 +46,15 @@ def generate_picture(request):
             request.user.username, profile.statistics(),
             AchievementsSettings.objects.filter(userProfile=profile)
         )
-    except Exception as e:
-        print(1, e)
-        return HttpResponse(status=500)
-    try:
         image.save(path, "PNG")
-    except Exception as e:
-        print(2, e)
-        return HttpResponse(status=500)
-    try:
         file = upload(path)
-    except Exception as e:
-        print(3, e)
-        return HttpResponse(status=500)
-    try:
         imageUrl = file['url']
+        profile.pictureUrl = imageUrl
+        profile.save()
+        os.remove(path)
     except Exception as e:
-        print(4, e)
+        print(e)
         return HttpResponse(status=500)
-    profile.pictureUrl = imageUrl
-    profile.save()
-    os.remove(path)
-    # except Exception as e:
-    #     print(e)
-    #     raise e
-    #     return HttpResponse(status=500)
     return HttpResponse(imageUrl, status=200)
 
 

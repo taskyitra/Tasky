@@ -37,16 +37,16 @@ def generate_picture_from_user_info(username, statistics, achievements):
 
     try:
         header_font_size, statistic_font_size = 30, 15
-        # header_font = ImageFont.truetype("arial.ttf", header_font_size)
-        # statistic_font = ImageFont.truetype("arial.ttf", statistic_font_size)
+        header_font = ImageFont.truetype("static/arial.ttf", header_font_size)
+        statistic_font = ImageFont.truetype("static/arial.ttf", statistic_font_size)
     except Exception as e:
         print(2, e)
         return image
 
     try:
-        draw.text(username[0], username[1], fill=color)
+        draw.text(username[0], username[1], fill=color, font=header_font)
         for stat in stats:
-            draw.text(stat[0], stat[1], fill=color)
+            draw.text(stat[0], stat[1], fill=color, font=statistic_font)
     except Exception as e:
         print(3, e)
         return image
@@ -58,7 +58,7 @@ def generate_picture_from_user_info(username, statistics, achievements):
         if achievements.filter(achievement=ach_first).exists():
             image.paste(first, (340, 30))
             draw.text((430, 110), str(achievements.get(achievement=ach_first).count),
-                      fill=(255, 0, 0))
+                      fill=(255, 0, 0), font=statistic_font)
         else:
             com = ImageOps.colorize(ImageOps.grayscale(first), (0, 0, 0), (50, 50, 50))
             image.paste(com, (340, 30))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 22:56+0400\n"
+"POT-Creation-Date: 2015-09-19 19:27+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,30 +75,30 @@ msgid "Enter tags fields"
 msgstr "Заполните поля тэгов"
 
 #: .\task\templates\task\create_task.html:42
-#: .\task\templates\task\edit.html:54 .\task\templates\task\solve.html:44
+#: .\task\templates\task\edit.html:54 .\task\templates\task\solve.html:45
 msgid "Level"
 msgstr "Уровень"
 
 #: .\task\templates\task\create_task.html:45
 #: .\task\templates\task\edit.html:58 .\task\templates\task\edit.html.py:62
-#: .\task\templates\task\edit.html:66 .\task\templates\task\solve.html:46
+#: .\task\templates\task\edit.html:66 .\task\templates\task\solve.html:47
 msgid "Low"
 msgstr "Низкий"
 
 #: .\task\templates\task\create_task.html:46
 #: .\task\templates\task\edit.html:59 .\task\templates\task\edit.html.py:63
-#: .\task\templates\task\edit.html:67 .\task\templates\task\solve.html:48
+#: .\task\templates\task\edit.html:67 .\task\templates\task\solve.html:49
 msgid "Middle"
 msgstr "Средний"
 
 #: .\task\templates\task\create_task.html:47
 #: .\task\templates\task\edit.html:60 .\task\templates\task\edit.html.py:64
-#: .\task\templates\task\edit.html:68 .\task\templates\task\solve.html:50
+#: .\task\templates\task\edit.html:68 .\task\templates\task\solve.html:51
 msgid "High"
 msgstr "Тяжелый"
 
 #: .\task\templates\task\create_task.html:53
-#: .\task\templates\task\edit.html:75 .\task\templates\task\solve.html:92
+#: .\task\templates\task\edit.html:75 .\task\templates\task\solve.html:93
 msgid "Condition"
 msgstr "Условие"
 
@@ -113,7 +113,7 @@ msgid "Loading"
 msgstr "Загрузка"
 
 #: .\task\templates\task\create_task.html:68
-#: .\task\templates\task\edit.html:90 .\task\templates\task\solve.html:56
+#: .\task\templates\task\edit.html:90 .\task\templates\task\solve.html:57
 msgid "Area"
 msgstr "Область"
 
@@ -144,7 +144,7 @@ msgstr "Задача"
 msgid "created successfully"
 msgstr "успешно создана"
 
-#: .\task\templates\task\edit.html:7 .\task\templates\task\solve.html:134
+#: .\task\templates\task\edit.html:7 .\task\templates\task\solve.html:135
 msgid "Edit task"
 msgstr "Изменить задачу"
 
@@ -180,7 +180,7 @@ msgstr "Отменить"
 msgid "Solve task"
 msgstr "Решить задачу"
 
-#: .\task\templates\task\solve.html:22
+#: .\task\templates\task\solve.html:23
 #: .\task\templates\task\tasks_by_tag.html:19
 #: .\templates\search\search.html:21
 #: .\user_account\templates\user_account\user.html:172
@@ -188,45 +188,45 @@ msgstr "Решить задачу"
 msgid "created"
 msgstr "создана"
 
-#: .\task\templates\task\solve.html:70
+#: .\task\templates\task\solve.html:71
 #: .\user_account\templates\user_account\user.html:51
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: .\task\templates\task\solve.html:79
+#: .\task\templates\task\solve.html:80
 #: .\user_account\templates\user_account\user.html:45
 msgid "Percentage of correct answers"
 msgstr "Процент правильных ответов"
 
-#: .\task\templates\task\solve.html:85
+#: .\task\templates\task\solve.html:86
 msgid "Attempts for solve"
 msgstr "Попыток"
 
-#: .\task\templates\task\solve.html:103
+#: .\task\templates\task\solve.html:104
 msgid "Answer"
 msgstr "Ответ"
 
-#: .\task\templates\task\solve.html:117
+#: .\task\templates\task\solve.html:118
 msgid "Check"
 msgstr "Проверить"
 
-#: .\task\templates\task\solve.html:131
+#: .\task\templates\task\solve.html:132
 msgid "This is your task"
 msgstr "Это ваша задача"
 
-#: .\task\templates\task\solve.html:143
+#: .\task\templates\task\solve.html:144
 msgid "You already solved this task"
 msgstr "Вы уже решили задачу"
 
-#: .\task\templates\task\solve.html:145
+#: .\task\templates\task\solve.html:146
 msgid "Congratulates, you solved this task"
 msgstr "Поздравляю, вы решили задачу"
 
-#: .\task\templates\task\solve.html:155
+#: .\task\templates\task\solve.html:156
 msgid "You put for task mark"
 msgstr "Вы поставили задаче оценку"
 
-#: .\task\templates\task\solve.html:170
+#: .\task\templates\task\solve.html:171
 msgid "Please, put mark for task"
 msgstr "Пожалуйста, поставьте оценку"
 

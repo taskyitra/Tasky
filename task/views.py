@@ -36,13 +36,13 @@ def set_achievements_at_creation(user):
 
 def set_achievements_at_decision(user, task):
     achivements_names = {5: 'Solver1', 10: 'Solver2', 20: 'Solver3', 30: 'Solver4'}
-    count = Solving.objects.count_solves_for_user(user)
+    count = UserProfile.objects.get_or_create_profile(user).solved_task_count
     if count in achivements_names.keys():
         profile = UserProfile.objects.get_or_create_profile(user)
         achievement = Achievement.objects.get(name=achivements_names[count])
         if not AchievementsSettings.objects.filter(userProfile=profile, achievement=achievement).exists():
             AchievementsSettings.objects.create(userProfile=profile, achievement=achievement, count=1)
-    if Solving.objects.is_first_solving(task):
+    if task.success_attempts == 1:
         profile = UserProfile.objects.get_or_create_profile(user)
         achievement = Achievement.objects.get(name='First')
         AchievementsSettings.objects.increment_counter(profile, achievement)
@@ -88,18 +88,23 @@ def solve_task(request, pk):
         return render_solve_page(request, task, is_old_solving=True)
     if request.method == 'POST':
         form = AnswerForm(request.POST)
+        profile = UserProfile.objects.get_or_create_profile(request.user)
         if form.is_valid():
             if not Answer.objects.filter(task=task, text=form.save(commit=False).text).exists():
                 solving = Solving(user=request.user, task=task, is_solved=False, level=task.level)
                 solving.save()
+                profile.solving_attempt()
+                task.solving_attempt()
                 form.full_clean()
-                if UserProfile.objects.get_or_create_profile(request.user).locale == 0:
+                if profile.locale == 0:
                     form._errors[NON_FIELD_ERRORS] = form.error_class(['Неправильный ответ'])
                 else:
                     form._errors[NON_FIELD_ERRORS] = form.error_class(['Wrong answer'])
             else:
                 solving = Solving(user=request.user, task=task, is_solved=True, level=task.level)
                 solving.save()
+                profile.solving_attempt(success=True)
+                task.solving_attempt(success=True)
                 set_achievements_at_decision(request.user, task)
                 return render_solve_page(request, task)
     else:
@@ -108,7 +113,7 @@ def solve_task(request, pk):
 
 
 def render_solve_page(request, task, form=None, is_old_solving=False, user_is_creator=False):
-    did_he_put_mark = Rating.objects.did_he_put_mark(request.user, task)
+    user_mark_for_task = Rating.objects.get_mark_or_None(request.user, task)
     func = lambda x: x if x is not None else '/static/user_account/pictures/unknown.png'
     comments = [{'comment': comment, 'url':
         func(UserProfile.objects.get_or_create_profile(comment.user).pictureUrl)}
@@ -116,7 +121,7 @@ def render_solve_page(request, task, form=None, is_old_solving=False, user_is_cr
     return render(request, 'task/solve.html',
                   {'form': form, 'task': task, 'is_old_solving': is_old_solving,
                    'user_is_creator': user_is_creator,
-                   'comments': comments, 'user_mark_for_task': did_he_put_mark,
+                   'comments': comments, 'user_mark_for_task': user_mark_for_task,
                    'tags': task.tags.all(), 'statistics': task.task_statistics()})
 
 

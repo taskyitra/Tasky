@@ -40,7 +40,8 @@ function setDefaultRatingSettings(userid, taskid){
             data: {'data': json},
             success: function (mess) {
                 console.log("asd");
-                $('#rating_info').append("<h5> Вы оценили задачу на "+ user_votes + "</h5>");
+                var str = gettext('You put for task mark');
+                $('#rating_info').append("<h5> "+ str +" "+ user_votes + "</h5>");
                 $("#rating_load").remove();
                 $('#current_task_rating').text("" + mess);
                 console.log(mess);

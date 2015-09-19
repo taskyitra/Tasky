@@ -1,8 +1,8 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
-from social.apps.django_app.default.models import UserSocialAuth
 
 from task.models import Task
-
+from user_account.models import UserProfile
 
 
 def index(request):

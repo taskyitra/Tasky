@@ -36,8 +36,8 @@ class Task(models.Model):
     condition = MarkdownField()
     creation_date = models.DateTimeField(auto_now_add=True)
 
-    # attempts = models.IntegerField(default=0)
-    # success_attempts = models.IntegerField(default=0)
+    attempts = models.IntegerField(default=0)
+    success_attempts = models.IntegerField(default=0)
 
     objects = TaskManager()
 
@@ -64,9 +64,16 @@ class Task(models.Model):
 
     def task_statistics(self):
         statistic = {'rating': Rating.objects.average_rating_for_task(self),
-                     'percentage': Solving.objects.percentage_for_task(self),
-                     'attempts': Solving.objects.attempts_for_task(self)}
+                     'percentage': 0 if self.attempts == 0
+                     else int(100 * self.success_attempts / self.attempts),
+                     'attempts': self.attempts}
         return statistic
+
+    def solving_attempt(self, success=False):
+        if success:
+            self.success_attempts += 1
+        self.attempts += 1
+        self.save()
 
 
 class Answer(models.Model):
@@ -78,28 +85,28 @@ class Answer(models.Model):
 
 
 class SolvingManager(models.Manager):
-    def count_solves_for_user(self, user):
-        return len(super(SolvingManager, self).filter(user=user, is_solved=True))
-
-    def is_first_solving(self, task):
-        return len(super(SolvingManager, self).filter(task=task)) == 1
-
-    def percentage_for_task(self, task):
-        if super(SolvingManager, self).filter(task=task).exists():
-            return int((len(super(SolvingManager, self).filter(task=task, is_solved=True)) /
-                        len(super(SolvingManager, self).filter(task=task))) * 100)
-        else:
-            return 0
-
-    def attempts_for_task(self, task):
-        return len(super(SolvingManager, self).filter(task=task))
-
-    def percentage_for_user(self, user):
-        if super(SolvingManager, self).filter(user=user).exists():
-            return int((len(super(SolvingManager, self).filter(user=user, is_solved=True)) /
-                        len(super(SolvingManager, self).filter(user=user))) * 100)
-        else:
-            return 0
+    # def count_solves_for_user(self, user):
+    #     return len(super(SolvingManager, self).filter(user=user, is_solved=True))
+    #
+    # def is_first_solving(self, task):
+    #     return len(super(SolvingManager, self).filter(task=task)) == 1
+    #
+    # def percentage_for_task(self, task):
+    #     if super(SolvingManager, self).filter(task=task).exists():
+    #         return int((len(super(SolvingManager, self).filter(task=task, is_solved=True)) /
+    #                     len(super(SolvingManager, self).filter(task=task))) * 100)
+    #     else:
+    #         return 0
+    #
+    # def attempts_for_task(self, task):
+    #     return len(super(SolvingManager, self).filter(task=task))
+    #
+    # def percentage_for_user(self, user):
+    #     if super(SolvingManager, self).filter(user=user).exists():
+    #         return int((len(super(SolvingManager, self).filter(user=user, is_solved=True)) /
+    #                     len(super(SolvingManager, self).filter(user=user))) * 100)
+    #     else:
+    #         return 0
 
     def rating_for_user(self, user):
         summa = 0
@@ -135,7 +142,7 @@ class Solving(models.Model):
 
 
 class RatingManager(models.Manager):
-    def did_he_put_mark(self, user, task):
+    def get_mark_or_None(self, user, task):
         return super(RatingManager, self).filter(user=user, task=task).first()
 
     def average_rating_for_task(self, task):
@@ -149,7 +156,8 @@ class RatingManager(models.Manager):
         user = User.objects.filter(pk=rating_fields['userid']).first()
         task = Task.objects.filter(pk=rating_fields['taskid']).first()
         mark = rating_fields['mark']
-        super(RatingManager, self).create(user=user, task=task, mark=mark)
+        if not self.get_mark_or_None(user, task):
+            super(RatingManager, self).create(user=user, task=task, mark=mark)
         return self.average_rating_for_task(task)
 
 

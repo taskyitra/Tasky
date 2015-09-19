@@ -36,17 +36,24 @@ class UserProfile(models.Model):
     pictureUrl = models.CharField(max_length=100, null=True)
     locale = models.IntegerField(default=0, choices=Locals)
 
-    # rating = models.IntegerField(default=0)
-    # attempts = models.IntegerField(default=0)
-    # solved_task_count = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0)
+    attempts = models.IntegerField(default=0)
+    solved_task_count = models.IntegerField(default=0)
 
     objects = UserProfileManager()
 
+    def solving_attempt(self, success=False):
+        if success:
+            self.solved_task_count += 1
+            self.rating = Solving.objects.rating_for_user(self.user)
+        self.attempts += 1
+        self.save()
+
     def statistics(self):
         return {'task_count': Task.objects.count_tasks_for_user(self.user),
-                'percentage': Solving.objects.percentage_for_user(self.user),
-                'rating': Solving.objects.rating_for_user(self.user),
-                'solved_task_count': Solving.objects.count_solves_for_user(self.user)}
+                'percentage': int(100 * self.solved_task_count / self.attempts),
+                'rating': self.rating,
+                'solved_task_count': self.solved_task_count}
 
     def __str__(self):
         return 'Profile for "{}"'.format(self.user)

@@ -4,5 +4,6 @@ from django.conf.urls import url
 urlpatterns = patterns('user_account.views',
                        url(r'^generate_picture/$', 'generate_picture', name='generate_picture'),
                        url(r'^change_username/$', 'change_username', name='change_username'),
+                       url(r'^change_locale/$', 'change_locale', name='change_locale'),
                        url(r'^user/(?P<pk>\d+)/$', 'user', name='user'),
                        )

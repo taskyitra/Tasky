@@ -1,61 +1,256 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block title %}<title>{{ founduser.username }}</title>{% endblock %}
 
+{% block styling %}
+{#    <link rel="stylesheet" href="{% static 'user_account/css/bootstrap-editable.css' %}">#}
+{#    <script src="{% static 'user_account/js/bootstrap-editable.min.js' %}"></script>#}
+{% endblock %}
+
 {% block content %}
-    <div class="container" style="margin: 50px">
-        <div class="pull-left">
-            {% if not profile.pictureUrl %}
-                <img id="user_img" src="{% static 'user_account/pictures/unknown.png' %}" width="100" height="100">
-            {% else %}
-                <img id="user_img" src="{{ profile.pictureUrl }}" width="100" height="100">
-            {% endif %}
-        </div>
-
+    <div style="margin-top: 5px">
         <div>
-            <div>
-                <label class="col-sm-3" style="display: inline" id="editable">{{ founduser.username }}</label>
-                {% if user.pk == founduser.pk %}
-                    <script>
-                        $(document).ready(function() {
-                            $('#editable').editable('/user_account/change_username/', {
-                                submit  : 'OK',
-                                style   : 'inherit',
-                                callback : function(value, settings) {
-                                    $(document).prop('title', value);
-                                    return value;
-                                }
-                            })
-                        });
-                    </script>
-                {% endif %}
+            <div class="media">
+                <div class="pull-left">
+                    <a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+                        {% if not profile.pictureUrl %}
+                            <img id="user_img" class="media-object" src="{% static 'user_account/pictures/unknown.png' %}" width="100" height="100">
+                        {% else %}
+                            <img id="user_img" class="media-object" src="{{ profile.pictureUrl }}" width="100" height="100">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class="row">
+                        <h3 class="media-heading col-xs-12">
+                            <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="name">{{ founduser.username }}</label>
+                        </h3>
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-3" align="center">
+                                <p>{% trans "Created tasks" %}</p>
+                                <p>
+                                    {{ statistic.task_count }}
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" align="center">
+                                <p>{% trans "Solved tasks" %}</p>
+                                <p>
+                                    {{ statistic.solved_task_count }}
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" align="center">
+                                <p>{% trans 'Percentage of correct answers' %}</p>
+                                <p>
+                                    {{ statistic.percentage }}%
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" align="center">
+                                <p>{% trans 'Rating' %}</p>
+                                <p>
+                                    {{ statistic.rating }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div id="lightbox" align="center" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            {% if not profile.pictureUrl %}
+                                <img id="user_img1" src="{% static 'user_account/pictures/unknown.png' %}">
+                            {% else %}
+                                <img id="user_img1" src="{{ profile.pictureUrl }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                {% if user.pk == founduser.pk %}
-                    <button id="generate_picture">Генерить пикчу</button>
-                    <script>
-                        $('#generate_picture').click(function(e){
-                            var json = "";
-                            $.ajax({
-                                url: "/user_account/generate_picture/",
-                                type: 'POST',
-                                data: json,
-                                success: function (src) {
-                                    console.log(src);
-                                    $('#user_img').attr("src", src);
-                                },
-                                error: function(mess){
-                                    console.log("Error");
-                                }
-                            });
-                        })
-                    </script>
-                {% endif %}
+            <div class="row">
+                <ul class="nav nav-tabs">
+                    {% if founduser.pk == user.pk %}
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#settings">{% trans 'Settings' %}</a></li>
+                        <li class="active"><a style="min-width: 150px" data-toggle="tab" href="#tasks">{% trans 'My tasks' %}</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#solved_tasks">{% trans 'Solved tasks' %}</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#ach">{% trans 'My Achievements' %}</a></li>
+                    {% else %}
+                        <li class="active"><a style="min-width: 150px" data-toggle="tab" href="#tasks">{% trans 'Tasks' %}</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#solved_tasks">{% trans 'Solved tasks' %}</a></li>
+                        <li><a style="min-width: 150px" data-toggle="tab" href="#ach">{% trans 'Achievements' %}</a></li>
+                    {% endif %}
+                </ul>
+
+                <div class="tab-content">
+                    <div id="settings" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                {% if user.pk == founduser.pk %}
+                                    <button id="generate_picture">{% trans 'Generate picture' %}</button>
+                                    <script>
+                                        $('#generate_picture').click(function(e){
+                                            var json = "";
+                                            $.ajax({
+                                                url: "/user_account/generate_picture/",
+                                                type: 'POST',
+                                                data: json,
+                                                success: function (src) {
+                                                    console.log(src);
+                                                    $('#user_img').attr("src", src);
+                                                    $('#user_img1').attr("src", src);
+                                                },
+                                                error: function(mess){
+                                                    console.log("Error");
+                                                }
+                                            });
+                                        })
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <label class="col-xs-12 col-sm-3" style="display: inline; width: 200px" id="editable">{{ founduser.username }}</label>
+                                {% if user.pk == founduser.pk %}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#editable').editable('/user_account/change_username/', {
+                                                submit  : 'OK',
+                                                style   : 'inherit',
+                                                callback : function(value, settings) {
+{#                                                    var v = JSON.parse(value);#}
+                                                    $(document).prop('title', value);
+                                                    $('#name').text(value);
+                                                    return value;
+                                                }
+                                            })
+                                        });
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <select id="locale">
+                                    {% if profile.locale == 0 %}
+                                        <option value="0" selected>Ru</option>
+                                        <option value="1">En</option>
+                                    {% else %}
+                                        <option value="0">Ru</option>
+                                        <option value="1" selected>En</option>
+                                    {% endif %}
+                                </select>
+                                <script>
+                                    $( "#locale" ).change(function(){
+                                        var value = $( "select#locale option:selected").val();
+                                        var pk = parseInt("{{ user.pk }}");
+                                        $.ajax({
+                                            url: "/user_account/change_locale/",
+                                            type: 'POST',
+                                            data: {'pk': pk, 'locale': value},
+                                            success: function (mess) {
+                                                document.location.href = "/user_account/user/" + pk + "/";
+                                            },
+                                            error: function(mess){
+                                                console.log("Error");
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tasks" class="tab-pane fade in active">
+                        {% for task in tasks %}
+                            <h5>
+                                {% if founduser.pk == user.pk %}
+                                    <a href="{% url 'task:edit' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                {% else %}
+                                    <a href="{% url 'task:solve_task' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                {% endif %}
+                                <label>
+                                    |{% trans 'created' %}
+                                    <span class="glyphicon glyphicon-time"></span> {{ task.task.creation_date }}
+                                </label>
+                            </h5>
+                            <div id="readOnly" class="bootstrap-tags bootstrap-3"
+                                 style="padding-bottom: 1px; height:30px">
+                                <div class="tags">
+                                    {% for tag in task.tags %}
+                                            <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                                                <div class="tag label btn-info sm">
+                                                    <span>{{ tag.tag_name }}</span>
+                                                </div>
+                                            </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr>
+                        {% empty %}
+                            <p>{% trans 'User has not created any tasks' %}</p>
+                        {% endfor %}
+                    </div>
+
+                <div id="solved_tasks" class="tab-pane fade">
+                        {% for task in solved_tasks %}
+                            {% if task %}
+                                <h5>
+                                    {% if founduser.pk == user.pk %}
+                                        <a href="{% url 'task:edit' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                    {% else %}
+                                        <a href="{% url 'task:solve_task' pk=task.task.pk %}">{{ task.task.task_name }}</a>
+                                    {% endif %}
+                                    <label>
+                                        |{% trans 'created' %}
+                                        <span class="glyphicon glyphicon-time"></span> {{ task.task.creation_date }}
+                                    </label>
+                                </h5>
+                                <div id="readOnly" class="bootstrap-tags bootstrap-3"
+                                     style="padding-bottom: 1px; height:30px">
+                                    <div class="tags">
+                                        {% for tag in task.tags %}
+                                                <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                                                    <div class="tag label btn-info sm">
+                                                        <span>{{ tag.tag_name }}</span>
+                                                    </div>
+                                                </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <h5>{% trans 'Attempts' %} {{ task.count }}</h5>
+                                <hr>
+{#                            {% else %}#}
+{#                                <h5>Задача удалена создателем</h5>#}
+                            {% endif %}
+                        {% empty %}
+                            <p>{% trans 'User has not solved any tasks' %}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div id="ach" class="tab-pane fade">
+                            {% for achievement in achievements %}
+                                <div class="media">
+                                    <div class="media-body">
+                                        <div class="row">
+                                            <h3 class="media-heading col-xs-12">{{ achievement.achieve.description }}</h3>
+                                            <label class="col-xs-12">{{ achievement.achieve.fullDescription }}</label>
+                                            {% if achievement.its_name_is_first %}
+                                                <label class="col-xs-12">{% trans 'Count' %}: {{ achievement.count }}</label>
+                                            {% endif %} 
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p>{% trans 'User do not have any achievements' %}</p>
+                            {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 {% endblock %}

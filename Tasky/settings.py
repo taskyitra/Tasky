@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -33,10 +34,29 @@ INSTALLED_APPS = (
     'django_markdown',
     'user_account',
     'haystack',
+    'django_nose',
 )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+   '--with-coverage',  # activate coverage report
+    '--with-doctest',  # activate doctest: find and run docstests
+    '--verbosity=2',   # verbose output
+    '--with-xunit',    # enable XUnit plugin
+    '--xunit-file=xunittest.xml',  # the XUnit report file
+    '--cover-xml',     # produle XML coverage info
+    '--cover-xml-file=coverage.xml',  # the coverage info file
+    # '--cover-package=task.models'
+    # '--cover-package=task.views'
+    # '--cover-package=user_account.models'
+    # '--cover-package=user_account.views'
+    # '--cover-package=comments.models'
+    # '--cover-package=comments.views'
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -44,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'Tasky.middleware.FrontendLanguageMiddleware',
 )
 
 ROOT_URLCONF = 'Tasky.urls'
@@ -65,6 +86,25 @@ DATABASES = {
     }
 }
 
+# Templates files
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -93,10 +133,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-)
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -134,13 +170,21 @@ LOGIN_URL = 'auth_login'
 
 MARKDOWN_EDITOR_SKIN = 'simple'
 
+es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
+
+port = es.port or 80
+
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
+        'URL': es.scheme + '://' + es.hostname + ':' + str(port),
+        'INDEX_NAME': 'documents',
     },
 }
+
+if es.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
 
 # http://django-haystack.readthedocs.org/en/latest/signal_processors.html
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
@@ -148,3 +192,12 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # increase the default number of results (from 20)
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 
+from django.utils.translation import ugettext_lazy as _
+LANGUAGES = (
+    ('en', _('English')),
+    ('ru', _('Russian')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)

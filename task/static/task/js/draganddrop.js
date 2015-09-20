@@ -22,11 +22,11 @@ $(document).ready(function() {
         $('#progress').show();
         // Closure to capture the file information.
         reader.onload = function(event) {
-            var contents = encodeURIComponent(event.target.result);
+            var contents = event.target.result;
             $.ajax({
                 url: "/task/add_picture/",
                 type: 'POST',
-                data: contents,
+                data: {'content':contents},
                 success: function (mess) {
                     dropZone.val(dropZone.val() + "\n![](" + mess + " \"\")");
                     $('#progress').hide();
@@ -36,21 +36,7 @@ $(document).ready(function() {
                 }
             });
         };
-        // Read in the image file as a data URL.
         reader.readAsDataURL(file);
-
-        //$.ajax({
-        //    url: "/task/add_picture/",
-        //    type: 'POST',
-        //    data: file,
-        //    success: function (mess) {
-        //        dropZone.append("\n![](" + mess + " \"\")");
-        //        console.log(mess);
-        //    },
-        //    error: function(mess){
-        //        console.log("Error");
-        //    }
-        //});
     };
 
 });

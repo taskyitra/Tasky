@@ -2,8 +2,9 @@
 {% load static %}
 {% load staticfiles %}
 {% load django_markdown %}
+{% load i18n %}
 
-{% block title %}<title>Изменить задачу</title>{% endblock %}
+{% block title %}<title>{% trans 'Edit task' %}</title>{% endblock %}
 
 {% block styling %}
     <link rel="stylesheet" href="{% static 'task/css/typeahead_style.css' %}">
@@ -12,26 +13,27 @@
 
 {% block content %}
     <div class="container">
-        <h1>Редактирование задачи</h1>
+        <h1>{% trans 'Task editing' %}</h1>
+        <h4><a href="{% url 'task:solve_task' pk=task.pk %}">{% trans 'View statistic' %}</a></h4>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="task_name">Название:</label>
+            <label class="control-label col-xs-2" for="task_name">{% trans 'Task name' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <input type="text" maxlength="30" class="col-xs-6" id="task_name"
-                       placeholder="Введите название задачи" autocomplete="off" value="{{ task.task_name }}"
+                       placeholder="{% trans 'Enter task name' %}" autocomplete="off" value="{{ task.task_name }}"
                        style="min-width: 200px">
             </div>
-            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>Заполните поле названия</div>
+            <div style="color: red" class="col-xs-offset-2 col-xs-6" id="task_name_errors" hidden>{% trans 'Enter task name field' %}</div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="tags">Тэги:</label>
+            <label class="control-label col-xs-2" for="tags">{% trans 'Tags' %}:</label>
             <div class="container">
                 <div class="container col-xs-offset-2 col-xs-10" id="tags">
                     {% for tag in tags %}
                         <div class="row">
                             <input type="text" maxlength="30" class="typeahead col-xs-6" value="{{ tag.val }}"
-                                   placeholder="Введите тэг" autocomplete="off">
+                                   autocomplete="off">
                             {% if tag.num != 0 %}
                                 <span class="glyphicon glyphicon-remove"></span>
                             {% endif %}
@@ -44,48 +46,48 @@
                     </script>
                 </div>
             </div>
-            <a class="col-xs-offset-2 col-xs-6" id="create_tag">Создать тэг</a>
-            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="tags_errors" hidden>Заполните поля тэгов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_tag">{% trans 'Create tag' %}</a>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="tags_errors" hidden>{% trans 'Enter tags fields' %}</div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="level">Уровень:</label>
+            <label class="control-label col-xs-2" for="level">{% trans 'Level' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <select id="level">
                     {% if task.level == 1 %}
-                        <option selected value="1">Low</option>
-                        <option value="2">Middle</option>
-                        <option value="3">High</option>
+                        <option selected value="1">{% trans 'Low' %}</option>
+                        <option value="2">{% trans 'Middle' %}</option>
+                        <option value="3">{% trans 'High' %}</option>
                     {% elif task.level == 2 %}
-                        <option value="1">Low</option>
-                        <option selected value="2">Middle</option>
-                        <option value="3">High</option>
+                        <option value="1">{% trans 'Low' %}</option>
+                        <option selected value="2">{% trans 'Middle' %}</option>
+                        <option value="3">{% trans 'High' %}</option>
                     {% else %}
-                        <option value="1">Low</option>
-                        <option value="2">Middle</option>
-                        <option selected value="3">High</option>
+                        <option value="1">{% trans 'Low' %}</option>
+                        <option value="2">{% trans 'Middle' %}</option>
+                        <option selected value="3">{% trans 'High' %}</option>
                     {% endif %}
                 </select>
             </div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="markdown">Условие:</label>
+            <label class="control-label col-xs-2" for="markdown">{% trans 'Condition' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <textarea class="dropZone" name="condition" id="markdown">{{ task.condition }}</textarea>
                 {% markdown_editor "#markdown" %}
                 {% markdown_media %}
             </div>
-            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="markdown_errors" hidden>Заполните поле условия</div>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="markdown_errors" hidden>{% trans 'Enter condition field' %}</div>
             <div class="col-xs-offset-2 col-xs-6 dropError" style="color: red" hidden></div>
             <div class="col-xs-offset-2 col-xs-6" id="progress" hidden>
-                Загрузка
+                {% trans 'Loading' %}
                 <img src="{% static 'task/images/load.gif' %}"/>
             </div>
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="area">Область:</label>
+            <label class="control-label col-xs-2" for="area">{% trans 'Area' %}:</label>
             <div class="col-xs-offset-2 col-xs-10">
                 <select id="area">
                     {% if task.area == 1 %}
@@ -114,13 +116,13 @@
         </div>
 
         <div class="row" style="margin: 5px">
-            <label class="control-label col-xs-2" for="answers">Ответы:</label>
+            <label class="control-label col-xs-2" for="answers">{% trans 'Answers' %}:</label>
             <div class="container">
                 <div class="container col-xs-offset-2 col-xs-10" id="answers">
                     {% for answer in answers %}
                         <div class="row">
                             <input class="col-xs-6" type="text" maxlength="30" value="{{ answer.val }}"
-                                   placeholder="Введите ответ" autocomplete="off" style="margin-bottom: 5px; min-width: 200px">
+                                   autocomplete="off" style="margin-bottom: 5px; min-width: 200px">
                             {% if answer.num != 0 %}
                                 <span class="glyphicon glyphicon-remove"></span>
                             {% endif %}
@@ -133,19 +135,61 @@
                     </script>
                 </div>
             </div>
-            <a class="col-xs-offset-2 col-xs-6" id="create_answer">Создать ответ</a>
-            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="answers_errors" hidden>Заполните поля ответов</div>
+            <a class="col-xs-offset-2 col-xs-6" id="create_answer">{% trans 'Create answer' %}</a>
+            <div class="col-xs-offset-2 col-xs-6" style="color: red" id="answers_errors" hidden>{% trans 'Enter answers fields' %}</div>
         </div>
 
         <div style="margin: 5px;">
             <div class="col-xs-offset-2 col-xs-6">
-                <button type="submit" style="margin-bottom: 5px" class="btn btn-default" id="edit_button">Сохранить изменения</button>
+                <button type="submit" style="margin-bottom: 5px" class="btn btn-primary" id="edit_button">{% trans 'Save' %}</button>
+            </div>
+        </div>
+
+        <div style="margin: 5px;">
+            <div class="col-xs-offset-2 col-xs-6">
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">{% trans 'Delete' %}</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{% trans 'Task deleting' %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans 'Are you sure you want to delete task?' %}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delete_task" type="button" class="btn btn-danger" data-dismiss="modal">{% trans 'Delete' %}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <input id="pk" hidden value="{{ task.pk }}"/>
 
         <script src="{% static 'task/js/Settings.js' %}"></script>
+        <script>
+            $('#delete_task').click(function (e) {
+                $.ajax({
+                    url: "/task/delete/",
+                    type: 'POST',
+                    data: {'pk': $('#pk').val()},
+                    success: function (mess) {
+                        document.location.href = "/user_account/user/" + mess + "/";
+                    },
+                    error: function(mess){
+                        console.log("Error");
+                    }
+                });
+                console.log("del");
+            })
+        </script>
     </div>
 
 {% endblock %}

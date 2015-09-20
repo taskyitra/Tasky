@@ -1,16 +1,19 @@
 .typeahead,
 .tt-query,
 .tt-hint {
-  width: 396px;
-  height: 30px;
-  padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
-  outline: none;
+    width: 396px;
+    height: 30px;
+    -webkit-padding-start: 8px;
+    -webkit-padding-end: 12px;
+        -moz-padding-start: 8px;
+        -moz-padding-end: 12px;
+    font-size: 18px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+    outline: none;
 }
 
 .typeahead {
@@ -37,7 +40,7 @@
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  /*border: 1px solid rgba(0, 0, 0, 0.2);*/
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;

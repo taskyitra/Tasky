@@ -4,8 +4,8 @@ from task.models import Task
 
 
 class TaskIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    author = indexes.CharField(model_attr='user')
+    text = indexes.EdgeNgramField(document=True, use_template=True)
+    author = indexes.EdgeNgramField(model_attr='user')
     pub_date = indexes.DateTimeField(model_attr='creation_date')
 
     def get_model(self):

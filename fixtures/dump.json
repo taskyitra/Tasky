@@ -1,0 +1,1653 @@
+[
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": true,
+    "last_login": "2015-09-17T08:06:24.614Z",
+    "date_joined": "2015-09-07T13:19:43.953Z",
+    "is_staff": true,
+    "password": "pbkdf2_sha256$20000$qEeGzMpCo5cn$CZjnAVA9vekC9EzZqTv2n7/R6i9E2MTyeQQL8xSWx/Y=",
+    "user_permissions": [],
+    "first_name": "",
+    "username": "stanislau",
+    "last_name": "",
+    "email": "kavalioustanislau@gmail.com",
+    "is_active": true
+  },
+  "pk": 1,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": false,
+    "last_login": "2015-09-17T06:07:53.159Z",
+    "date_joined": "2015-09-07T13:21:16.692Z",
+    "is_staff": false,
+    "password": "pbkdf2_sha256$20000$Ltv1qaINpOXT$KEE9QuuLy4aHH5q+I0y9QJSp2c/9H4ratJzhTwje+5c=",
+    "user_permissions": [],
+    "first_name": "",
+    "username": "stas",
+    "last_name": "",
+    "email": "stas@mailinator.com",
+    "is_active": true
+  },
+  "pk": 2,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": false,
+    "last_login": "2015-09-16T11:47:54.167Z",
+    "date_joined": "2015-09-07T13:22:04.459Z",
+    "is_staff": false,
+    "password": "!pQRm8DrOtwiY5KG1i8sE0wYp3QDHg9r1ljDLt3IJ",
+    "user_permissions": [],
+    "first_name": "Stas",
+    "username": "kavaliou_stas",
+    "last_name": "Kavaliou",
+    "email": "",
+    "is_active": true
+  },
+  "pk": 3,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": false,
+    "last_login": "2015-09-14T17:10:47.111Z",
+    "date_joined": "2015-09-07T13:22:11.006Z",
+    "is_staff": false,
+    "password": "!Y7UfwUAaMTrRtIRV3YVDRuguIuEY1O5TFeWtawZ1",
+    "user_permissions": [],
+    "first_name": "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432",
+    "username": "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432",
+    "last_name": "\u041a\u043e\u0432\u0430\u043b\u0435\u0432",
+    "email": "",
+    "is_active": true
+  },
+  "pk": 4,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": false,
+    "last_login": "2015-09-16T12:33:07.800Z",
+    "date_joined": "2015-09-07T13:22:20.223Z",
+    "is_staff": false,
+    "password": "!329r2GDovEmf3UpxJo5tobW5A891RQhhq4N6r4uq",
+    "user_permissions": [],
+    "first_name": "",
+    "username": "kavaliou",
+    "last_name": "",
+    "email": "",
+    "is_active": true
+  },
+  "pk": 5,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "groups": [],
+    "is_superuser": false,
+    "last_login": "2015-09-17T06:00:28.365Z",
+    "date_joined": "2015-09-07T13:22:27.645Z",
+    "is_staff": false,
+    "password": "!23oj0d1eOhK54CPicE2QnrbNcWzvOOs7XW7JHAVA",
+    "user_permissions": [],
+    "first_name": "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432",
+    "username": "id134301728",
+    "last_name": "\u041a\u043e\u0432\u0430\u043b\u0451\u0432",
+    "email": "",
+    "is_active": true
+  },
+  "pk": 6,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "session_data": "YzY3ZDM5YmY3NmRkYTI2ZmI5YThhMzg3NzhkNmIyNGI5MWRiMmE1ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYzk0ZDNhYWU2MGFjMjM4Nzg2ODgxOWM4MTMwZDQ0NWFhM2JiYmIwZSIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+    "expire_date": "2015-10-01T08:06:24.617Z"
+  },
+  "pk": "0hq8l9r84entq8ubn4hmsbgaogbpvhqv",
+  "model": "sessions.session"
+},
+{
+  "fields": {
+    "session_data": "YjA2YjQxY2YzODMwMDJjMTNlNTY3YTJjMTM4ZWI5MzQwNzkzYjVlZTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiJjOTRkM2FhZTYwYWMyMzg3ODY4ODE5YzgxMzBkNDQ1YWEzYmJiYjBlIn0=",
+    "expire_date": "2015-09-23T18:55:41.015Z"
+  },
+  "pk": "ina4kc7tn94ixyidtjyp9kmugga4w5kq",
+  "model": "sessions.session"
+},
+{
+  "fields": {
+    "session_data": "YWE4NjQ0ODNkZjcxNjRmNDY2MWJiNTZlOTE3NWRhYTMzNGYzMTBmNDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjOTRkM2FhZTYwYWMyMzg3ODY4ODE5YzgxMzBkNDQ1YWEzYmJiYjBlIn0=",
+    "expire_date": "2015-09-28T12:44:39.758Z"
+  },
+  "pk": "lnjhy5doq55hd0heh4vl34ws8srpqhbh",
+  "model": "sessions.session"
+},
+{
+  "fields": {
+    "session_data": "ZWZlMzBhOWU1MDQzM2E4NmZhMzM3Y2NiMjNmMjc4MWEyYWIyZDRmZTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiYzM0ZTk5Y2VlMzUzOTRkZTU1OTIxYzVlN2RlZjUzY2NlOWUwZDRiIiwiX2xhbmd1YWdlIjoiZW4ifQ==",
+    "expire_date": "2015-09-30T17:41:12.655Z"
+  },
+  "pk": "ta08n40hojlzdfclkmflp5xm8f7dd3sr",
+  "model": "sessions.session"
+},
+{
+  "fields": {
+    "session_data": "M2QyZjA5MzU1NGQ5YWI5ZTA1NjA0OTE4ZDc5YjNjNTZlYWUyOTYwZTp7InZrLW9hdXRoMl9zdGF0ZSI6IjZXV0RWMG4yeWcxbHdNczBDYjdDQmZSV1ZrUTlGbVpxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoic29jaWFsLmJhY2tlbmRzLnZrLlZLT0F1dGgyIiwiX2F1dGhfdXNlcl9oYXNoIjoiNDdkMDE4ZDI1MTcxODAyMzU3ZGUyYzA4MThjY2FjNTkyYmUyYjcyNiIsInNvY2lhbF9hdXRoX2xhc3RfbG9naW5fYmFja2VuZCI6InZrLW9hdXRoMiIsIl9hdXRoX3VzZXJfaWQiOiI2In0=",
+    "expire_date": "2015-09-21T18:30:02.039Z"
+  },
+  "pk": "uvvojcb8rvobg456vet5hkmx87jdl95t",
+  "model": "sessions.session"
+},
+{
+  "fields": {
+    "activation_key": "ALREADY_ACTIVATED",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 1,
+  "model": "registration.registrationprofile"
+},
+{
+  "fields": {
+    "provider": "twitter",
+    "uid": "3429503085",
+    "extra_data": "{\"access_token\": {\"user_id\": \"3429503085\", \"x_auth_expires\": \"0\", \"oauth_token_secret\": \"mvaa3UjnXsnn9XfOb43LQllPiN5pRK6dikwC3IZMRv0PJ\", \"oauth_token\": \"3429503085-0G0AeRV65aSXRia5KLiuIDjo9ayx3zdQ2dLiHzX\", \"screen_name\": \"kavaliou_stas\"}, \"id\": 3429503085}",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 1,
+  "model": "default.usersocialauth"
+},
+{
+  "fields": {
+    "provider": "facebook",
+    "uid": "114138035602172",
+    "extra_data": "{\"access_token\": \"CAAUtlDPP5RoBAH3hoZBRV6lQ2WtOxboBR3CRZCfRzX6l576wq5mBrS0DkdJGAg5WpVwb9BpuYq2cZB0XjxLe7njcoAZBj8aPhtVeF42DcBIRFtQVHp2fexgtT59IeFSr7ZBcOt7jbjEYufQgUZCcHnxKRQIG1DA3EjPjD18DWyweEaPVdZA8Qx0VCqAAlZBlaoEp2zv5vyOfsQZDZD\", \"id\": \"114138035602172\", \"expires\": null}",
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 2,
+  "model": "default.usersocialauth"
+},
+{
+  "fields": {
+    "provider": "github",
+    "uid": "12279017",
+    "extra_data": "{\"access_token\": \"16f545312c950bd1f48edca1c5f8d03d21ec0326\", \"login\": \"kavaliou\", \"id\": 12279017, \"expires\": null}",
+    "user": [
+      "kavaliou"
+    ]
+  },
+  "pk": 3,
+  "model": "default.usersocialauth"
+},
+{
+  "fields": {
+    "provider": "vk-oauth2",
+    "uid": "134301728",
+    "extra_data": "{\"access_token\": \"199fe5a5676ad83e0b8586f4120dc29bc7ce292b029a23da37e9e682617541e5e0721506c16dcb1e88ad5\", \"id\": null, \"expires\": 86398}",
+    "user": [
+      "id134301728"
+    ]
+  },
+  "pk": 4,
+  "model": "default.usersocialauth"
+},
+{
+  "fields": {
+    "tag_name": "pythonYeah"
+  },
+  "pk": 3,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "pythonYEAH"
+  },
+  "pk": 5,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "python"
+  },
+  "pk": 9,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "pythonYeah1"
+  },
+  "pk": 11,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "\u0442\u0430\u0441\u043a\u0430"
+  },
+  "pk": 14,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "Task"
+  },
+  "pk": 15,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "1"
+  },
+  "pk": 18,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "w"
+  },
+  "pk": 19,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "z"
+  },
+  "pk": 20,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "qw"
+  },
+  "pk": 21,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "Uncle"
+  },
+  "pk": 22,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "Ramsey"
+  },
+  "pk": 23,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "deutsch"
+  },
+  "pk": 24,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "tag_name": "Taska"
+  },
+  "pk": 25,
+  "model": "task.tag"
+},
+{
+  "fields": {
+    "level": 3,
+    "tags": [
+      22
+    ],
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ],
+    "area": 1,
+    "condition": "\u041a\u0442\u043e \u044d\u0442\u043e?",
+    "creation_date": "2015-09-07T19:46:09.148Z",
+    "task_name": "First"
+  },
+  "pk": 5,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 2,
+    "tags": [
+      3,
+      5
+    ],
+    "user": [
+      "stas"
+    ],
+    "area": 3,
+    "condition": "[\u0424\u0443\u0442\u0431\u043e\u043b](http://soccer.ru \"\u0444\u0443\u0442\u0431\u043e\u043b\")",
+    "creation_date": "2015-09-07T19:51:34.332Z",
+    "task_name": "My Task"
+  },
+  "pk": 6,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 1,
+    "tags": [
+      18,
+      19,
+      20,
+      24
+    ],
+    "user": [
+      "id134301728"
+    ],
+    "area": 2,
+    "condition": "![](http://www.soccer.ru/sites/default/files/styles/main_article/public/untitled-1_0.jpg?itok=2pG2T7gN \"\u041d\u043e\u0439\u0435\u0440\")\r\n\r\n**\u041a\u0442\u043e \u042d\u0442\u043e?**",
+    "creation_date": "2015-09-08T10:11:21.726Z",
+    "task_name": "deutsch"
+  },
+  "pk": 7,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 1,
+    "tags": [
+      5
+    ],
+    "user": [
+      "id134301728"
+    ],
+    "area": 3,
+    "condition": "Write 'Python'",
+    "creation_date": "2015-09-08T10:53:09.036Z",
+    "task_name": "EASY"
+  },
+  "pk": 8,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 3,
+    "tags": [
+      18,
+      19,
+      20
+    ],
+    "user": [
+      "stas"
+    ],
+    "area": 3,
+    "condition": "**q**",
+    "creation_date": "2015-09-09T04:21:52.205Z",
+    "task_name": "Name"
+  },
+  "pk": 11,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 1,
+    "tags": [
+      25
+    ],
+    "user": [
+      "stanislau"
+    ],
+    "area": 2,
+    "condition": "4**5**",
+    "creation_date": "2015-09-10T07:47:09.869Z",
+    "task_name": "MyTaska"
+  },
+  "pk": 12,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 3,
+    "tags": [
+      14,
+      15
+    ],
+    "user": [
+      "stanislau"
+    ],
+    "area": 2,
+    "condition": "**\u0427\u0442\u043e \u0431\u0443\u0434\u0435\u0442 \u0432 \u043a\u043e\u043d\u0441\u043e\u043b\u0438?**\n\n\tvar i = 1;\n\ti++;\n\ti++;\n\tConsole.WriteLine(i);",
+    "creation_date": "2015-09-10T18:49:39.574Z",
+    "task_name": "\u0415\u0449\u0451 \u0442\u0430\u0441\u043a\u0430(=+=)"
+  },
+  "pk": 20,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 1,
+    "tags": [
+      21
+    ],
+    "user": [
+      "stas"
+    ],
+    "area": 1,
+    "condition": "\n![](http://res.cloudinary.com/dmt04dtgy/image/upload/v1442164522/q8xdg4o4lbfjvzkj2gt3.png \"\")\n![](http://res.cloudinary.com/dmt04dtgy/image/upload/v1442164572/fvz1tqm73rym5hhf1ntp.png \"\")\nasdsssdssdsdsdsdsd",
+    "creation_date": "2015-09-13T16:17:24.517Z",
+    "task_name": "qw"
+  },
+  "pk": 49,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "level": 1,
+    "tags": [
+      23
+    ],
+    "user": [
+      "stas"
+    ],
+    "area": 1,
+    "condition": "Ramsey\n\n\n![](http://res.cloudinary.com/dmt04dtgy/image/upload/v1442211062/dct1klaohtiz8n5eqzjb.png \"\")",
+    "creation_date": "2015-09-14T05:11:34.218Z",
+    "task_name": "Ramsey"
+  },
+  "pk": 50,
+  "model": "task.task"
+},
+{
+  "fields": {
+    "text": "Neuer",
+    "task": 7
+  },
+  "pk": 10,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "Python",
+    "task": 8
+  },
+  "pk": 13,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "q",
+    "task": 11
+  },
+  "pk": 15,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "9",
+    "task": 12
+  },
+  "pk": 16,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "8",
+    "task": 12
+  },
+  "pk": 17,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "3",
+    "task": 20
+  },
+  "pk": 127,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "qw",
+    "task": 49
+  },
+  "pk": 149,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "\u0414\u044f\u0434\u044f \u0421\u0442\u0435\u043f\u0430",
+    "task": 5
+  },
+  "pk": 150,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "Ramsey",
+    "task": 50
+  },
+  "pk": 151,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "text": "0",
+    "task": 6
+  },
+  "pk": 161,
+  "model": "task.answer"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 7,
+    "is_solved": true,
+    "solving_time": "2015-09-12T16:04:07.138Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 36,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 8,
+    "is_solved": true,
+    "solving_time": "2015-09-12T16:04:30.466Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 37,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": true,
+    "solving_time": "2015-09-12T16:09:32.353Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 38,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": 6,
+    "is_solved": true,
+    "solving_time": "2015-09-12T16:09:39.380Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 39,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-12T16:09:49.504Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 40,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-13T15:03:04.424Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 41,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": true,
+    "solving_time": "2015-09-13T17:52:42.124Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 42,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 7,
+    "is_solved": true,
+    "solving_time": "2015-09-13T17:52:54.456Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 43,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 7,
+    "is_solved": false,
+    "solving_time": "2015-09-13T17:56:53.218Z",
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 44,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 7,
+    "is_solved": true,
+    "solving_time": "2015-09-13T17:56:58.572Z",
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 45,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 12,
+    "is_solved": false,
+    "solving_time": "2015-09-14T12:22:48.803Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 46,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 12,
+    "is_solved": true,
+    "solving_time": "2015-09-14T12:22:51.127Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 47,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:24:03.830Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 48,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:24:08.583Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 49,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": true,
+    "solving_time": "2015-09-14T13:24:22.206Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 50,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 20,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:30:10.973Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 51,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 20,
+    "is_solved": true,
+    "solving_time": "2015-09-14T13:30:14.996Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 52,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 20,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:30:43.833Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 53,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 20,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:30:47.619Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 54,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 20,
+    "is_solved": true,
+    "solving_time": "2015-09-14T13:30:50.755Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 55,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:41:03.506Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 56,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:41:12.546Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 57,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T13:41:19.192Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 58,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-14T17:11:06.168Z",
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 59,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T17:39:58.495Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 60,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T17:40:25.850Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 61,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": 49,
+    "is_solved": false,
+    "solving_time": "2015-09-14T17:40:43.034Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 62,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 11,
+    "is_solved": false,
+    "solving_time": "2015-09-15T19:01:30.602Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 63,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 11,
+    "is_solved": true,
+    "solving_time": "2015-09-15T19:01:33.545Z",
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 64,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-15T19:56:25.422Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 65,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": false,
+    "solving_time": "2015-09-16T04:53:40.545Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 66,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": false,
+    "solving_time": "2015-09-16T04:53:45.849Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 67,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": false,
+    "solving_time": "2015-09-16T04:53:49.118Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 68,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-16T04:53:52.689Z",
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 69,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 1,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-16T11:46:42.336Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 70,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": false,
+    "solving_time": "2015-09-16T11:48:03.252Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 71,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": false,
+    "solving_time": "2015-09-16T11:48:06.183Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 72,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 2,
+    "task": null,
+    "is_solved": true,
+    "solving_time": "2015-09-16T11:48:07.860Z",
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 73,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": false,
+    "solving_time": "2015-09-17T06:00:35.187Z",
+    "user": [
+      "id134301728"
+    ]
+  },
+  "pk": 74,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": false,
+    "solving_time": "2015-09-17T06:00:42.216Z",
+    "user": [
+      "id134301728"
+    ]
+  },
+  "pk": 75,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "level": 3,
+    "task": 5,
+    "is_solved": true,
+    "solving_time": "2015-09-17T06:00:49.822Z",
+    "user": [
+      "id134301728"
+    ]
+  },
+  "pk": 76,
+  "model": "task.solving"
+},
+{
+  "fields": {
+    "mark": 5,
+    "task": 5,
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 14,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 7,
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 15,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 5,
+    "task": 7,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 16,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 5,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 17,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 7,
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 18,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 12,
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 19,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 5,
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 20,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 20,
+    "user": [
+      "kavaliou_stas"
+    ]
+  },
+  "pk": 21,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 2,
+    "task": 20,
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 22,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 23,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 5,
+    "task": 11,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 30,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "mark": 4,
+    "task": 5,
+    "user": [
+      "id134301728"
+    ]
+  },
+  "pk": 33,
+  "model": "task.rating"
+},
+{
+  "fields": {
+    "text": "1",
+    "creation_time": "2015-09-12T16:06:36.264Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 39,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "1",
+    "creation_time": "2015-09-12T16:06:37.948Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 40,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "2",
+    "creation_time": "2015-09-12T16:09:02.905Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 45,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "3",
+    "creation_time": "2015-09-12T16:09:04.143Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 46,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "4",
+    "creation_time": "2015-09-12T16:09:06.235Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 47,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "",
+    "creation_time": "2015-09-12T16:09:14.490Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 48,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "qqqqqqqqqqqqqqqqqqqqqqq",
+    "creation_time": "2015-09-13T10:41:58.385Z",
+    "task": 8,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 49,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "\u044f \u043d\u0435 \u0437\u043d\u0430\u044e",
+    "creation_time": "2015-09-13T18:03:27.508Z",
+    "task": 20,
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 50,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "\u043a\u0430\u043a \u0440\u0435\u0448\u0438\u0442\u044c?",
+    "creation_time": "2015-09-13T18:03:39.505Z",
+    "task": 20,
+    "user": [
+      "\u0421\u0442\u0430\u043d\u0438\u0441\u043b\u0430\u0432\u041a\u043e\u0432\u0430\u043b\u0435\u0432"
+    ]
+  },
+  "pk": 51,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "qwe\n",
+    "creation_time": "2015-09-14T19:01:58.268Z",
+    "task": 5,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 65,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "a",
+    "creation_time": "2015-09-14T19:03:07.355Z",
+    "task": 5,
+    "user": [
+      "stas"
+    ]
+  },
+  "pk": 66,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "e",
+    "creation_time": "2015-09-14T19:06:33.851Z",
+    "task": 5,
+    "user": [
+      "kavaliou"
+    ]
+  },
+  "pk": 67,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "q",
+    "creation_time": "2015-09-14T19:11:18.643Z",
+    "task": 5,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 68,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "z",
+    "creation_time": "2015-09-14T19:12:32.683Z",
+    "task": 5,
+    "user": [
+      "kavaliou"
+    ]
+  },
+  "pk": 69,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "sd",
+    "creation_time": "2015-09-14T19:12:51.004Z",
+    "task": 5,
+    "user": [
+      "kavaliou"
+    ]
+  },
+  "pk": 70,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "text": "a",
+    "creation_time": "2015-09-16T04:45:20.544Z",
+    "task": 5,
+    "user": [
+      "stanislau"
+    ]
+  },
+  "pk": 71,
+  "model": "comments.comment"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer1.jpg",
+    "name": "Creator1",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 5 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 1 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 1,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer2.jpg",
+    "name": "Creator2",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 10 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 2 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 2,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind1.jpg",
+    "name": "Solver1",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 5 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 1  \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 3,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind2.jpg",
+    "name": "Solver2",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 10 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 2 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 4,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment1.png",
+    "name": "Commentator1",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 5 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0435\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 1 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 5,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment2.png",
+    "name": "Commentator2",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 10 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0435\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 2 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 6,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\First.jpg",
+    "name": "First",
+    "fullDescription": "\u041f\u0435\u0440\u0432\u044b\u043c \u0440\u0435\u0448\u0438\u043b \u0442\u0430\u0441\u043a\u0443",
+    "description": "\u041f\u0435\u0440\u0432\u044b\u0439"
+  },
+  "pk": 7,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer3.jpg",
+    "name": "Creator3",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 20 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 3 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 8,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\hammer4.jpg",
+    "name": "Creator4",
+    "fullDescription": "\u0421\u043e\u0437\u0434\u0430\u043b 30 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0421\u043e\u0437\u0434\u0430\u0442\u0435\u043b\u044c 4 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 9,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind3.jpg",
+    "name": "Solver3",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 20 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 3 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 10,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\Mind4.jpg",
+    "name": "Solver4",
+    "fullDescription": "\u0420\u0435\u0448\u0438\u043b 30 \u0437\u0430\u0434\u0430\u0447",
+    "description": "\u0420\u0435\u0448\u0430\u0442\u0435\u043b\u044c 4 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 11,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment3.png",
+    "name": "Commentator3",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 20 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u043e\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 3 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 12,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "imageUrl": "\\\\user_account\\\\static\\\\user_account\\\\pictures\\\\comment4.png",
+    "name": "Commentator4",
+    "fullDescription": "\u041e\u0441\u0442\u0430\u0432\u0438\u043b 30 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u043e\u0432",
+    "description": "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0442\u043e\u0440 4 \u0443\u0440\u043e\u0432\u043d\u044f"
+  },
+  "pk": 13,
+  "model": "user_account.achievement"
+},
+{
+  "fields": {
+    "pictureUrl": "http://res.cloudinary.com/dmt04dtgy/image/upload/v1442341815/c89nmp6i6nxm2gigco9a.png",
+    "locale": 0
+  },
+  "pk": 1,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "pictureUrl": "http://res.cloudinary.com/dmt04dtgy/image/upload/v1442316614/zn3mkopwd1jvg8lsl10n.png",
+    "locale": 1
+  },
+  "pk": 2,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "pictureUrl": null,
+    "locale": 0
+  },
+  "pk": 3,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "pictureUrl": "http://res.cloudinary.com/dmt04dtgy/image/upload/v1442170493/y3vnbqpb7iiesjd2uqra.png",
+    "locale": 1
+  },
+  "pk": 4,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "pictureUrl": "http://res.cloudinary.com/dmt04dtgy/image/upload/v1442261552/enbtubrczip0bgctjkhu.png",
+    "locale": 1
+  },
+  "pk": 5,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "pictureUrl": null,
+    "locale": 0
+  },
+  "pk": 6,
+  "model": "user_account.userprofile"
+},
+{
+  "fields": {
+    "achievement": 7,
+    "userProfile": 1,
+    "count": 5
+  },
+  "pk": 12,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 5,
+    "userProfile": 1,
+    "count": 1
+  },
+  "pk": 14,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 3,
+    "userProfile": 1,
+    "count": 1
+  },
+  "pk": 15,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 1,
+    "userProfile": 1,
+    "count": 1
+  },
+  "pk": 17,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 7,
+    "userProfile": 2,
+    "count": 2
+  },
+  "pk": 18,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 1,
+    "userProfile": 2,
+    "count": 1
+  },
+  "pk": 19,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 3,
+    "userProfile": 2,
+    "count": 1
+  },
+  "pk": 20,
+  "model": "user_account.achievementssettings"
+},
+{
+  "fields": {
+    "achievement": 6,
+    "userProfile": 1,
+    "count": 1
+  },
+  "pk": 21,
+  "model": "user_account.achievementssettings"
+}
+]

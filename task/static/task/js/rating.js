@@ -37,10 +37,14 @@ function setDefaultRatingSettings(userid, taskid){
         $.ajax({
             url: "/task/put_mark_for_task/",
             type: 'POST',
-            data: json,
+            data: {'data': json},
             success: function (mess) {
-                $('#rating_info').append("<h5> Вы оценили задачу на "+ user_votes + "</h5>");
-                $("#rating_load").remove()
+                console.log("asd");
+                var str = gettext('You put for task mark');
+                $('#rating_info').append("<h5> "+ str +" "+ user_votes + "</h5>");
+                $("#rating_load").remove();
+                $('#current_task_rating').text("" + mess);
+                console.log(mess);
             },
             error: function(mess){
 

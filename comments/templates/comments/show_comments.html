@@ -1,32 +1,33 @@
 {% load static %}
 {% load staticfiles %}
+{% load i18n %}
 
-<div class="container col-sm-8">
-    <h3 class="center-block">Комментарии</h3>
-    <div>
-        <div class="container">
-            <label for="comment">Ваш комментарий:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-            <button class="pull-right" id="add_comment">Добавить</button>
+<div class="row">
+    <div class="well">
+        <h4>{% trans 'Leave comment' %}:</h4>
+        <div class="form-group">
+            <textarea maxlength="300" id="comment" class="form-control" rows="3"></textarea>
         </div>
+        <button id="add_comment" type="submit" class="btn btn-primary">{% trans 'Leave comment' %}</button>
     </div>
 
     <ul class="media-list" id="comments_list">
         {% for comment in comments %}
             <li class="media">
                 <div class="pull-left">
-                    <img class="media-object" src="{% static 'pictures/vk.png' %}" width="64" height="64">
+                    <img class="media-object" src="{{ comment.url }}" width="64" height="64">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><a href="{% url 'user_account:user' pk=comment.user.pk %}">{{ comment.user }}</a></h4>
-                    <p>{{ comment.text }}</p>
+                    <h4 class="media-heading">
+                        <a href="{% url 'user_account:user' pk=comment.comment.user.pk %}">{{ comment.comment.user }}</a>
+                    </h4>
+                    <p>{{ comment.comment.text }}</p>
                 </div>
             </li>
-            <hr>
         {% empty %}
             <li class="media" id="null_comments">
                 <div class="help-block">
-                    Комментариев ещё не было...
+                    {% trans 'No comments' %}...
                 </div>
             </li>
         {% endfor %}
@@ -35,42 +36,35 @@
     <script>
         $('#add_comment').click(function(e){
             var text = $('#comment').val();
+            if(text.length == 0){
+                return;
+            }
             console.log(text);
             var pk = parseInt({{ task.pk }});
-            var json = JSON.stringify({
-                text: text,
-                pk: pk
-            });
+
+{#            var json = JSON.stringify({#}
+{#                text: text,#}
+{#                pk: pk#}
+{#            });#}
             $.ajax({
                         url: "/comments/add/",
                         type: 'POST',
-                        data: json,
+                        data: {'text': text, 'pk': pk},
                         success: function (mess) {
+                            console.log(mess);
                             $('#comment').val('');
                             $('#null_comments').remove();
-                            var li = document.createElement("li");
-                            var img = document.createElement("img");
-                            var a = document.createElement("a");
-                            var div = document.createElement("div");
-                            var p = document.createElement("p");
-                            var h4 = document.createElement("h4");
-                            img.src = "/static/pictures/vk.png";
-                            img.className = "media-object";
-                            img.width = 64;
-                            img.height = 64;
-                            a.className = "pull-left";
-                            a.href = "#";
-                            a.appendChild(img);
-                            h4.className = "media-heading";
-                            h4.textContent = "{{ user.username }}";
-                            p.textContent = text;
-                            div.className = "media-body";
-                            div.appendChild(h4);
-                            div.appendChild(p);
-                            li.className = "media";
-                            li.appendChild(a);
-                            li.appendChild(div);
-                            $('#comments_list').append(li);
+                            $('#comments_list').append("<li class=\"media\">"+
+                                    "<div class=\"pull-left\">"+
+                                        "<img class=\"media-object\" src=\""+ mess['url'] +"\" width=\"64\" height=\"64\">"+
+                                    "</div>"+
+                                    "<div class=\"media-body\">"+
+                                        "<h4 class=\"media-heading\">"+
+                                            "<a href=\"/user_account/user/" + mess['pk'] +"/\">"+ mess['username'] +"</a>"+
+                                        "</h4>"+
+                                        "<p>"+ text +"</p>"+
+                                    "</div>"+
+                                "</li>");
                         }
                     });
         })

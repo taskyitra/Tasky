@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from task.models import Task, Solving
 
 
 class AchievementManager(models.Manager):
@@ -29,10 +30,31 @@ class UserProfileManager(models.Manager):
 
 
 class UserProfile(models.Model):
+    Locals = ((0, 'ru'), (1, 'en'))
     user = models.OneToOneField(User, primary_key=True)
     achievements = models.ManyToManyField(Achievement, through='AchievementsSettings')
     pictureUrl = models.CharField(max_length=100, null=True)
+    locale = models.IntegerField(default=0, choices=Locals)
+
+    rating = models.IntegerField(default=0)
+    attempts = models.IntegerField(default=0)
+    solved_task_count = models.IntegerField(default=0)
+
     objects = UserProfileManager()
+
+    def solving_attempt(self, success=False):
+        if success:
+            self.solved_task_count += 1
+            self.rating = Solving.objects.rating_for_user(self.user)
+        self.attempts += 1
+        self.save()
+
+    def statistics(self):
+        return {'task_count': Task.objects.count_tasks_for_user(self.user),
+                'percentage': 0 if self.attempts == 0
+                else int(100 * self.solved_task_count / self.attempts),
+                'rating': self.rating,
+                'solved_task_count': self.solved_task_count}
 
     def __str__(self):
         return 'Profile for "{}"'.format(self.user)
@@ -45,6 +67,12 @@ class AchievementsSettingsManager(models.Manager):
         achSetting.count = achSetting.count + 1
         achSetting.save()
         return achSetting.count
+
+    def get_achievements_for_user(self, user):
+        return [{'achieve': ach.achievement, 'count': ach.count,
+                 'its_name_is_first': ach.achievement.name == 'First'} for ach in
+                super(AchievementsSettingsManager, self).filter(
+                    userProfile=UserProfile.objects.get_or_create_profile(user))]
 
 
 class AchievementsSettings(models.Model):

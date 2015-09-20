@@ -21,7 +21,6 @@ $('#create_tag').click(function(e){
     input.className = "typeahead col-xs-6";
     input.maxLength = 30;
     input.type = "text";
-    input.placeholder = "Введите тэг";
     input.autocomplete = "off";
     span.className = "glyphicon glyphicon-remove";
     span.onclick = function(e){
@@ -42,7 +41,6 @@ $('#create_tag').click(function(e){
         input1.className = "typeahead col-xs-6";
         input1.maxLength = 30;
         input1.type = "text";
-        input1.placeholder = "Введите тэг";
         input1.autocomplete = "off";
         input1.value = data[i];
         span1.className = "glyphicon glyphicon-remove";
@@ -72,7 +70,6 @@ $('#create_answer').click(function(e){
     input.className = "col-xs-6";
     input.maxLength = 30;
     input.type = "text";
-    input.placeholder = "Введите ответ";
     input.autocomplete = "off";
     input.style.marginBottom = "5px";
     span.className = "glyphicon glyphicon-remove";
@@ -129,12 +126,12 @@ $('#create_button').click(function(e){
         answers: answers
     });
     console.log(json);
-    json  = encodeURIComponent(json);
+    //json  = encodeURIComponent(json);
     console.log(json);
     $.ajax({
         url: "/task/create/",
         type: 'POST',
-        data: json,
+        data: {'task': json},
         success: function (mess) {
             document.location.href = "/task/create_task_success/" + mess + "/";
         },
@@ -189,11 +186,11 @@ $('#edit_button').click(function(e){
         answers: answers
     });
     console.log(json);
-    json  = encodeURIComponent(json);
+    //json  = encodeURIComponent(json);
     $.ajax({
         url: "/task/edit/" + $('#pk').val() + "/",
         type: 'POST',
-        data: json,
+        data: {'task': json},
         success: function (mess) {
             console.log("Saved")
         },

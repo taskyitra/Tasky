@@ -2,106 +2,183 @@
 {% load static %}
 {% load staticfiles %}
 {% load django_markdown %}
+{% load i18n %}
 
-{% block title %}<title>Решить задачу</title>{% endblock %}
+{% block title %}<title>{% trans 'Solve task' %}</title>{% endblock %}
 
 {% block styling %}
     <link rel="stylesheet" href="{% static 'task/css/rating.css' %}">
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     <script src="{% static 'task/js/rating.js' %}"></script>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Решение задачи</h1>
-        <div class="container">
-            <label class="control-label col-sm-2" for="task_name">Название:</label>
-            <div class="col-sm-9">
-                {{ task.task_name }}
+        <div class="row">
+            <div>
+                <label style="font-size: 40px">
+                    {{ task.task_name }}
+                </label>
+                <label>
+                    |{% trans 'created' %} <a href="{% url 'user_account:user' pk=task.user.pk %}">
+                        {{ task.user }}
+                    </a>
+                    <span class="glyphicon glyphicon-time"></span> {{ task.creation_date }}
+                </label>
             </div>
-        </div>
-        <div class="container">
-            <label class="control-label col-sm-2" for="level">Уровень:</label>
-            <div class="col-sm-9">
-                {{ task.level }}
-            </div>
-        </div>
-        <div class="container">
-            <label class="control-label col-sm-2" for="condition">Условие:</label>
-            <div class="col-sm-9">
-                {{ task.condition | markdown }}
-            </div>
-        </div>
-
-        {% if form %}
-            <div class="col-sm-offset-2 col-sm-9 help-block">
-                {% if form.non_field_errors %}
-                    {{ form.non_field_errors }}
-                {% endif %}
-            </div>
-            <form class="form-horizontal" role="form" method="post" action="">
-                {% csrf_token %}
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd2">Ответ:</label>
-                    <div class="col-sm-9">
-                        {{ form.text }}
-                    </div>
-                    {% if form.text.help_text %}
-                        <div class="col-sm-offset-2 col-sm-9 help-block">{{ form.text.help_text }}</div>
-                    {% endif %}
-                    {% if form.text.errors %}
-                        <div class="col-sm-offset-2 col-sm-9">{{ form.text.errors }}</div>
-                    {% endif %}
+            <div id="readOnly" class="bootstrap-tags bootstrap-3"
+                 style="padding-bottom: 1px; height: 30px">
+                <div class="tags">
+                    {% for tag in tags %}
+                        <a href="{% url 'task:tasks_by_tag' tag=tag.tag_name %}">
+                            <div class="tag label btn-info sm">
+                                <span>{{ tag.tag_name }}</span>
+                            </div>
+                        </a>
+                    {% endfor %}
                 </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-9">
-                        <button type="submit" class="btn btn-default">Проверить</button>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3" align="center">
+                    <div>
+                        <p>{% trans 'Level' %}</p>
+                        {% if task.level == 1 %}
+                            <p>{% trans 'Low' %}</p>
+                        {% elif task.level == 2 %}
+                            <p>{% trans 'Middle' %}</p>
+                        {% else %}
+                            <p>{% trans 'High' %}</p>
+                        {% endif %}
                     </div>
                 </div>
-
-            </form>
-        {% else %}
-            <div class="container">
-                {% if is_old_solving %}
-                    <p>Вы уже решили эту задачу</p>
-                {% else %}
-                    <p>Поздравляю вы решили задачу!!!</p>
-                {% endif %}
-
-                {% if user_mark_for_task %}
-                    <div id="rating_star">
-                        <div id="rating">
-                            <div id="rating_blank"></div>
-                            <div id="rating_votes"></div>
-                        </div>
-                        <div id="rating_info">
-                            <h5> Вы оценили задачу на {{ user_mark_for_task.mark }}</h5>
-                        </div>
-                        <script>
-                            setRatingWidth("{{ user_mark_for_task.mark }}")
-                        </script>
+                <div class="col-xs-12 col-sm-2" align="center">
+                    <div>
+                        <p>{% trans 'Area' %}</p>
+                        {% if task.area == 1 %}
+                            <p>Java</p>
+                        {% elif task.area == 2 %}
+                            <p>C#</p>
+                        {% elif task.area == 3 %}
+                            <p>Python</p>
+                        {% else %}
+                            <p>Ruby</p>
+                        {% endif %}
                     </div>
-                {% else %}
-                    <div id="rating_star">
-                        <div id="rating">
-                            <div id="rating_blank"></div>
-                            <div id="rating_hover"></div>
-                            <div id="rating_votes"></div>
-                        </div>
-                        <div id="rating_info">
-                            <img id="rating_load" src="{% static 'task/images/load.gif' %}" hidden />
-                            <h5> Пожалуйста, оцените задачу </h5>
-                        </div>
-                        <script>
-                            setDefaultRatingSettings("{{ user.pk }}", "{{ task.pk }}")
-                        </script>
+                </div>
+                <div class="col-xs-12  col-sm-2" align="center">
+                    <div>
+                        <p>{% trans 'Rating' %}</p>
+                        <p>
+                            <img src="{% static 'task/images/star.png' %}"/>
+                            <label id="current_task_rating">{{ statistics.rating }}</label>
+                        </p>
                     </div>
-                {% endif %}
+                </div>
+                <div class="col-xs-12 col-sm-3" align="center">
+                    <div>
+                        <p>{% trans 'Percentage of correct answers' %}</p>
+                        <p>{{ statistics.percentage }}%</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2" align="center">
+                    <div>
+                        <p>{% trans 'Attempts for solve' %}</p>
+                        <p>{{ statistics.attempts}}</p>
+                    </div>
+                </div>
             </div>
-        {% endif %}
+            <hr>
+            <div class="row" id="condition_div">
+                <label class="control-label col-sm-2" for="condition">{% trans 'Condition' %}:</label>
+                <div class="col-sm-10">
+                    {{ task.condition | markdown }}
+                </div>
+            </div>
+
+            {% if form %}
+                <form class="form-horizontal" role="form" method="post" action="" autocomplete="off">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd2">{% trans 'Answer' %}:</label>
+                        <div class="col-sm-9">
+                            {{ form.text }}
+                        </div>
+                        {% if form.text.help_text %}
+                            <div class="col-sm-offset-2 col-sm-9 help-block">{{ form.text.help_text }}</div>
+                        {% endif %}
+                        {% if form.text.errors %}
+                            <div class="col-sm-offset-2 col-sm-9">{{ form.text.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <button type="submit" class="btn btn-default">{% trans 'Check' %}</button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="col-sm-offset-2 col-sm-9" style="color: red">
+                    {% if form.non_field_errors %}
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                </div>
+            {% elif user_is_creator %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% trans 'This is your task' %}
+                    </div>
+                    <div class="col-xs-12">
+                        <a href="{% url 'task:edit' pk=task.pk %}">{% trans 'Edit task' %}</a>
+                    </div>
+                </div>
+                <script>
+                    $('#condition_div').remove();
+                </script>
+            {% else %}
+                <div>
+                    {% if is_old_solving %}
+                        <p>{% trans 'You already solved this task' %}</p>
+                    {% else %}
+                        <p>{% trans 'Congratulates, you solved this task' %}!!!</p>
+                    {% endif %}
+
+                    {% if user_mark_for_task %}
+                        <div id="rating_star">
+                            <div id="rating">
+                                <div id="rating_blank"></div>
+                                <div id="rating_votes"></div>
+                            </div>
+                            <div id="rating_info">
+                                <h5> {% trans 'You put for task mark' %} {{ user_mark_for_task.mark }}</h5>
+                            </div>
+                            <script>
+                                setRatingWidth("{{ user_mark_for_task.mark }}")
+                            </script>
+                        </div>
+                    {% else %}
+                        <div id="rating_star">
+                            <div id="rating">
+                                <div id="rating_blank"></div>
+                                <div id="rating_hover"></div>
+                                <div id="rating_votes"></div>
+                            </div>
+                            <div id="rating_info">
+                                <img id="rating_load" src="{% static 'task/images/load.gif' %}" hidden />
+                                <h5> {% trans 'Please, put mark for task' %} </h5>
+                            </div>
+                            <script>
+                                setDefaultRatingSettings("{{ user.pk }}", "{{ task.pk }}")
+                            </script>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        <hr>
+        </div>
+        {% include 'comments/show_comments.html' %}
     </div>
-
-    {% include 'comments/show_comments.html' %}
-
 {% endblock %}

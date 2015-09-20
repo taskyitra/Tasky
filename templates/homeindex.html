@@ -17,7 +17,7 @@
                     <tbody>
                         {% for task in newest_tasks %}
                             <tr>
-                                <th><a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a></th>
+                                <th><a href="{% url 'task:solve_task' pk=task.pk %}">{{ task }}</a></th>
                                 <th>{{ task.creation_date }}</th>
                             </tr>
                         {% endfor %}
@@ -60,7 +60,7 @@
                     <tbody>
                         {% for task in hardest_tasks %}
                             <tr>
-                                <th><a href="{% url 'task:edit' pk=task.0.pk %}">{{ task.0 }}</a></th>
+                                <th><a href="{% url 'task:solve_task' pk=task.0.pk %}">{{ task.0 }}</a></th>
                                 <th>{{ task.1 }}%</th>
                             </tr>
                         {% endfor %}

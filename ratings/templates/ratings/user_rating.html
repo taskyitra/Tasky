@@ -9,16 +9,18 @@
         <table class="display" id="user_table">
             <thead>
                 <th>Name</th>
+                <th>Rating</th>
                 <th>Solved</th>
-                <th>Attempts</th>
                 <th>Accuracy</th>
+                <th>Tasks added</th>
             </thead>
-            {% for user in users %}
+            {% for entry in info %}
                 <tr>
-                    <th>{{ user }}</th>
-                    <th>{{ user.solved }}</th>
-                    <th>{{ user.attempts }}</th>
-                    <th>{{ user.accuracy }}%</th>
+                    <th><a href="{% url 'user_account:user' pk=entry.user.pk %}">{{ entry.user }}</a></th>
+                    <th>{{ entry.rating }}</th>
+                    <th>{{ entry.solved_task_count }}</th>
+                    <th>{{ entry.percentage }}%</th>
+                    <th>{{ entry.task_count }}</th>
                 </tr>
             {% endfor %}
         </table>
@@ -27,6 +29,7 @@
                 $("#user_table").dataTable({
                     "columns": [
                         {"orderData": [1, 2, 3]},
+                            null,
                             null,
                             null,
                             null

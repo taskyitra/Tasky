@@ -10,13 +10,19 @@
             <thead>
                 <th>Name</th>
                 <th>Rating</th>
+                <th>Accuracy</th>
+                <th>Attempts</th>
+                <th>Creation date</th>
             </thead>
-            {% for task in tasks %}
+            {% for entry in info %}
                 <tr>
                     <td>
-                        <a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a>
+                        <a href="{% url 'task:edit' pk=entry.task.pk %}">{{ entry.task }}</a>
                     </td>
-                    <td>{{ task.rating }}</td>
+                    <td>{{ entry.rating }}</td>
+                    <td>{{ entry.percentage }}%</td>
+                    <td>{{ entry.attempts }}</td>
+                    <td>{{ entry.task.creation_date }}</td>
                 </tr>
             {% endfor %}
         </table>

@@ -2,16 +2,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from social.apps.django_app.default.models import UserSocialAuth
 from django.contrib.auth.models import User
-from task.models import Task, Answer, Solving, Rating, Tag
+from task.models import Answer, Solving, Rating, Tag
 from collections import Counter
-
 from task.models import Task
-from user_account.models import UserProfile
-
-# def index(request):
-#     tasks = Task.objects.all()
-#     ctx = {'tasks': tasks}  # Возвращаем контекст с данными для начальной страницы
-#     return render(request, 'base.html', ctx)
 
 
 def get_hardest_tasks(tasks):

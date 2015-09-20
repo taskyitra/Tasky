@@ -66,7 +66,8 @@ class Task(models.Model):
         statistic = {'rating': Rating.objects.average_rating_for_task(self),
                      'percentage': 0 if self.attempts == 0
                      else int(100 * self.success_attempts / self.attempts),
-                     'attempts': self.attempts}
+                     'attempts': self.attempts,
+                     'task': self}
         return statistic
 
     def solving_attempt(self, success=False):

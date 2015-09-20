@@ -54,7 +54,8 @@ class UserProfile(models.Model):
                 'percentage': 0 if self.attempts == 0
                 else int(100 * self.solved_task_count / self.attempts),
                 'rating': self.rating,
-                'solved_task_count': self.solved_task_count}
+                'solved_task_count': self.solved_task_count,
+                'user': self.user}
 
     def __str__(self):
         return 'Profile for "{}"'.format(self.user)

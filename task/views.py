@@ -171,11 +171,24 @@ def delete_task(request):
             task = Task.objects.get(pk=pk)
             if request.user != task.user:
                 raise Exception()
+            for tag in task.tags.all():
+                tag.number_of_usages -= 1
+                tag.save()
+                if tag.number_of_usages < 1:
+                    tag.delete()
             task.delete()
         except Exception as e:
             print(e)
             return HttpResponse(status=500)
     return HttpResponse(request.user.pk, status=200)
+
+
+def get_tasks_by_tag(tag):
+    tasks = []
+    for task in Task.objects.all():
+        if tag in task.tags.all():
+            tasks.append({'task': task, 'tags': task.tags.all()})
+    return tasks
 
 
 def tasks_by_tag(request, tag):
@@ -184,8 +197,5 @@ def tasks_by_tag(request, tag):
     except Tag.DoesNotExist as e:
         print(e)
         HttpResponse(status=500)
-    tasks = []
-    for task in Task.objects.all():
-        if tag in task.tags.all():
-            tasks.append({'task': task, 'tags': task.tags.all()})
+    tasks = get_tasks_by_tag(tag)
     return render(request, 'task/tasks_by_tag.html', {'tag': tag, 'tasks': tasks})

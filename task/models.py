@@ -5,6 +5,7 @@ from django_markdown.models import MarkdownField
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=30, unique=True)
+    number_of_usages = models.IntegerField(default=0)    # default=1 ???????
 
     def __str__(self):
         return self.tag_name
@@ -20,6 +21,8 @@ class TaskManager(models.Manager):
         for tag_name in task_fields['tags']:
             tag = Tag.objects.get_or_create(tag_name=tag_name)[0]
             task.tags.add(tag)
+            tag.number_of_usages += 1
+            tag.save()
         for answer_text in task_fields['answers']:
             Answer.objects.create(text=answer_text, task=task)
         return task
@@ -55,8 +58,14 @@ class Task(models.Model):
         self.save()
         for tag in self.tags.all():
             self.tags.remove(tag)
+            tag.number_of_usages -= 1
+            tag.save()
+            if tag.number_of_usages < 1:
+                tag.delete()
         for tag_text in task_fields['tags']:
             tag = Tag.objects.get_or_create(tag_name=tag_text)[0]
+            tag.number_of_usages += 1
+            tag.save()
             self.tags.add(tag)
         Answer.objects.filter(task=self).delete()
         for answer_text in task_fields['answers']:

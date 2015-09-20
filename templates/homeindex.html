@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block title %}<title>Home</title>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h4>Новые задачи</h4>
+                <table class="table table-boxed">
+                    <thead>
+                        <th>Задача</th>
+                        <th>Дата создания</th>
+                    </thead>
+                    <tbody>
+                        {% for task in newest_tasks %}
+                            <tr>
+                                <th><a href="{% url 'task:edit' pk=task.pk %}">{{ task }}</a></th>
+                                <th>{{ task.creation_date }}</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h6><a href="{% url 'ratings:task_rating' %}">Смотреть полный список</a></h6>
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+                <h4>Пользователи лидеры</h4>
+                <table class="table table-boxed">
+                    <thead>
+                        <th>Пользователь</th>
+                        <th>Рейтинг</th>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <th>
+                                    <a href="{% url 'user_account:user' pk=user.0.pk %}">
+                                        {{ user.0 }}
+                                    </a>
+                                </th>
+                                <th>{{ user.1 }}</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h6><a href="{% url 'ratings:user_rating' %}">Смотреть полный список</a></h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h4>Самые сложные задачи</h4>
+                <table class="table table-boxed">
+                    <thead>
+                        <th>Задача</th>
+                        <th>Точность</th>
+                    </thead>
+                    <tbody>
+                        {% for task in hardest_tasks %}
+                            <tr>
+                                <th><a href="{% url 'task:edit' pk=task.0.pk %}">{{ task.0 }}</a></th>
+                                <th>{{ task.1 }}%</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h6><a href="{% url 'ratings:task_rating' %}">Смотреть полный список</a></h6>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div id="tagsphere-holder1" class="tagsphere-holder">
+                    <ul class="tagsphere">
+                        {% for tag in tags %}
+                            <li>
+                                <a href="{% url 'task:tasks_by_tag' tag=tag %}">{{ tag }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <script>
+                    var ts_style = {border: false, mousespeed: 1.1, size:300, smallestsize:25, biggestsize:20, clicktostart:false};
+                    var ts = $tagsphere("tagsphere-holder1", ts_style);
+                </script>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

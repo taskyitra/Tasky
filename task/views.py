@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.forms.forms import NON_FIELD_ERRORS
+from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import cloudinary
 from cloudinary.uploader import upload
 
@@ -199,3 +201,18 @@ def tasks_by_tag(request, tag):
         HttpResponse(status=500)
     tasks = get_tasks_by_tag(tag)
     return render(request, 'task/tasks_by_tag.html', {'tag': tag, 'tasks': tasks})
+
+
+# class TasksByTag(ListView):
+#     paginate_by = 1
+#     template_name = 'task/tasks_by_tag.html'
+#
+#     def get_context_data(self, **kwargs):
+#         try:
+#             tag = Tag.objects.get(tag_name=self.kwargs['tag'])
+#         except Tag.DoesNotExist as e:
+#             print(e)
+#             HttpResponse(status=500)
+#         tasks = get_tasks_by_tag(tag)
+#         # tasks['tag'] = tag
+#         return {'tasks': tasks, 'tag': tag}

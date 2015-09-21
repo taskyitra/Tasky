@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-        {% if tag %}
+        {% if tasks %}
             <h3>{% trans 'Search results by tag' %} {{ tag }}</h3>
             {% for task in tasks %}
                 <h5>

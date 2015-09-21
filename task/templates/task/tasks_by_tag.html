@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-        {% if tasks %}
+        {% if tag %}
             <h3>{% trans 'Search results by tag' %} {{ tag }}</h3>
             {% for task in tasks %}
                 <h5>
@@ -41,4 +41,20 @@
         {% else %}
             <h3>{% trans 'Enter search tag' %}</h3>
         {% endif %}
+
+        <ul class="pager">
+            {% if paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}">&larr;Previous</a>
+                    </li>
+                {% endif %}
+                <span class="current_page">{{ paginator.number }}</span>
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}">Next&rarr;</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
 {% endblock %}

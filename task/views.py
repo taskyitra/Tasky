@@ -193,26 +193,22 @@ def get_tasks_by_tag(tag):
     return tasks
 
 
-def tasks_by_tag(request, tag):
-    try:
-        tag = Tag.objects.get(tag_name=tag)
-    except Tag.DoesNotExist as e:
-        print(e)
-        HttpResponse(status=500)
-    tasks = get_tasks_by_tag(tag)
-    return render(request, 'task/tasks_by_tag.html', {'tag': tag, 'tasks': tasks})
+class TasksByTag(ListView):
+    context_object_name = 'tasks'
+    template_name = 'task/tasks_by_tag.html'
+    paginate_by = 5
 
+    def get_queryset(self):
+        try:
+            tag = Tag.objects.get(tag_name=self.kwargs['tag'])
+        except Tag.DoesNotExist as e:
+            print(e)
+            HttpResponse(status=500)
+            return []
+        tasks = get_tasks_by_tag(tag)
+        return tasks
 
-# class TasksByTag(ListView):
-#     paginate_by = 1
-#     template_name = 'task/tasks_by_tag.html'
-#
-#     def get_context_data(self, **kwargs):
-#         try:
-#             tag = Tag.objects.get(tag_name=self.kwargs['tag'])
-#         except Tag.DoesNotExist as e:
-#             print(e)
-#             HttpResponse(status=500)
-#         tasks = get_tasks_by_tag(tag)
-#         # tasks['tag'] = tag
-#         return {'tasks': tasks, 'tag': tag}
+    def get_context_data(self, **kwargs):
+        context = super(TasksByTag, self).get_context_data(**kwargs)
+        context['tag'] = self.kwargs['tag']
+        return context
